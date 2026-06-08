@@ -1,0 +1,616 @@
+{
+ "eth_feature_vs_next_day": [
+  [
+   "ncross_2000",
+   "y_ncross",
+   0.448,
+   "2363",
+   0.002
+  ],
+  [
+   "ncross_2000",
+   "y_stops",
+   0.295,
+   "2362",
+   0.002
+  ],
+  [
+   "ncross_2000",
+   "y_growth",
+   -0.188,
+   "2362",
+   0.002
+  ],
+  [
+   "rv",
+   "y_ncross",
+   -0.138,
+   "2363",
+   0.002
+  ],
+  [
+   "rv",
+   "y_stops",
+   0.008,
+   "2362",
+   0.8303
+  ],
+  [
+   "rv",
+   "y_growth",
+   0.026,
+   "2362",
+   0.3034
+  ],
+  [
+   "atrp",
+   "y_ncross",
+   -0.066,
+   "2359",
+   0.024
+  ],
+  [
+   "atrp",
+   "y_stops",
+   0.065,
+   "2358",
+   0.0838
+  ],
+  [
+   "atrp",
+   "y_growth",
+   0.02,
+   "2358",
+   0.4611
+  ],
+  [
+   "adx14",
+   "y_ncross",
+   -0.106,
+   "2359",
+   0.004
+  ],
+  [
+   "adx14",
+   "y_stops",
+   -0.063,
+   "2358",
+   0.0459
+  ],
+  [
+   "adx14",
+   "y_growth",
+   0.047,
+   "2358",
+   0.1038
+  ],
+  [
+   "er10",
+   "y_ncross",
+   -0.33,
+   "2363",
+   0.002
+  ],
+  [
+   "er10",
+   "y_stops",
+   -0.248,
+   "2362",
+   0.002
+  ],
+  [
+   "er10",
+   "y_growth",
+   0.129,
+   "2362",
+   0.002
+  ],
+  [
+   "er20",
+   "y_ncross",
+   -0.271,
+   "2353",
+   0.002
+  ],
+  [
+   "er20",
+   "y_stops",
+   -0.161,
+   "2352",
+   0.002
+  ],
+  [
+   "er20",
+   "y_growth",
+   0.112,
+   "2352",
+   0.002
+  ],
+  [
+   "vr8",
+   "y_ncross",
+   -0.075,
+   "2363",
+   0.008
+  ],
+  [
+   "vr8",
+   "y_stops",
+   -0.02,
+   "2362",
+   0.4451
+  ],
+  [
+   "vr8",
+   "y_growth",
+   0.013,
+   "2362",
+   0.6287
+  ],
+  [
+   "vol_z",
+   "y_ncross",
+   -0.12,
+   "2344",
+   0.002
+  ],
+  [
+   "vol_z",
+   "y_stops",
+   -0.065,
+   "2343",
+   0.01
+  ],
+  [
+   "vol_z",
+   "y_growth",
+   0.03,
+   "2343",
+   0.1477
+  ],
+  [
+   "bbw",
+   "y_ncross",
+   -0.219,
+   "2354",
+   0.002
+  ],
+  [
+   "bbw",
+   "y_stops",
+   -0.055,
+   "2353",
+   0.1337
+  ],
+  [
+   "bbw",
+   "y_growth",
+   0.081,
+   "2353",
+   0.006
+  ],
+  [
+   "rsi14",
+   "y_ncross",
+   -0.021,
+   "2359",
+   0.509
+  ],
+  [
+   "rsi14",
+   "y_stops",
+   -0.004,
+   "2358",
+   0.9082
+  ],
+  [
+   "rsi14",
+   "y_growth",
+   -0.001,
+   "2358",
+   0.9721
+  ],
+  [
+   "absdist",
+   "y_ncross",
+   -0.516,
+   "2353",
+   0.002
+  ],
+  [
+   "absdist",
+   "y_stops",
+   -0.329,
+   "2352",
+   0.002
+  ],
+  [
+   "absdist",
+   "y_growth",
+   0.206,
+   "2352",
+   0.002
+  ],
+  [
+   "n_stops",
+   "y_ncross",
+   0.304,
+   "2363",
+   0.002
+  ],
+  [
+   "n_stops",
+   "y_stops",
+   0.258,
+   "2362",
+   0.002
+  ],
+  [
+   "n_stops",
+   "y_growth",
+   -0.181,
+   "2362",
+   0.002
+  ],
+  [
+   "n_trades",
+   "y_ncross",
+   0.445,
+   "2363",
+   0.002
+  ],
+  [
+   "n_trades",
+   "y_stops",
+   0.309,
+   "2362",
+   0.002
+  ],
+  [
+   "n_trades",
+   "y_growth",
+   -0.206,
+   "2362",
+   0.002
+  ]
+ ],
+ "eth_autocorr_lags_1_2_3_5_7_14": {
+  "ncross_2000": [
+   0.449,
+   0.229,
+   0.149,
+   0.075,
+   0.011,
+   0.004
+  ],
+  "n_stops": [
+   0.258,
+   0.132,
+   0.102,
+   0.059,
+   0.012,
+   -0.002
+  ],
+  "rv": [
+   0.773,
+   0.662,
+   0.601,
+   0.553,
+   0.574,
+   0.469
+  ]
+ },
+ "btc_ncross_autocorr": [
+  0.452,
+  0.201,
+  0.113,
+  0.101,
+  0.048,
+  -0.029
+ ],
+ "eth_quintiles": {
+  "rv": {
+   "0": {
+    "next_ncross": 3.5645,
+    "next_stops": 0.0994,
+    "next_growth_gm": 1.0101,
+    "next_loss_rate": 0.1649,
+    "n": 473
+   },
+   "1": {
+    "next_ncross": 3.8623,
+    "next_stops": 0.2335,
+    "next_growth_gm": 1.0018,
+    "next_loss_rate": 0.1507,
+    "n": 472
+   },
+   "2": {
+    "next_ncross": 2.7611,
+    "next_stops": 0.2178,
+    "next_growth_gm": 1.003,
+    "next_loss_rate": 0.1353,
+    "n": 473
+   },
+   "3": {
+    "next_ncross": 2.6483,
+    "next_stops": 0.2924,
+    "next_growth_gm": 0.9986,
+    "next_loss_rate": 0.1144,
+    "n": 472
+   },
+   "4": {
+    "next_ncross": 1.8774,
+    "next_stops": 0.4926,
+    "next_growth_gm": 1.0005,
+    "next_loss_rate": 0.0782,
+    "n": 473
+   }
+  },
+  "er10": {
+   "0": {
+    "next_ncross": 6.2981,
+    "next_stops": 0.5201,
+    "next_growth_gm": 1.0134,
+    "next_loss_rate": 0.2347,
+    "n": 473
+   },
+   "1": {
+    "next_ncross": 4.9131,
+    "next_stops": 0.3822,
+    "next_growth_gm": 1.0003,
+    "next_loss_rate": 0.2102,
+    "n": 472
+   },
+   "2": {
+    "next_ncross": 2.4841,
+    "next_stops": 0.2516,
+    "next_growth_gm": 1.0018,
+    "next_loss_rate": 0.1332,
+    "n": 473
+   },
+   "3": {
+    "next_ncross": 0.8962,
+    "next_stops": 0.125,
+    "next_growth_gm": 0.9987,
+    "next_loss_rate": 0.0614,
+    "n": 472
+   },
+   "4": {
+    "next_ncross": 0.1205,
+    "next_stops": 0.0571,
+    "next_growth_gm": 0.9998,
+    "next_loss_rate": 0.0042,
+    "n": 473
+   }
+  },
+  "adx14": {
+   "0.0": {
+    "next_ncross": 3.8814,
+    "next_stops": 0.1911,
+    "next_growth_gm": 1.0078,
+    "next_loss_rate": 0.1614,
+    "n": 472
+   },
+   "1.0": {
+    "next_ncross": 3.7712,
+    "next_stops": 0.2775,
+    "next_growth_gm": 1.0009,
+    "next_loss_rate": 0.1504,
+    "n": 472
+   },
+   "2.0": {
+    "next_ncross": 3.0234,
+    "next_stops": 0.3652,
+    "next_growth_gm": 1.0027,
+    "next_loss_rate": 0.1359,
+    "n": 471
+   },
+   "3.0": {
+    "next_ncross": 2.4237,
+    "next_stops": 0.322,
+    "next_growth_gm": 1.0024,
+    "next_loss_rate": 0.1208,
+    "n": 472
+   },
+   "4.0": {
+    "next_ncross": 1.6377,
+    "next_stops": 0.1547,
+    "next_growth_gm": 1.0007,
+    "next_loss_rate": 0.0699,
+    "n": 472
+   }
+  },
+  "ncross_2000": {
+   "0": {
+    "next_ncross": 2.9424,
+    "next_stops": 0.2671,
+    "next_growth_gm": 1.0028,
+    "next_loss_rate": 0.1287,
+    "n": 2363
+   }
+  },
+  "vr8": {
+   "0": {
+    "next_ncross": 3.7505,
+    "next_stops": 0.2368,
+    "next_growth_gm": 1.0039,
+    "next_loss_rate": 0.1628,
+    "n": 473
+   },
+   "1": {
+    "next_ncross": 2.7818,
+    "next_stops": 0.2357,
+    "next_growth_gm": 1.0041,
+    "next_loss_rate": 0.1295,
+    "n": 472
+   },
+   "2": {
+    "next_ncross": 2.907,
+    "next_stops": 0.3721,
+    "next_growth_gm": 1.0088,
+    "next_loss_rate": 0.1184,
+    "n": 473
+   },
+   "3": {
+    "next_ncross": 2.9322,
+    "next_stops": 0.2818,
+    "next_growth_gm": 0.9983,
+    "next_loss_rate": 0.1271,
+    "n": 472
+   },
+   "4": {
+    "next_ncross": 2.3404,
+    "next_stops": 0.2093,
+    "next_growth_gm": 0.999,
+    "next_loss_rate": 0.1057,
+    "n": 473
+   }
+  }
+ },
+ "eth_auc_next_day": {
+  "ncross_2000": {
+   "whipsaw_day": 0.728,
+   "bot_loss_day": 0.702
+  },
+  "rv": {
+   "whipsaw_day": 0.403,
+   "bot_loss_day": 0.419
+  },
+  "atrp": {
+   "whipsaw_day": 0.457,
+   "bot_loss_day": 0.459
+  },
+  "adx14": {
+   "whipsaw_day": 0.428,
+   "bot_loss_day": 0.42
+  },
+  "er10": {
+   "whipsaw_day": 0.252,
+   "bot_loss_day": 0.278
+  },
+  "er20": {
+   "whipsaw_day": 0.302,
+   "bot_loss_day": 0.312
+  },
+  "vr8": {
+   "whipsaw_day": 0.442,
+   "bot_loss_day": 0.455
+  },
+  "vol_z": {
+   "whipsaw_day": 0.415,
+   "bot_loss_day": 0.421
+  },
+  "bbw": {
+   "whipsaw_day": 0.342,
+   "bot_loss_day": 0.353
+  },
+  "rsi14": {
+   "whipsaw_day": 0.482,
+   "bot_loss_day": 0.491
+  },
+  "absdist": {
+   "whipsaw_day": 0.116,
+   "bot_loss_day": 0.147
+  },
+  "n_stops": {
+   "whipsaw_day": 0.623,
+   "bot_loss_day": 0.623
+  },
+  "n_trades": {
+   "whipsaw_day": 0.727,
+   "bot_loss_day": 0.708
+  }
+ },
+ "eth_weekly": [
+  [
+   "ncross",
+   "next_ncross",
+   0.112,
+   "337"
+  ],
+  [
+   "ncross",
+   "next_stops",
+   0.025,
+   "337"
+  ],
+  [
+   "ncross",
+   "next_growth",
+   0.023,
+   "337"
+  ],
+  [
+   "rv",
+   "next_ncross",
+   -0.128,
+   "337"
+  ],
+  [
+   "rv",
+   "next_stops",
+   0.094,
+   "337"
+  ],
+  [
+   "rv",
+   "next_growth",
+   -0.051,
+   "337"
+  ],
+  [
+   "er10",
+   "next_ncross",
+   -0.273,
+   "337"
+  ],
+  [
+   "er10",
+   "next_stops",
+   -0.133,
+   "337"
+  ],
+  [
+   "er10",
+   "next_growth",
+   -0.004,
+   "337"
+  ],
+  [
+   "adx",
+   "next_ncross",
+   0.017,
+   "337"
+  ],
+  [
+   "adx",
+   "next_stops",
+   0.039,
+   "337"
+  ],
+  [
+   "adx",
+   "next_growth",
+   -0.044,
+   "337"
+  ],
+  [
+   "stops",
+   "next_ncross",
+   0.047,
+   "337"
+  ],
+  [
+   "stops",
+   "next_stops",
+   0.053,
+   "337"
+  ],
+  [
+   "stops",
+   "next_growth",
+   0.026,
+   "337"
+  ]
+ ]
+}

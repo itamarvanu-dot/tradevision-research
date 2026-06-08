@@ -1,0 +1,191 @@
+[
+ {
+  "feat": "n",
+  "cliffs_loss": 0.837,
+  "cliffs_gain": 0.058,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "stops",
+  "cliffs_loss": 0.786,
+  "cliffs_gain": 0.018,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "maxstreak",
+  "cliffs_loss": 0.654,
+  "cliffs_gain": -0.001,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "ncross_2000",
+  "cliffs_loss": 0.579,
+  "cliffs_gain": 0.081,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "rv",
+  "cliffs_loss": 0.413,
+  "cliffs_gain": 0.064,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "p99_jump",
+  "cliffs_loss": 0.394,
+  "cliffs_gain": 0.064,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "max_jump",
+  "cliffs_loss": 0.362,
+  "cliffs_gain": 0.027,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "corr",
+  "cliffs_loss": -0.322,
+  "cliffs_gain": -0.173,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "bbw",
+  "cliffs_loss": 0.3,
+  "cliffs_gain": -0.056,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "wick_mean",
+  "cliffs_loss": 0.279,
+  "cliffs_gain": 0.126,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "atrp",
+  "cliffs_loss": 0.261,
+  "cliffs_gain": 0.01,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "sign_trend",
+  "cliffs_loss": 0.235,
+  "cliffs_gain": -0.038,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "vol_z",
+  "cliffs_loss": 0.2,
+  "cliffs_gain": 0.143,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "sigret_w",
+  "cliffs_loss": -0.183,
+  "cliffs_gain": 0.082,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "ret_d",
+  "cliffs_loss": -0.178,
+  "cliffs_gain": 0.077,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "max_since_h",
+  "cliffs_loss": -0.155,
+  "cliffs_gain": 0.006,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "er10",
+  "cliffs_loss": -0.148,
+  "cliffs_gain": 0.1,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "absdist",
+  "cliffs_loss": -0.143,
+  "cliffs_gain": 0.063,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "rsi14",
+  "cliffs_loss": 0.123,
+  "cliffs_gain": -0.152,
+  "n_series": 6,
+  "sign_consistency": 0.83
+ },
+ {
+  "feat": "mean_absdev",
+  "cliffs_loss": -0.096,
+  "cliffs_gain": 0.0,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "rel",
+  "cliffs_loss": 0.094,
+  "cliffs_gain": 0.019,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "absret_w",
+  "cliffs_loss": -0.064,
+  "cliffs_gain": 0.327,
+  "n_series": 6,
+  "sign_consistency": 0.33
+ },
+ {
+  "feat": "vr8",
+  "cliffs_loss": 0.063,
+  "cliffs_gain": -0.022,
+  "n_series": 6,
+  "sign_consistency": 0.83
+ },
+ {
+  "feat": "adx14",
+  "cliffs_loss": 0.049,
+  "cliffs_gain": -0.186,
+  "n_series": 6,
+  "sign_consistency": 0.33
+ },
+ {
+  "feat": "beta",
+  "cliffs_loss": -0.038,
+  "cliffs_gain": -0.165,
+  "n_series": 6,
+  "sign_consistency": 0.5
+ },
+ {
+  "feat": "er20",
+  "cliffs_loss": 0.015,
+  "cliffs_gain": -0.006,
+  "n_series": 6,
+  "sign_consistency": 1.0
+ },
+ {
+  "feat": "max_absdev",
+  "cliffs_loss": 0.001,
+  "cliffs_gain": 0.023,
+  "n_series": 6,
+  "sign_consistency": 0.83
+ }
+]

@@ -1,0 +1,838 @@
+{
+ "above_ma200d": {
+  "trades_all": {
+   "n_in": 12484,
+   "win_in": 0.072,
+   "win_out": 0.068,
+   "ev_in": 0.00314,
+   "ev_out": 0.00398,
+   "diff": -0.00083,
+   "cliffs": -0.044,
+   "p_shuffle": 0.701,
+   "oos_same_sign": true,
+   "series_consist": 0.8,
+   "n_series": 10
+  },
+  "trades_long": {
+   "n_in": 6324,
+   "win_in": 0.075,
+   "win_out": 0.057,
+   "ev_in": 0.00641,
+   "ev_out": 0.00382,
+   "diff": 0.00258,
+   "cliffs": -0.035,
+   "p_shuffle": 0.505,
+   "oos_same_sign": true,
+   "series_consist": 0.2,
+   "n_series": 10
+  },
+  "trades_short": {
+   "n_in": 6160,
+   "win_in": 0.068,
+   "win_out": 0.079,
+   "ev_in": -0.0002,
+   "ev_out": 0.00413,
+   "diff": -0.00434,
+   "cliffs": -0.119,
+   "p_shuffle": 0.1993,
+   "oos_same_sign": true,
+   "series_consist": 0.8,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 1312,
+   "gm_in_bps": 20.2,
+   "gm_out_bps": 13.6,
+   "green_in": 0.464,
+   "green_out": 0.39,
+   "p": 0.5017
+  },
+  "eng_btc": {
+   "n_in": 1287,
+   "gm_in_bps": 20.9,
+   "gm_out_bps": 11.7,
+   "green_in": 0.485,
+   "green_out": 0.461,
+   "p": 0.3123
+  }
+ },
+ "below_ma200d": {
+  "trades_all": {
+   "n_in": 7254,
+   "win_in": 0.069,
+   "win_out": 0.07,
+   "ev_in": 0.00499,
+   "ev_out": 0.0029,
+   "diff": 0.0021,
+   "cliffs": 0.111,
+   "p_shuffle": 0.3654,
+   "oos_same_sign": true,
+   "series_consist": 0.8,
+   "n_series": 10
+  },
+  "trades_long": {
+   "n_in": 3649,
+   "win_in": 0.066,
+   "win_out": 0.067,
+   "ev_in": 0.00799,
+   "ev_out": 0.00396,
+   "diff": 0.00404,
+   "cliffs": 0.091,
+   "p_shuffle": 0.495,
+   "oos_same_sign": true,
+   "series_consist": 0.8,
+   "n_series": 10
+  },
+  "trades_short": {
+   "n_in": 3605,
+   "win_in": 0.073,
+   "win_out": 0.074,
+   "ev_in": 0.00195,
+   "ev_out": 0.00182,
+   "diff": 0.00013,
+   "cliffs": 0.156,
+   "p_shuffle": 0.9834,
+   "oos_same_sign": false,
+   "series_consist": 0.8,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 894,
+   "gm_in_bps": 15.0,
+   "gm_out_bps": 18.5,
+   "green_in": 0.409,
+   "green_out": 0.443,
+   "p": 0.7342
+  },
+  "eng_btc": {
+   "n_in": 919,
+   "gm_in_bps": 15.6,
+   "gm_out_bps": 17.3,
+   "green_in": 0.499,
+   "green_out": 0.458,
+   "p": 0.8472
+  }
+ },
+ "golden_state": {
+  "trades_all": {
+   "n_in": 12603,
+   "win_in": 0.071,
+   "win_out": 0.069,
+   "ev_in": 0.004,
+   "ev_out": 0.00301,
+   "diff": 0.00099,
+   "cliffs": -0.06,
+   "p_shuffle": 0.608,
+   "oos_same_sign": false,
+   "series_consist": 0.7,
+   "n_series": 10
+  },
+  "trades_long": {
+   "n_in": 6385,
+   "win_in": 0.073,
+   "win_out": 0.059,
+   "ev_in": 0.00805,
+   "ev_out": 0.00189,
+   "diff": 0.00616,
+   "cliffs": -0.043,
+   "p_shuffle": 0.1362,
+   "oos_same_sign": false,
+   "series_consist": 0.7,
+   "n_series": 10
+  },
+  "trades_short": {
+   "n_in": 6218,
+   "win_in": 0.068,
+   "win_out": 0.08,
+   "ev_in": -0.00016,
+   "ev_out": 0.00413,
+   "diff": -0.00428,
+   "cliffs": -0.11,
+   "p_shuffle": 0.1761,
+   "oos_same_sign": true,
+   "series_consist": 0.3,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 1276,
+   "gm_in_bps": 16.3,
+   "gm_out_bps": 18.1,
+   "green_in": 0.459,
+   "green_out": 0.398,
+   "p": 0.8472
+  },
+  "eng_btc": {
+   "n_in": 1271,
+   "gm_in_bps": 17.4,
+   "gm_out_bps": 15.8,
+   "green_in": 0.486,
+   "green_out": 0.459,
+   "p": 0.8638
+  }
+ },
+ "death_state": {
+  "trades_all": {
+   "n_in": 7135,
+   "win_in": 0.071,
+   "win_out": 0.069,
+   "ev_in": 0.00351,
+   "ev_out": 0.00355,
+   "diff": -4e-05,
+   "cliffs": 0.138,
+   "p_shuffle": 0.9867,
+   "oos_same_sign": false,
+   "series_consist": 0.6,
+   "n_series": 10
+  },
+  "trades_long": {
+   "n_in": 3588,
+   "win_in": 0.069,
+   "win_out": 0.065,
+   "ev_in": 0.0051,
+   "ev_out": 0.00524,
+   "diff": -0.00014,
+   "cliffs": 0.101,
+   "p_shuffle": 0.9867,
+   "oos_same_sign": true,
+   "series_consist": 0.6,
+   "n_series": 10
+  },
+  "trades_short": {
+   "n_in": 3547,
+   "win_in": 0.073,
+   "win_out": 0.073,
+   "ev_in": 0.0019,
+   "ev_out": 0.00184,
+   "diff": 7e-05,
+   "cliffs": 0.136,
+   "p_shuffle": 0.9867,
+   "oos_same_sign": false,
+   "series_consist": 0.4,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 930,
+   "gm_in_bps": 20.5,
+   "gm_out_bps": 15.1,
+   "green_in": 0.418,
+   "green_out": 0.438,
+   "p": 0.5814
+  },
+  "eng_btc": {
+   "n_in": 935,
+   "gm_in_bps": 20.4,
+   "gm_out_bps": 14.2,
+   "green_in": 0.497,
+   "green_out": 0.459,
+   "p": 0.5615
+  }
+ },
+ "above_ma100d": {
+  "trades_all": {
+   "n_in": 12667,
+   "win_in": 0.067,
+   "win_out": 0.073,
+   "ev_in": 0.00314,
+   "ev_out": 0.004,
+   "diff": -0.00086,
+   "cliffs": -0.075,
+   "p_shuffle": 0.6645,
+   "oos_same_sign": true,
+   "series_consist": 1.0,
+   "n_series": 10
+  },
+  "trades_long": {
+   "n_in": 6383,
+   "win_in": 0.073,
+   "win_out": 0.059,
+   "ev_in": 0.00636,
+   "ev_out": 0.00385,
+   "diff": 0.00251,
+   "cliffs": -0.03,
+   "p_shuffle": 0.5116,
+   "oos_same_sign": false,
+   "series_consist": 0.0,
+   "n_series": 10
+  },
+  "trades_short": {
+   "n_in": 6284,
+   "win_in": 0.062,
+   "win_out": 0.087,
+   "ev_in": -0.00014,
+   "ev_out": 0.00415,
+   "diff": -0.00429,
+   "cliffs": -0.14,
+   "p_shuffle": 0.1561,
+   "oos_same_sign": false,
+   "series_consist": 1.0,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 1301,
+   "gm_in_bps": 17.5,
+   "gm_out_bps": 16.8,
+   "green_in": 0.459,
+   "green_out": 0.397,
+   "p": 0.9568
+  },
+  "eng_btc": {
+   "n_in": 1306,
+   "gm_in_bps": 24.0,
+   "gm_out_bps": 7.9,
+   "green_in": 0.504,
+   "green_out": 0.438,
+   "p": 0.103
+  }
+ },
+ "golden_cross_w10": {
+  "trades_all": {
+   "n_in": 973,
+   "win_in": 0.078,
+   "win_out": 0.07,
+   "ev_in": -0.00198,
+   "ev_out": 0.00377,
+   "diff": -0.00576,
+   "cliffs": 0.115,
+   "p_shuffle": 0.45,
+   "oos_same_sign": true,
+   "series_consist": 1.0,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 66,
+   "gm_in_bps": -27.4,
+   "gm_out_bps": 18.4,
+   "green_in": 0.409,
+   "green_out": 0.431,
+   "p": 0.2326
+  },
+  "eng_btc": {
+   "n_in": 77,
+   "gm_in_bps": 31.5,
+   "gm_out_bps": 16.1,
+   "green_in": 0.584,
+   "green_out": 0.47,
+   "p": 0.6379
+  }
+ },
+ "death_cross_w10": {
+  "trades_all": {
+   "n_in": 764,
+   "win_in": 0.045,
+   "win_out": 0.071,
+   "ev_in": -0.00168,
+   "ev_out": 0.00371,
+   "diff": -0.0054,
+   "cliffs": -0.001,
+   "p_shuffle": 0.4784,
+   "oos_same_sign": false,
+   "series_consist": 0.75,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n_in": 66,
+   "gm_in_bps": 63.3,
+   "gm_out_bps": 15.9,
+   "green_in": 0.545,
+   "green_out": 0.427,
+   "p": 0.2126
+  },
+  "eng_btc": {
+   "n_in": 66,
+   "gm_in_bps": 17.4,
+   "gm_out_bps": 16.6,
+   "green_in": 0.379,
+   "green_out": 0.476,
+   "p": 1.0
+  }
+ },
+ "ma200cross_lowvol_w3": {
+  "trades_all": {
+   "n_in": 341,
+   "win_in": 0.161,
+   "win_out": 0.069,
+   "ev_in": -0.00556,
+   "ev_out": 0.00367,
+   "diff": -0.00923,
+   "cliffs": -0.113,
+   "p_shuffle": 0.2408,
+   "oos_same_sign": true,
+   "series_consist": 1.0,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n_in": 37,
+   "gm_in_bps": -58.7,
+   "gm_out_bps": 18.4,
+   "green_in": 0.405,
+   "green_out": 0.431,
+   "p": 0.1229
+  },
+  "eng_btc": {
+   "n_in": 41,
+   "gm_in_bps": 1.0,
+   "gm_out_bps": 16.9,
+   "green_in": 0.415,
+   "green_out": 0.475,
+   "p": 0.7309
+  }
+ },
+ "ma200cross_highvol_w3": {
+  "trades_all": {
+   "n_in": 304,
+   "win_in": 0.026,
+   "win_out": 0.071,
+   "ev_in": -0.00263,
+   "ev_out": 0.00362,
+   "diff": -0.00625,
+   "cliffs": -0.089,
+   "p_shuffle": 0.4884,
+   "oos_same_sign": false,
+   "series_consist": 1.0,
+   "n_series": 5
+  },
+  "eng_eth": {
+   "n_in": 56,
+   "gm_in_bps": 44.0,
+   "gm_out_bps": 16.5,
+   "green_in": 0.571,
+   "green_out": 0.427,
+   "p": 0.4884
+  },
+  "eng_btc": {
+   "n_in": 90,
+   "gm_in_bps": 34.3,
+   "gm_out_bps": 15.9,
+   "green_in": 0.456,
+   "green_out": 0.474,
+   "p": 0.5781
+  }
+ },
+ "streak5_green": {
+  "trades_all": {
+   "n_in": 132,
+   "win_in": 0.205,
+   "win_out": 0.069,
+   "ev_in": -0.0052,
+   "ev_out": 0.00359,
+   "diff": -0.00878,
+   "cliffs": -0.064,
+   "p_shuffle": 0.1528,
+   "oos_same_sign": null,
+   "series_consist": 1.0,
+   "n_series": 3
+  },
+  "eng_eth": {
+   "n_in": 67,
+   "gm_in_bps": 2.4,
+   "gm_out_bps": 17.6,
+   "green_in": 0.522,
+   "green_out": 0.428,
+   "p": 0.6944
+  },
+  "eng_btc": {
+   "n_in": 75,
+   "gm_in_bps": 87.5,
+   "gm_out_bps": 14.3,
+   "green_in": 0.52,
+   "green_out": 0.472,
+   "p": 0.0332
+  }
+ },
+ "streak5_red": {
+  "trades_all": {
+   "n_in": 141,
+   "win_in": 0.043,
+   "win_out": 0.07,
+   "ev_in": -0.00176,
+   "ev_out": 0.00357,
+   "diff": -0.00533,
+   "cliffs": 0.299,
+   "p_shuffle": 0.608,
+   "oos_same_sign": true,
+   "series_consist": 1.0,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n_in": 39,
+   "gm_in_bps": -1.7,
+   "gm_out_bps": 17.5,
+   "green_in": 0.256,
+   "green_out": 0.433,
+   "p": 0.7342
+  },
+  "eng_btc": {
+   "n_in": 41,
+   "gm_in_bps": 5.4,
+   "gm_out_bps": 16.8,
+   "green_in": 0.341,
+   "green_out": 0.476,
+   "p": 0.7774
+  }
+ },
+ "channel_top": {
+  "trades_all": null,
+  "trades_long": null,
+  "trades_short": null,
+  "eng_eth": {
+   "n_in": 146,
+   "gm_in_bps": 65.4,
+   "gm_out_bps": 14.1,
+   "green_in": 0.432,
+   "green_out": 0.43,
+   "p": 0.0465
+  },
+  "eng_btc": {
+   "n_in": 203,
+   "gm_in_bps": 43.7,
+   "gm_out_bps": 14.1,
+   "green_in": 0.483,
+   "green_out": 0.473,
+   "p": 0.1429
+  }
+ },
+ "channel_bottom": {
+  "trades_all": null,
+  "trades_long": null,
+  "trades_short": null,
+  "eng_eth": {
+   "n_in": 26,
+   "gm_in_bps": 43.1,
+   "gm_out_bps": 16.9,
+   "green_in": 0.385,
+   "green_out": 0.431,
+   "p": 0.6711
+  },
+  "eng_btc": {
+   "n_in": 38,
+   "gm_in_bps": -37.5,
+   "gm_out_bps": 17.5,
+   "green_in": 0.421,
+   "green_out": 0.474,
+   "p": 0.1694
+  }
+ },
+ "near_ath": {
+  "trades_all": {
+   "n_in": 336,
+   "win_in": 0.045,
+   "win_out": 0.07,
+   "ev_in": -0.01061,
+   "ev_out": 0.00374,
+   "diff": -0.01435,
+   "cliffs": -0.665,
+   "p_shuffle": 0.0432,
+   "oos_same_sign": null,
+   "series_consist": 1.0,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 169,
+   "win_in": 0.041,
+   "win_out": 0.067,
+   "ev_in": -0.01052,
+   "ev_out": 0.00542,
+   "diff": -0.01594,
+   "cliffs": -0.626,
+   "p_shuffle": 0.0864,
+   "oos_same_sign": null,
+   "series_consist": 1.0,
+   "n_series": 7
+  },
+  "trades_short": {
+   "n_in": 167,
+   "win_in": 0.048,
+   "win_out": 0.074,
+   "ev_in": -0.0107,
+   "ev_out": 0.00204,
+   "diff": -0.01274,
+   "cliffs": -0.691,
+   "p_shuffle": 0.0831,
+   "oos_same_sign": null,
+   "series_consist": 1.0,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n_in": 106,
+   "gm_in_bps": 0.6,
+   "gm_out_bps": 17.9,
+   "green_in": 0.377,
+   "green_out": 0.433,
+   "p": 0.5615
+  },
+  "eng_btc": {
+   "n_in": 197,
+   "gm_in_bps": 61.5,
+   "gm_out_bps": 12.6,
+   "green_in": 0.508,
+   "green_out": 0.471,
+   "p": 0.0166
+  }
+ },
+ "deep_below_ath": {
+  "trades_all": {
+   "n_in": 14288,
+   "win_in": 0.072,
+   "win_out": 0.067,
+   "ev_in": 0.00414,
+   "ev_out": 0.00262,
+   "diff": 0.00152,
+   "cliffs": 0.227,
+   "p_shuffle": 0.2591,
+   "oos_same_sign": false,
+   "series_consist": 0.82,
+   "n_series": 11
+  },
+  "trades_long": {
+   "n_in": 7193,
+   "win_in": 0.075,
+   "win_out": 0.054,
+   "ev_in": 0.00668,
+   "ev_out": 0.00293,
+   "diff": 0.00375,
+   "cliffs": 0.201,
+   "p_shuffle": 0.4817,
+   "oos_same_sign": true,
+   "series_consist": 0.82,
+   "n_series": 11
+  },
+  "trades_short": {
+   "n_in": 7095,
+   "win_in": 0.068,
+   "win_out": 0.081,
+   "ev_in": 0.00157,
+   "ev_out": 0.0023,
+   "diff": -0.00073,
+   "cliffs": 0.194,
+   "p_shuffle": 0.8505,
+   "oos_same_sign": false,
+   "series_consist": 0.18,
+   "n_series": 11
+  },
+  "eng_eth": {
+   "n_in": 1475,
+   "gm_in_bps": 14.2,
+   "gm_out_bps": 21.9,
+   "green_in": 0.428,
+   "green_out": 0.434,
+   "p": 0.3422
+  },
+  "eng_btc": {
+   "n_in": 693,
+   "gm_in_bps": 11.3,
+   "gm_out_bps": 18.8,
+   "green_in": 0.485,
+   "green_out": 0.469,
+   "p": 0.4219
+  }
+ },
+ "new_1y_low": {
+  "trades_all": null,
+  "eng_eth": null,
+  "eng_btc": null
+ },
+ "halving": {
+  "trades_all": {
+   "n_in": 274,
+   "win_in": 0.069,
+   "win_out": 0.07,
+   "ev_in": -0.00484,
+   "ev_out": 0.00364,
+   "diff": -0.00848,
+   "cliffs": -0.034,
+   "p_shuffle": 0.375,
+   "oos_same_sign": true,
+   "series_consist": 1.0,
+   "n_series": 8
+  },
+  "eng_eth": null,
+  "eng_btc": null
+ },
+ "halving_pre": {
+  "trades_all": {
+   "n_in": 85,
+   "win_in": 0.141,
+   "win_out": 0.07,
+   "ev_in": 0.00315,
+   "ev_out": 0.00354,
+   "diff": -0.00039,
+   "cliffs": 0.081,
+   "p_shuffle": 0.9648,
+   "oos_same_sign": false,
+   "series_consist": 0.6,
+   "n_series": 5
+  },
+  "eng_eth": {
+   "n_in": 28,
+   "gm_in_bps": -54.6,
+   "gm_out_bps": 18.0,
+   "green_in": 0.393,
+   "green_out": 0.431,
+   "p": 0.1827
+  },
+  "eng_btc": {
+   "n_in": 28,
+   "gm_in_bps": 45.6,
+   "gm_out_bps": 16.3,
+   "green_in": 0.464,
+   "green_out": 0.474,
+   "p": 0.6047
+  }
+ },
+ "us_election": {
+  "trades_all": {
+   "n_in": 427,
+   "win_in": 0.059,
+   "win_out": 0.07,
+   "ev_in": 0.01181,
+   "ev_out": 0.00339,
+   "diff": 0.00843,
+   "cliffs": 0.038,
+   "p_shuffle": 0.2819,
+   "oos_same_sign": true,
+   "series_consist": 0.88,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n_in": 44,
+   "gm_in_bps": 28.5,
+   "gm_out_bps": 17.0,
+   "green_in": 0.432,
+   "green_out": 0.43,
+   "p": 0.8073
+  },
+  "eng_btc": {
+   "n_in": 44,
+   "gm_in_bps": 80.1,
+   "gm_out_bps": 15.4,
+   "green_in": 0.5,
+   "green_out": 0.473,
+   "p": 0.1528
+  }
+ },
+ "war_geopol": {
+  "trades_all": {
+   "n_in": 708,
+   "win_in": 0.071,
+   "win_out": 0.07,
+   "ev_in": 0.01223,
+   "ev_out": 0.00327,
+   "diff": 0.00896,
+   "cliffs": 0.223,
+   "p_shuffle": 0.2392,
+   "oos_same_sign": false,
+   "series_consist": 0.83,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n_in": 60,
+   "gm_in_bps": -1.0,
+   "gm_out_bps": 17.6,
+   "green_in": 0.483,
+   "green_out": 0.429,
+   "p": 0.6744
+  },
+  "eng_btc": {
+   "n_in": 60,
+   "gm_in_bps": 23.5,
+   "gm_out_bps": 16.4,
+   "green_in": 0.467,
+   "green_out": 0.474,
+   "p": 0.814
+  }
+ },
+ "crypto_crisis": {
+  "trades_all": {
+   "n_in": 564,
+   "win_in": 0.074,
+   "win_out": 0.07,
+   "ev_in": 0.00414,
+   "ev_out": 0.00352,
+   "diff": 0.00062,
+   "cliffs": 0.13,
+   "p_shuffle": 0.9336,
+   "oos_same_sign": false,
+   "series_consist": 0.75,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n_in": 120,
+   "gm_in_bps": 8.2,
+   "gm_out_bps": 17.7,
+   "green_in": 0.25,
+   "green_out": 0.44,
+   "p": 0.7442
+  },
+  "eng_btc": {
+   "n_in": 120,
+   "gm_in_bps": 55.0,
+   "gm_out_bps": 14.6,
+   "green_in": 0.5,
+   "green_out": 0.472,
+   "p": 0.186
+  }
+ },
+ "etf": {
+  "trades_all": {
+   "n_in": 590,
+   "win_in": 0.025,
+   "win_out": 0.071,
+   "ev_in": -0.00129,
+   "ev_out": 0.00366,
+   "diff": -0.00495,
+   "cliffs": -0.068,
+   "p_shuffle": 0.5367,
+   "oos_same_sign": null,
+   "series_consist": 1.0,
+   "n_series": 5
+  },
+  "eng_eth": {
+   "n_in": 60,
+   "gm_in_bps": 2.0,
+   "gm_out_bps": 17.6,
+   "green_in": 0.417,
+   "green_out": 0.431,
+   "p": 0.7276
+  },
+  "eng_btc": {
+   "n_in": 60,
+   "gm_in_bps": -10.5,
+   "gm_out_bps": 17.3,
+   "green_in": 0.333,
+   "green_out": 0.477,
+   "p": 0.4319
+  }
+ },
+ "fomc": {
+  "trades_all": {
+   "n_in": 800,
+   "win_in": 0.088,
+   "win_out": 0.069,
+   "ev_in": 0.01915,
+   "ev_out": 0.00299,
+   "diff": 0.01616,
+   "cliffs": -0.066,
+   "p_shuffle": 0.0598,
+   "oos_same_sign": true,
+   "series_consist": 0.8,
+   "n_series": 10
+  },
+  "eng_eth": {
+   "n_in": 108,
+   "gm_in_bps": 30.7,
+   "gm_out_bps": 16.6,
+   "green_in": 0.454,
+   "green_out": 0.429,
+   "p": 0.6478
+  },
+  "eng_btc": {
+   "n_in": 108,
+   "gm_in_bps": 17.8,
+   "gm_out_bps": 16.6,
+   "green_in": 0.435,
+   "green_out": 0.475,
+   "p": 0.9568
+  }
+ },
+ "_BH10_survivors_trades": []
+}

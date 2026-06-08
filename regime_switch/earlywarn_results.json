@@ -1,0 +1,160 @@
+{
+ "ETHUSDT": {
+  "static": {
+   "growth": 62.35,
+   "maxDD": -0.351,
+   "green": 0.538,
+   "worst_m": -0.22,
+   "n_months": 78
+  },
+  "delever_absdistAndEr": {
+   "growth": 19.13,
+   "maxDD": -0.3,
+   "green": 0.513,
+   "worst_m": -0.151,
+   "n_months": 78,
+   "pct_days": 0.233
+  },
+  "delever_absdistAndEr_CTL": {
+   "growth_med": 38.33,
+   "maxDD_med": -0.343,
+   "green_med": 0.526,
+   "worst_med": -0.203
+  },
+  "delever_absdistOnly": {
+   "growth": 14.15,
+   "maxDD": -0.274,
+   "green": 0.526,
+   "worst_m": -0.149,
+   "n_months": 78,
+   "pct_days": 0.288
+  },
+  "delever_absdistOnly_CTL": {
+   "growth_med": 39.93,
+   "maxDD_med": -0.342,
+   "green_med": 0.526,
+   "worst_med": -0.199
+  },
+  "breaker_S3_D5": {
+   "growth": 8.65,
+   "maxDD": -0.223,
+   "green": 0.526,
+   "worst_m": -0.123,
+   "n_months": 78,
+   "pct_days": 0.122
+  },
+  "breaker_S3_D5_CTL": {
+   "growth_med": 47.9,
+   "maxDD_med": -0.354,
+   "green_med": 0.532,
+   "worst_med": -0.217
+  },
+  "breaker_S4_D3": {
+   "growth": 9.21,
+   "maxDD": -0.24,
+   "green": 0.538,
+   "worst_m": -0.125,
+   "n_months": 78,
+   "pct_days": 0.115
+  },
+  "breaker_S4_D3_CTL": {
+   "growth_med": 47.11,
+   "maxDD_med": -0.354,
+   "green_med": 0.532,
+   "worst_med": -0.217
+  },
+  "breaker_S5_D7": {
+   "growth": 8.74,
+   "maxDD": -0.231,
+   "green": 0.513,
+   "worst_m": -0.141,
+   "n_months": 78,
+   "pct_days": 0.117
+  },
+  "breaker_S5_D7_CTL": {
+   "growth_med": 47.19,
+   "maxDD_med": -0.354,
+   "green_med": 0.532,
+   "worst_med": -0.217
+  }
+ },
+ "BTCUSDT": {
+  "static": {
+   "growth": 54.35,
+   "maxDD": -0.428,
+   "green": 0.615,
+   "worst_m": -0.207,
+   "n_months": 78
+  },
+  "delever_absdistAndEr": {
+   "growth": 13.74,
+   "maxDD": -0.359,
+   "green": 0.577,
+   "worst_m": -0.173,
+   "n_months": 78,
+   "pct_days": 0.232
+  },
+  "delever_absdistAndEr_CTL": {
+   "growth_med": 32.88,
+   "maxDD_med": -0.425,
+   "green_med": 0.615,
+   "worst_med": -0.184
+  },
+  "delever_absdistOnly": {
+   "growth": 12.29,
+   "maxDD": -0.327,
+   "green": 0.603,
+   "worst_m": -0.154,
+   "n_months": 78,
+   "pct_days": 0.277
+  },
+  "delever_absdistOnly_CTL": {
+   "growth_med": 35.48,
+   "maxDD_med": -0.425,
+   "green_med": 0.615,
+   "worst_med": -0.184
+  },
+  "breaker_S3_D5": {
+   "growth": 15.27,
+   "maxDD": -0.274,
+   "green": 0.603,
+   "worst_m": -0.114,
+   "n_months": 78,
+   "pct_days": 0.132
+  },
+  "breaker_S3_D5_CTL": {
+   "growth_med": 39.17,
+   "maxDD_med": -0.43,
+   "green_med": 0.615,
+   "worst_med": -0.207
+  },
+  "breaker_S4_D3": {
+   "growth": 18.71,
+   "maxDD": -0.281,
+   "green": 0.577,
+   "worst_m": -0.115,
+   "n_months": 78,
+   "pct_days": 0.124
+  },
+  "breaker_S4_D3_CTL": {
+   "growth_med": 41.53,
+   "maxDD_med": -0.43,
+   "green_med": 0.615,
+   "worst_med": -0.207
+  },
+  "breaker_S5_D7": {
+   "growth": 19.2,
+   "maxDD": -0.29,
+   "green": 0.577,
+   "worst_m": -0.117,
+   "n_months": 78,
+   "pct_days": 0.125
+  },
+  "breaker_S5_D7_CTL": {
+   "growth_med": 41.2,
+   "maxDD_med": -0.43,
+   "green_med": 0.615,
+   "worst_med": -0.207
+  }
+ }
+}

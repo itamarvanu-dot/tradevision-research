@@ -1,0 +1,39 @@
+{
+  "_note": "Recommended configs from v6-engine analysis (FINDINGS_TASK5.md). For PLATFORM validation only — not auto-created. All validated on real 1m data 2018-2024, v6 engine matched to platform on nBnU v1.",
+  "primary_recommendation": {
+    "name": "4coin-eqw-stop008-lev1.5",
+    "rationale": "Best on Itamar's priority order (green-months, green-years, return, DD). Beats the ETH-only champion on all three top priorities.",
+    "portfolio": { "coins": ["BTCUSDT", "ETHUSDT", "XRPUSDT", "BNBUSDT"], "weights": "equal (0.25 each)", "rebalance": "daily/monthly constant-mix" },
+    "per_coin_config": {
+      "longSMA": 2000, "tp_difference": 0.10, "tp_count": 9,
+      "stop_loose": 0.008, "stopLooseTP": 2, "leverage": 1.5,
+      "waitForClose": true, "candleLevel": 3, "reverse": true
+    },
+    "expected_v6": { "growth_x": 106, "maxDD_engine_pct": 42, "maxDD_platform_est_pct": 45, "green_months_pct": 67, "positive_years": "7/7", "worst_year_pct": 16 }
+  },
+  "alternative_higher_return": {
+    "name": "BTC+ETH-eqw-stop008-lev2",
+    "rationale": "Much higher return, but green-months 58% and platform DD ~52% (borderline over 50%).",
+    "portfolio": { "coins": ["BTCUSDT", "ETHUSDT"], "weights": "equal (0.5 each)" },
+    "per_coin_config": { "longSMA": 2000, "tp_difference": 0.10, "tp_count": 9, "stop_loose": 0.008, "stopLooseTP": 2, "leverage": 2, "waitForClose": true, "candleLevel": 3, "reverse": true },
+    "expected_v6": { "growth_x": 2015, "maxDD_engine_pct": 48, "maxDD_platform_est_pct": 52, "green_months_pct": 58, "positive_years": "7/7" }
+  },
+  "stop_loose_finding": {
+    "summary": "stop_loose 0.008 > 0.006 on ETH (Pareto: +growth, -DD) and XRP; neutral/slightly worse growth on BTC/BNB; improves green-months on all 4. Adopt 0.008 portfolio-wide for the consistency gain.",
+    "per_coin_lev1": {
+      "ETHUSDT": { "0.006": {"gx": 84, "DD": 45}, "0.008": {"gx": 124, "DD": 36} },
+      "XRPUSDT": { "0.006": {"gx": 0.7, "DD": 78}, "0.008": {"gx": 1.2, "DD": 76} },
+      "BTCUSDT": { "0.006": {"gx": 29, "DD": 35}, "0.008": {"gx": 24, "DD": 35} },
+      "BNBUSDT": { "0.006": {"gx": 7.4, "DD": 41}, "0.008": {"gx": 8.1, "DD": 46} }
+    }
+  },
+  "rejected": {
+    "entry_indicator_filter": "No per-trade winner/loser predictability (OOS AUC ~0.5 even with 1m micro+volume+BTC). See FINDINGS_TASK4*.",
+    "trend_slope_confirmation": "Hurts: drops the rare big winners (gx704->12). Rejects '2-3 candle slope confirmation'.",
+    "dynamic_leverage_by_confidence": "No reliable per-trade confidence signal -> not justified. Use static leverage + diversification.",
+    "unequal_portfolio_weights": "inverse-vol ~= equal; no benefit. Use equal weights."
+  },
+  "kept_minor": {
+    "near_MA_entry_guard": "Skip entries where |price-MA|/MA > ~1% (chasing). Weak-but-real (beats random), mechanical, cheap. Proposed v6 guard."
+  }
+}

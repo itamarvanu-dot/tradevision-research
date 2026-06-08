@@ -1,0 +1,8 @@
+{
+  "n_fg_days": 3046,
+  "fg_start": "2018-02-01",
+  "auc_tech_oos": 0.49732620320855614,
+  "auc_tech_plus_fng_oos": 0.49732620320855614,
+  "fng_adds_oos": false,
+  "spearman_fng_level_vs_next_month_ret": -0.029822437167843857
+}

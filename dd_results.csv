@@ -1,0 +1,12 @@
+idea,variant,port_growth,port_DD,port_retDD,posMonth,worstMonth,base_retDD,matched_retDD,avg_lev,n5r_idea,n5r_base,oos_retDD,oos_base_retDD,shuffle_pass,real_dd_impr,cross_coin,chk_beats_baseline,chk_beats_matched_constL,chk_shuffle_order_real,chk_right_tail_preserved,chk_lockbox_oos,chk_cross_coin,PASS
+1,stop0.0045,46.82,15.92,294.13,55.9,-14.5,344.48,,1.0,281,264,8.68,8.0,True,0.92,1/4,False,True,True,True,True,False,False
+1,stop0.006,55.75,16.18,344.48,58.1,-15.0,344.48,,1.0,264,264,8.0,8.0,False,0.0,4/4,False,True,False,True,True,True,False
+1,stop0.008,63.52,17.98,353.22,59.1,-17.2,344.48,,1.0,251,264,7.28,8.0,False,-1.12,2/4,True,True,False,False,False,False,False
+1,atrtrail1.0,21.43,24.84,86.31,50.5,-15.0,344.48,,1.0,264,264,5.07,8.0,False,-0.14,0/4,False,True,False,True,False,False,False
+1,runner0.15,62.65,16.18,387.1,59.1,-11.6,344.48,,1.0,264,264,8.03,8.0,False,0.05,3/4,True,True,False,True,True,True,False
+1,runner0.15+atr1,21.43,24.84,86.31,50.5,-15.0,344.48,,1.0,264,264,5.07,8.0,False,-0.14,0/4,False,True,False,True,False,False,False
+2,volstop_k1.0,11.7,23.25,50.31,57.0,-12.7,344.48,,1.0,284,264,13.59,8.0,True,9.09,1/4,False,True,True,True,True,False,False
+2,risk0.02+volstop1,11.7,23.25,50.31,57.0,-12.7,344.48,,1.0,284,264,13.59,8.0,True,9.09,1/4,False,True,True,True,True,False,False
+3,taper r0.01 n1.25 f0.5,79.07,22.35,353.76,59.1,-16.0,344.48,466.33,1.162,264,264,5.79,8.0,False,-3.85,2/4,True,False,False,True,False,False,False
+4,boost1.5@dd0.1,206.24,24.72,834.15,60.2,-20.3,344.48,676.09,1.377,264,264,5.41,8.0,False,-11.35,3/4,True,True,False,True,False,True,False
+5,vtarget lo0.7 hi1.5,116.39,16.66,698.7,62.4,-13.5,344.48,502.88,1.204,264,264,11.3,8.0,False,-3.37,4/4,True,True,False,True,True,True,False

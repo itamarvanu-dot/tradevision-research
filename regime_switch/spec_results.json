@@ -1,0 +1,1379 @@
+{
+ "s01_golden_state": {
+  "trades_all": {
+   "n_in": 12603,
+   "ev_in": 0.004,
+   "ev_out": 0.00301,
+   "win_in": 0.071,
+   "cliffs": -0.07,
+   "p": 0.6246,
+   "oos": false,
+   "cons": 0.86,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 6385,
+   "ev_in": 0.00805,
+   "ev_out": 0.00191,
+   "win_in": 0.073,
+   "cliffs": -0.048,
+   "p": 0.0997,
+   "oos": false,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "trades_short": {
+   "n_in": 6218,
+   "ev_in": -0.00016,
+   "ev_out": 0.0041,
+   "win_in": 0.068,
+   "cliffs": -0.103,
+   "p": 0.1661,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 1276,
+   "gm_in": 16.3,
+   "gm_out": 18.1,
+   "p": 0.856
+  },
+  "eng_btc": {
+   "n": 1271,
+   "gm_in": 17.4,
+   "gm_out": 15.8,
+   "p": 0.866
+  }
+ },
+ "s02_momentum12m_pos": {
+  "trades_all": {
+   "n_in": 11949,
+   "ev_in": 0.00328,
+   "ev_out": 0.00384,
+   "win_in": 0.069,
+   "cliffs": -0.058,
+   "p": 0.7608,
+   "oos": false,
+   "cons": 0.5,
+   "n_series": 6
+  },
+  "trades_long": {
+   "n_in": 6020,
+   "ev_in": 0.00638,
+   "ev_out": 0.0041,
+   "win_in": 0.07,
+   "cliffs": -0.005,
+   "p": 0.5914,
+   "oos": false,
+   "cons": 0.67,
+   "n_series": 6
+  },
+  "trades_short": {
+   "n_in": 5929,
+   "ev_in": 0.00012,
+   "ev_out": 0.00358,
+   "win_in": 0.067,
+   "cliffs": -0.074,
+   "p": 0.4352,
+   "oos": true,
+   "cons": 0.5,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n": 1326,
+   "gm_in": 23.1,
+   "gm_out": 10.0,
+   "p": 0.139
+  },
+  "eng_btc": {
+   "n": 1477,
+   "gm_in": 19.6,
+   "gm_out": 11.9,
+   "p": 0.289
+  }
+ },
+ "s02b_momentum90d_pos": {
+  "trades_all": {
+   "n_in": 13029,
+   "ev_in": 0.00348,
+   "ev_out": 0.00364,
+   "win_in": 0.072,
+   "cliffs": -0.079,
+   "p": 0.9468,
+   "oos": false,
+   "cons": 0.57,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 6582,
+   "ev_in": 0.00651,
+   "ev_out": 0.00368,
+   "win_in": 0.074,
+   "cliffs": -0.073,
+   "p": 0.4419,
+   "oos": false,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "trades_short": {
+   "n_in": 6447,
+   "ev_in": 0.00038,
+   "ev_out": 0.0036,
+   "win_in": 0.07,
+   "cliffs": -0.127,
+   "p": 0.2425,
+   "oos": false,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 1310,
+   "gm_in": 17.3,
+   "gm_out": 17.1,
+   "p": 0.985
+  },
+  "eng_btc": {
+   "n": 1329,
+   "gm_in": 17.1,
+   "gm_out": 16.0,
+   "p": 0.9
+  }
+ },
+ "s03_dip5": {
+  "trades_all": {
+   "n_in": 1836,
+   "ev_in": 0.007,
+   "ev_out": 0.00325,
+   "win_in": 0.065,
+   "cliffs": -0.271,
+   "p": 0.4086,
+   "oos": false,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 962,
+   "ev_in": 0.01861,
+   "ev_out": 0.00408,
+   "win_in": 0.083,
+   "cliffs": -0.229,
+   "p": 0.0565,
+   "oos": false,
+   "cons": 0.83,
+   "n_series": 6
+  },
+  "trades_short": {
+   "n_in": 874,
+   "ev_in": -0.00577,
+   "ev_out": 0.00241,
+   "win_in": 0.045,
+   "cliffs": -0.303,
+   "p": 0.0698,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 207,
+   "gm_in": -9.2,
+   "gm_out": 19.7,
+   "p": 0.169
+  },
+  "eng_btc": {
+   "n": 132,
+   "gm_in": -62.5,
+   "gm_out": 21.2,
+   "p": 0.005
+  }
+ },
+ "s03b_dip10": {
+  "trades_all": {
+   "n_in": 324,
+   "ev_in": -0.00509,
+   "ev_out": 0.00367,
+   "win_in": 0.04,
+   "cliffs": -0.551,
+   "p": 0.2292,
+   "oos": null,
+   "cons": 0.75,
+   "n_series": 4
+  },
+  "trades_long": {
+   "n_in": 174,
+   "ev_in": -0.00147,
+   "ev_out": 0.00538,
+   "win_in": 0.069,
+   "cliffs": -0.504,
+   "p": 0.7276,
+   "oos": null,
+   "cons": 0.75,
+   "n_series": 4
+  },
+  "trades_short": {
+   "n_in": 150,
+   "ev_in": -0.00928,
+   "ev_out": 0.00194,
+   "win_in": 0.007,
+   "cliffs": -0.575,
+   "p": 0.1196,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 3
+  },
+  "eng_eth": {
+   "n": 48,
+   "gm_in": -2.3,
+   "gm_out": 17.6,
+   "p": 0.617
+  },
+  "eng_btc": null
+ },
+ "s04_rsi_oversold": {
+  "trades_all": null,
+  "trades_long": null,
+  "trades_short": null,
+  "eng_eth": {
+   "n": 103,
+   "gm_in": 17.0,
+   "gm_out": 17.2,
+   "p": 1.0
+  },
+  "eng_btc": {
+   "n": 112,
+   "gm_in": -22.4,
+   "gm_out": 18.5,
+   "p": 0.104
+  }
+ },
+ "s04b_rsi_overbought": {
+  "trades_all": {
+   "n_in": 159,
+   "ev_in": -0.01108,
+   "ev_out": 0.00365,
+   "win_in": 0.0,
+   "cliffs": -0.668,
+   "p": 0.0066,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 3
+  },
+  "trades_long": {
+   "n_in": 98,
+   "ev_in": -0.01079,
+   "ev_out": 0.00542,
+   "win_in": 0.0,
+   "cliffs": -0.614,
+   "p": 0.0199,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 3
+  },
+  "trades_short": {
+   "n_in": 61,
+   "ev_in": -0.01153,
+   "ev_out": 0.00186,
+   "win_in": 0.0,
+   "cliffs": -0.768,
+   "p": 0.0199,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 1
+  },
+  "eng_eth": {
+   "n": 230,
+   "gm_in": 28.6,
+   "gm_out": 16.0,
+   "p": 0.557
+  },
+  "eng_btc": {
+   "n": 294,
+   "gm_in": 43.9,
+   "gm_out": 12.8,
+   "p": 0.085
+  }
+ },
+ "s05_above_ma200": {
+  "trades_all": {
+   "n_in": 12484,
+   "ev_in": 0.00314,
+   "ev_out": 0.00403,
+   "win_in": 0.072,
+   "cliffs": -0.052,
+   "p": 0.6977,
+   "oos": true,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 6324,
+   "ev_in": 0.00641,
+   "ev_out": 0.00394,
+   "win_in": 0.075,
+   "cliffs": -0.024,
+   "p": 0.5249,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "trades_short": {
+   "n_in": 6160,
+   "ev_in": -0.0002,
+   "ev_out": 0.00411,
+   "win_in": 0.068,
+   "cliffs": -0.132,
+   "p": 0.1993,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 1312,
+   "gm_in": 20.2,
+   "gm_out": 13.6,
+   "p": 0.577
+  },
+  "eng_btc": {
+   "n": 1287,
+   "gm_in": 20.9,
+   "gm_out": 11.7,
+   "p": 0.363
+  }
+ },
+ "s08_macd_bull_state": {
+  "trades_all": {
+   "n_in": 11087,
+   "ev_in": 0.00355,
+   "ev_out": 0.00355,
+   "win_in": 0.072,
+   "cliffs": 0.009,
+   "p": 0.9934,
+   "oos": false,
+   "cons": 0.38,
+   "n_series": 8
+  },
+  "trades_long": {
+   "n_in": 5581,
+   "ev_in": 0.00362,
+   "ev_out": 0.00681,
+   "win_in": 0.058,
+   "cliffs": -0.06,
+   "p": 0.392,
+   "oos": false,
+   "cons": 0.75,
+   "n_series": 8
+  },
+  "trades_short": {
+   "n_in": 5506,
+   "ev_in": 0.00349,
+   "ev_out": 0.00022,
+   "win_in": 0.086,
+   "cliffs": 0.069,
+   "p": 0.2359,
+   "oos": true,
+   "cons": 0.88,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 1269,
+   "gm_in": 31.3,
+   "gm_out": 1.5,
+   "p": 0.015
+  },
+  "eng_btc": {
+   "n": 1249,
+   "gm_in": 20.0,
+   "gm_out": 13.0,
+   "p": 0.547
+  }
+ },
+ "s08b_macd_bullcross_w5": {
+  "trades_all": {
+   "n_in": 5632,
+   "ev_in": 0.00121,
+   "ev_out": 0.0043,
+   "win_in": 0.069,
+   "cliffs": 0.026,
+   "p": 0.2625,
+   "oos": false,
+   "cons": 0.86,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 543,
+   "gm_in": 30.1,
+   "gm_out": 13.4,
+   "p": 0.274
+  },
+  "eng_btc": {
+   "n": 499,
+   "gm_in": 22.5,
+   "gm_out": 15.1,
+   "p": 0.557
+  }
+ },
+ "s18_bb_lower_touch": {
+  "trades_all": {
+   "n_in": 48,
+   "ev_in": -0.00285,
+   "ev_out": 0.00356,
+   "win_in": 0.104,
+   "cliffs": 0.167,
+   "p": 0.2724,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 1
+  },
+  "trades_long": {
+   "n_in": 30,
+   "ev_in": -0.00219,
+   "ev_out": 0.0053,
+   "win_in": 0.133,
+   "cliffs": 0.167,
+   "p": 0.5282,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 1
+  },
+  "trades_short": null,
+  "eng_eth": {
+   "n": 112,
+   "gm_in": -14.5,
+   "gm_out": 18.7,
+   "p": 0.294
+  },
+  "eng_btc": {
+   "n": 103,
+   "gm_in": 21.8,
+   "gm_out": 16.4,
+   "p": 0.881
+  }
+ },
+ "s18b_bb_upper_touch": {
+  "trades_all": null,
+  "trades_long": null,
+  "trades_short": null,
+  "eng_eth": {
+   "n": 168,
+   "gm_in": 40.7,
+   "gm_out": 15.4,
+   "p": 0.294
+  },
+  "eng_btc": {
+   "n": 177,
+   "gm_in": 36.7,
+   "gm_out": 15.0,
+   "p": 0.343
+  }
+ },
+ "s35_bb_squeeze_w10": {
+  "trades_all": {
+   "n_in": 4600,
+   "ev_in": 0.00204,
+   "ev_out": 0.00392,
+   "win_in": 0.059,
+   "cliffs": 0.193,
+   "p": 0.5316,
+   "oos": true,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 494,
+   "gm_in": 21.0,
+   "gm_out": 16.2,
+   "p": 0.716
+  },
+  "eng_btc": {
+   "n": 583,
+   "gm_in": 33.9,
+   "gm_out": 11.1,
+   "p": 0.075
+  }
+ },
+ "s19_breakout_highvol": {
+  "trades_all": null,
+  "eng_eth": {
+   "n": 73,
+   "gm_in": 52.0,
+   "gm_out": 16.1,
+   "p": 0.313
+  },
+  "eng_btc": {
+   "n": 60,
+   "gm_in": 51.9,
+   "gm_out": 15.7,
+   "p": 0.284
+  }
+ },
+ "s19b_breakout_lowvol": {
+  "trades_all": null,
+  "eng_eth": {
+   "n": 94,
+   "gm_in": 54.4,
+   "gm_out": 15.7,
+   "p": 0.249
+  },
+  "eng_btc": {
+   "n": 112,
+   "gm_in": 55.5,
+   "gm_out": 14.7,
+   "p": 0.124
+  }
+ },
+ "s36_breakout50_state": {
+  "trades_all": null,
+  "trades_long": null,
+  "trades_short": null,
+  "eng_eth": {
+   "n": 122,
+   "gm_in": 71.4,
+   "gm_out": 14.3,
+   "p": 0.015
+  },
+  "eng_btc": {
+   "n": 116,
+   "gm_in": 19.9,
+   "gm_out": 16.4,
+   "p": 0.896
+  }
+ },
+ "s20_deadcat_w20": {
+  "trades_all": {
+   "n_in": 1405,
+   "ev_in": 0.00042,
+   "ev_out": 0.00375,
+   "win_in": 0.085,
+   "cliffs": -0.169,
+   "p": 0.5415,
+   "oos": true,
+   "cons": 0.88,
+   "n_series": 8
+  },
+  "trades_long": {
+   "n_in": 703,
+   "ev_in": 0.00509,
+   "ev_out": 0.00529,
+   "win_in": 0.074,
+   "cliffs": -0.223,
+   "p": 1.0,
+   "oos": false,
+   "cons": 0.62,
+   "n_series": 8
+  },
+  "trades_short": {
+   "n_in": 702,
+   "ev_in": -0.00427,
+   "ev_out": 0.00218,
+   "win_in": 0.095,
+   "cliffs": -0.114,
+   "p": 0.1628,
+   "oos": true,
+   "cons": 0.88,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 171,
+   "gm_in": -9.9,
+   "gm_out": 19.3,
+   "p": 0.159
+  },
+  "eng_btc": {
+   "n": 90,
+   "gm_in": 20.4,
+   "gm_out": 16.5,
+   "p": 0.861
+  }
+ },
+ "s45_bull_engulf_w5": {
+  "trades_all": {
+   "n_in": 2693,
+   "ev_in": 0.00567,
+   "ev_out": 0.00327,
+   "win_in": 0.097,
+   "cliffs": -0.038,
+   "p": 0.4086,
+   "oos": true,
+   "cons": 0.62,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 457,
+   "gm_in": 27.0,
+   "gm_out": 14.9,
+   "p": 0.408
+  },
+  "eng_btc": {
+   "n": 470,
+   "gm_in": 0.9,
+   "gm_out": 20.4,
+   "p": 0.174
+  }
+ },
+ "s33_round_number": {
+  "trades_all": {
+   "n_in": 1497,
+   "ev_in": 0.00535,
+   "ev_out": 0.00342,
+   "win_in": 0.065,
+   "cliffs": 0.005,
+   "p": 0.7475,
+   "oos": false,
+   "cons": 0.75,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 137,
+   "gm_in": -0.9,
+   "gm_out": 18.3,
+   "p": 0.463
+  },
+  "eng_btc": {
+   "n": 167,
+   "gm_in": 44.8,
+   "gm_out": 14.5,
+   "p": 0.174
+  }
+ },
+ "s37_mayer_low": {
+  "trades_all": {
+   "n_in": 7254,
+   "ev_in": 0.00499,
+   "ev_out": 0.00289,
+   "win_in": 0.069,
+   "cliffs": 0.132,
+   "p": 0.3654,
+   "oos": true,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 3649,
+   "ev_in": 0.00799,
+   "ev_out": 0.00404,
+   "win_in": 0.066,
+   "cliffs": 0.111,
+   "p": 0.4286,
+   "oos": false,
+   "cons": 1.0,
+   "n_series": 7
+  },
+  "trades_short": {
+   "n_in": 3605,
+   "ev_in": 0.00195,
+   "ev_out": 0.00172,
+   "win_in": 0.073,
+   "cliffs": 0.137,
+   "p": 0.9468,
+   "oos": false,
+   "cons": 0.29,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 894,
+   "gm_in": 15.0,
+   "gm_out": 18.5,
+   "p": 0.756
+  },
+  "eng_btc": {
+   "n": 919,
+   "gm_in": 15.6,
+   "gm_out": 17.3,
+   "p": 0.866
+  }
+ },
+ "s37b_mayer_high": {
+  "trades_all": {
+   "n_in": 299,
+   "ev_in": -0.00866,
+   "ev_out": 0.00371,
+   "win_in": 0.033,
+   "cliffs": -0.641,
+   "p": 0.1262,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 4
+  },
+  "trades_long": {
+   "n_in": 162,
+   "ev_in": -0.01067,
+   "ev_out": 0.00551,
+   "win_in": 0.006,
+   "cliffs": -0.649,
+   "p": 0.1528,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 3
+  },
+  "trades_short": {
+   "n_in": 137,
+   "ev_in": -0.00629,
+   "ev_out": 0.00189,
+   "win_in": 0.066,
+   "cliffs": -0.625,
+   "p": 0.2326,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 3
+  },
+  "eng_eth": {
+   "n": 59,
+   "gm_in": 31.1,
+   "gm_out": 16.8,
+   "p": 0.697
+  },
+  "eng_btc": {
+   "n": 25,
+   "gm_in": -52.3,
+   "gm_out": 17.3,
+   "p": 0.179
+  }
+ },
+ "s26_picycle_top_w90": {
+  "trades_all": {
+   "n_in": 1173,
+   "ev_in": 7e-05,
+   "ev_out": 0.00374,
+   "win_in": 0.049,
+   "cliffs": -0.586,
+   "p": 0.4219,
+   "oos": null,
+   "cons": 0.75,
+   "n_series": 4
+  },
+  "trades_long": {
+   "n_in": 579,
+   "ev_in": 0.00958,
+   "ev_out": 0.00506,
+   "win_in": 0.069,
+   "cliffs": -0.527,
+   "p": 0.6744,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 4
+  },
+  "trades_short": {
+   "n_in": 594,
+   "ev_in": -0.0092,
+   "ev_out": 0.00239,
+   "win_in": 0.03,
+   "cliffs": -0.612,
+   "p": 0.1229,
+   "oos": null,
+   "cons": 0.75,
+   "n_series": 4
+  },
+  "eng_eth": {
+   "n": 91,
+   "gm_in": -15.5,
+   "gm_out": 18.5,
+   "p": 0.159
+  },
+  "eng_btc": {
+   "n": 91,
+   "gm_in": 10.9,
+   "gm_out": 16.8,
+   "p": 0.876
+  }
+ },
+ "s44_near_200wma": {
+  "trades_all": {
+   "n_in": 1783,
+   "ev_in": 0.00332,
+   "ev_out": 0.00357,
+   "win_in": 0.076,
+   "cliffs": 0.301,
+   "p": 0.9601,
+   "oos": null,
+   "cons": 0.5,
+   "n_series": 2
+  },
+  "trades_long": {
+   "n_in": 895,
+   "ev_in": 0.00831,
+   "ev_out": 0.00503,
+   "win_in": 0.064,
+   "cliffs": 0.29,
+   "p": 0.7342,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 2
+  },
+  "trades_short": {
+   "n_in": 888,
+   "ev_in": -0.00171,
+   "ev_out": 0.00208,
+   "win_in": 0.088,
+   "cliffs": 0.333,
+   "p": 0.4419,
+   "oos": null,
+   "cons": 1.0,
+   "n_series": 2
+  },
+  "eng_eth": {
+   "n": 232,
+   "gm_in": -5.4,
+   "gm_out": 19.6,
+   "p": 0.204
+  },
+  "eng_btc": {
+   "n": 375,
+   "gm_in": 12.4,
+   "gm_out": 17.4,
+   "p": 0.692
+  }
+ },
+ "s06_halving_yr1": {
+  "trades_all": {
+   "n_in": 5514,
+   "ev_in": 0.0042,
+   "ev_out": 0.00335,
+   "win_in": 0.066,
+   "cliffs": -0.114,
+   "p": 0.701,
+   "oos": false,
+   "cons": 0.67,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n": 590,
+   "gm_in": 27.1,
+   "gm_out": 14.0,
+   "p": 0.159
+  },
+  "eng_btc": {
+   "n": 590,
+   "gm_in": 14.2,
+   "gm_out": 17.4,
+   "p": 0.682
+  }
+ },
+ "s06_halving_yr2": {
+  "trades_all": {
+   "n_in": 4957,
+   "ev_in": 0.00148,
+   "ev_out": 0.00411,
+   "win_in": 0.068,
+   "cliffs": -0.144,
+   "p": 0.2957,
+   "oos": false,
+   "cons": 1.0,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 433,
+   "gm_in": 9.4,
+   "gm_out": 18.9,
+   "p": 0.383
+  },
+  "eng_btc": {
+   "n": 433,
+   "gm_in": 26.1,
+   "gm_out": 14.5,
+   "p": 0.294
+  }
+ },
+ "s06_halving_yr3": {
+  "trades_all": {
+   "n_in": 6764,
+   "ev_in": 0.00383,
+   "ev_out": 0.00343,
+   "win_in": 0.072,
+   "cliffs": 0.047,
+   "p": 0.8439,
+   "oos": false,
+   "cons": 0.62,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 730,
+   "gm_in": 13.7,
+   "gm_out": 18.7,
+   "p": 0.622
+  },
+  "eng_btc": {
+   "n": 730,
+   "gm_in": 21.5,
+   "gm_out": 14.5,
+   "p": 0.348
+  }
+ },
+ "s06_halving_yr4": {
+  "trades_all": {
+   "n_in": 5860,
+   "ev_in": 0.00436,
+   "ev_out": 0.00327,
+   "win_in": 0.074,
+   "cliffs": 0.232,
+   "p": 0.6113,
+   "oos": false,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 652,
+   "gm_in": 17.3,
+   "gm_out": 17.1,
+   "p": 1.0
+  },
+  "eng_btc": {
+   "n": 652,
+   "gm_in": 7.0,
+   "gm_out": 20.2,
+   "p": 0.04
+  }
+ },
+ "s07_nov_apr": {
+  "trades_all": {
+   "n_in": 7885,
+   "ev_in": 0.0081,
+   "ev_out": 0.00119,
+   "win_in": 0.082,
+   "cliffs": -0.015,
+   "p": 0.0066,
+   "oos": true,
+   "cons": 0.86,
+   "n_series": 7
+  },
+  "trades_long": {
+   "n_in": 3994,
+   "ev_in": 0.01343,
+   "ev_out": 0.00102,
+   "win_in": 0.088,
+   "cliffs": 0.009,
+   "p": 0.0033,
+   "oos": true,
+   "cons": 0.86,
+   "n_series": 7
+  },
+  "trades_short": {
+   "n_in": 3891,
+   "ev_in": 0.00263,
+   "ev_out": 0.00136,
+   "win_in": 0.075,
+   "cliffs": -0.028,
+   "p": 0.6711,
+   "oos": false,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 1118,
+   "gm_in": 24.6,
+   "gm_out": 10.8,
+   "p": 0.164
+  },
+  "eng_btc": {
+   "n": 1118,
+   "gm_in": 24.4,
+   "gm_out": 9.9,
+   "p": 0.249
+  }
+ },
+ "s12_january": {
+  "trades_all": {
+   "n_in": 928,
+   "ev_in": 0.01709,
+   "ev_out": 0.00298,
+   "win_in": 0.066,
+   "cliffs": -0.005,
+   "p": 0.0133,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n": 186,
+   "gm_in": 50.5,
+   "gm_out": 14.4,
+   "p": 0.219
+  },
+  "eng_btc": {
+   "n": 186,
+   "gm_in": 32.2,
+   "gm_out": 15.3,
+   "p": 0.557
+  }
+ },
+ "s14_october": {
+  "trades_all": {
+   "n_in": 2644,
+   "ev_in": 0.00065,
+   "ev_out": 0.00392,
+   "win_in": 0.075,
+   "cliffs": 0.111,
+   "p": 0.5017,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 6
+  },
+  "trades_long": {
+   "n_in": 1349,
+   "ev_in": 0.00355,
+   "ev_out": 0.00551,
+   "win_in": 0.073,
+   "cliffs": 0.084,
+   "p": 0.8472,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 6
+  },
+  "trades_short": {
+   "n_in": 1295,
+   "ev_in": -0.00237,
+   "ev_out": 0.00232,
+   "win_in": 0.078,
+   "cliffs": 0.113,
+   "p": 0.2326,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n": 217,
+   "gm_in": -2.1,
+   "gm_out": 19.1,
+   "p": 0.418
+  },
+  "eng_btc": {
+   "n": 217,
+   "gm_in": 15.5,
+   "gm_out": 16.7,
+   "p": 0.94
+  }
+ },
+ "s17_september": {
+  "trades_all": {
+   "n_in": 3047,
+   "ev_in": -0.00201,
+   "ev_out": 0.00439,
+   "win_in": 0.055,
+   "cliffs": -0.085,
+   "p": 0.1495,
+   "oos": true,
+   "cons": 0.75,
+   "n_series": 8
+  },
+  "trades_long": {
+   "n_in": 1531,
+   "ev_in": -0.00436,
+   "ev_out": 0.00674,
+   "win_in": 0.04,
+   "cliffs": -0.16,
+   "p": 0.1429,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 8
+  },
+  "trades_short": {
+   "n_in": 1516,
+   "ev_in": 0.00035,
+   "ev_out": 0.00201,
+   "win_in": 0.069,
+   "cliffs": -0.063,
+   "p": 0.7143,
+   "oos": true,
+   "cons": 0.62,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 210,
+   "gm_in": -18.3,
+   "gm_out": 20.6,
+   "p": 0.07
+  },
+  "eng_btc": {
+   "n": 210,
+   "gm_in": -26.2,
+   "gm_out": 20.7,
+   "p": 0.03
+  }
+ },
+ "s31_monday": {
+  "trades_all": {
+   "n_in": 3338,
+   "ev_in": 0.00504,
+   "ev_out": 0.0033,
+   "win_in": 0.074,
+   "cliffs": -0.037,
+   "p": 0.6611,
+   "oos": true,
+   "cons": 0.62,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 343,
+   "gm_in": 14.3,
+   "gm_out": 17.7,
+   "p": 0.711
+  },
+  "eng_btc": {
+   "n": 343,
+   "gm_in": 42.8,
+   "gm_out": 12.3,
+   "p": 0.095
+  }
+ },
+ "s32_weekend": {
+  "trades_all": {
+   "n_in": 5782,
+   "ev_in": 0.00082,
+   "ev_out": 0.00446,
+   "win_in": 0.056,
+   "cliffs": 0.044,
+   "p": 0.1296,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 687,
+   "gm_in": 21.3,
+   "gm_out": 15.5,
+   "p": 0.547
+  },
+  "eng_btc": {
+   "n": 687,
+   "gm_in": 17.4,
+   "gm_out": 16.3,
+   "p": 0.881
+  }
+ },
+ "s41_turn_of_month": {
+  "trades_all": {
+   "n_in": 3555,
+   "ev_in": 0.00626,
+   "ev_out": 0.00305,
+   "win_in": 0.08,
+   "cliffs": 0.082,
+   "p": 0.0698,
+   "oos": false,
+   "cons": 0.62,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 430,
+   "gm_in": 35.1,
+   "gm_out": 13.3,
+   "p": 0.09
+  },
+  "eng_btc": {
+   "n": 430,
+   "gm_in": -5.2,
+   "gm_out": 21.4,
+   "p": 0.129
+  }
+ },
+ "s16_santa": {
+  "trades_all": {
+   "n_in": 458,
+   "ev_in": 0.00524,
+   "ev_out": 0.00351,
+   "win_in": 0.076,
+   "cliffs": 0.236,
+   "p": 0.8771,
+   "oos": false,
+   "cons": 0.6,
+   "n_series": 5
+  },
+  "eng_eth": {
+   "n": 42,
+   "gm_in": 102.9,
+   "gm_out": 15.7,
+   "p": 0.1
+  },
+  "eng_btc": {
+   "n": 42,
+   "gm_in": 5.2,
+   "gm_out": 16.8,
+   "p": 0.826
+  }
+ },
+ "s42_opex_friday": {
+  "trades_all": {
+   "n_in": 503,
+   "ev_in": -0.00371,
+   "ev_out": 0.00371,
+   "win_in": 0.036,
+   "cliffs": 0.001,
+   "p": 0.2691,
+   "oos": true,
+   "cons": 0.86,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 79,
+   "gm_in": 48.9,
+   "gm_out": 16.1,
+   "p": 0.403
+  },
+  "eng_btc": {
+   "n": 79,
+   "gm_in": 12.2,
+   "gm_out": 16.8,
+   "p": 0.925
+  }
+ },
+ "s49_pre_holiday": {
+  "trades_all": {
+   "n_in": 306,
+   "ev_in": 0.02371,
+   "ev_out": 0.00328,
+   "win_in": 0.114,
+   "cliffs": -0.068,
+   "p": 0.0598,
+   "oos": true,
+   "cons": 0.83,
+   "n_series": 6
+  },
+  "eng_eth": {
+   "n": 40,
+   "gm_in": 54.6,
+   "gm_out": 16.6,
+   "p": 0.478
+  },
+  "eng_btc": {
+   "n": 40,
+   "gm_in": 29.1,
+   "gm_out": 16.4,
+   "p": 0.806
+  }
+ },
+ "s50_new_moon_pm3": {
+  "trades_all": {
+   "n_in": 4864,
+   "ev_in": -0.00109,
+   "ev_out": 0.00479,
+   "win_in": 0.069,
+   "cliffs": -0.085,
+   "p": 0.0166,
+   "oos": true,
+   "cons": 0.88,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 489,
+   "gm_in": 14.4,
+   "gm_out": 17.9,
+   "p": 0.836
+  },
+  "eng_btc": {
+   "n": 489,
+   "gm_in": 19.9,
+   "gm_out": 15.8,
+   "p": 0.642
+  }
+ },
+ "s50b_full_moon_pm3": {
+  "trades_all": {
+   "n_in": 4137,
+   "ev_in": 0.00811,
+   "ev_out": 0.00255,
+   "win_in": 0.069,
+   "cliffs": 0.035,
+   "p": 0.0565,
+   "oos": true,
+   "cons": 1.0,
+   "n_series": 8
+  },
+  "eng_eth": {
+   "n": 487,
+   "gm_in": 38.3,
+   "gm_out": 11.8,
+   "p": 0.045
+  },
+  "eng_btc": {
+   "n": 487,
+   "gm_in": 17.4,
+   "gm_out": 16.4,
+   "p": 0.915
+  }
+ },
+ "s09_fomc_w": {
+  "trades_all": {
+   "n_in": 800,
+   "ev_in": 0.01915,
+   "ev_out": 0.00299,
+   "win_in": 0.088,
+   "cliffs": -0.075,
+   "p": 0.0266,
+   "oos": true,
+   "cons": 0.71,
+   "n_series": 7
+  },
+  "eng_eth": {
+   "n": 108,
+   "gm_in": 30.7,
+   "gm_out": 16.6,
+   "p": 0.647
+  },
+  "eng_btc": {
+   "n": 108,
+   "gm_in": 17.8,
+   "gm_out": 16.6,
+   "p": 0.94
+  }
+ },
+ "s43_sessions": {
+  "us_ev": 0.00482,
+  "us_n": 9099,
+  "asia_ev": 0.00291,
+  "asia_n": 6151,
+  "other_ev": 0.00258
+ },
+ "_BH": {
+  "n_tests": 68,
+  "bh05": [],
+  "bh10": [],
+  "best": [
+   [
+    "s07_nov_apr:trades_long",
+    0.0033
+   ],
+   [
+    "s04b_rsi_overbought:trades_all",
+    0.0066
+   ],
+   [
+    "s07_nov_apr:trades_all",
+    0.0066
+   ],
+   [
+    "s12_january:trades_all",
+    0.0133
+   ],
+   [
+    "s50_new_moon_pm3:trades_all",
+    0.0166
+   ],
+   [
+    "s04b_rsi_overbought:trades_long",
+    0.0199
+   ],
+   [
+    "s04b_rsi_overbought:trades_short",
+    0.0199
+   ],
+   [
+    "s09_fomc_w:trades_all",
+    0.0266
+   ],
+   [
+    "s03_dip5:trades_long",
+    0.0565
+   ],
+   [
+    "s50b_full_moon_pm3:trades_all",
+    0.0565
+   ],
+   [
+    "s49_pre_holiday:trades_all",
+    0.0598
+   ],
+   [
+    "s03_dip5:trades_short",
+    0.0698
+   ]
+  ]
+ }
+}

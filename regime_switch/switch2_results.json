@@ -1,0 +1,136 @@
+{
+ "ETHUSDT": {
+  "lev_switch": {
+   "growth": 23.8,
+   "maxDD": -0.335,
+   "green": 0.513,
+   "worst_m": -0.209,
+   "n_months": 78
+  },
+  "lev_switch_RANDOMCTL": {
+   "growth_med": 77.49,
+   "maxDD_med": -0.445,
+   "green_med": 0.519,
+   "worst_med": -0.232
+  },
+  "chop_notrade": {
+   "growth": 4.49,
+   "maxDD": -0.559,
+   "green": 0.333,
+   "worst_m": -0.204,
+   "n_months": 78
+  },
+  "chop_notrade_RANDOMCTL": {
+   "growth_med": 34.207,
+   "maxDD_med": -0.429,
+   "green_med": 0.474,
+   "worst_med": -0.215
+  },
+  "inverse_trend2cons": {
+   "growth": 49.17,
+   "maxDD": -0.385,
+   "green": 0.526,
+   "worst_m": -0.203,
+   "n_months": 78
+  },
+  "inverse_RANDOMCTL": {
+   "growth_med": 14.366,
+   "maxDD_med": -0.387,
+   "green_med": 0.513,
+   "worst_med": -0.22
+  },
+  "atr_geometry": {
+   "growth": 111.82,
+   "maxDD": -0.36,
+   "green": 0.538,
+   "worst_m": -0.239,
+   "n_months": 78
+  },
+  "atr_geometry_RANDOMCTL": {
+   "growth_med": 101.339,
+   "maxDD_med": -0.366,
+   "green_med": 0.545,
+   "worst_med": -0.23
+  },
+  "atr_stop_only": {
+   "growth": 131.43,
+   "maxDD": -0.351,
+   "green": 0.538,
+   "worst_m": -0.23,
+   "n_months": 78
+  },
+  "atr_stop_only_RANDOMCTL": {
+   "growth_med": 88.474,
+   "maxDD_med": -0.36,
+   "green_med": 0.526,
+   "worst_med": -0.227
+  }
+ },
+ "BTCUSDT": {
+  "lev_switch": {
+   "growth": 13.7,
+   "maxDD": -0.388,
+   "green": 0.615,
+   "worst_m": -0.2,
+   "n_months": 78
+  },
+  "lev_switch_RANDOMCTL": {
+   "growth_med": 49.424,
+   "maxDD_med": -0.444,
+   "green_med": 0.622,
+   "worst_med": -0.216
+  },
+  "chop_notrade": {
+   "growth": 1.54,
+   "maxDD": -0.418,
+   "green": 0.346,
+   "worst_m": -0.163,
+   "n_months": 78
+  },
+  "chop_notrade_RANDOMCTL": {
+   "growth_med": 17.077,
+   "maxDD_med": -0.428,
+   "green_med": 0.494,
+   "worst_med": -0.178
+  },
+  "inverse_trend2cons": {
+   "growth": 35.96,
+   "maxDD": -0.45,
+   "green": 0.59,
+   "worst_m": -0.207,
+   "n_months": 78
+  },
+  "inverse_RANDOMCTL": {
+   "growth_med": 21.727,
+   "maxDD_med": -0.437,
+   "green_med": 0.583,
+   "worst_med": -0.206
+  },
+  "atr_geometry": {
+   "growth": 42.69,
+   "maxDD": -0.466,
+   "green": 0.628,
+   "worst_m": -0.208,
+   "n_months": 78
+  },
+  "atr_geometry_RANDOMCTL": {
+   "growth_med": 46.686,
+   "maxDD_med": -0.429,
+   "green_med": 0.603,
+   "worst_med": -0.207
+  },
+  "atr_stop_only": {
+   "growth": 49.95,
+   "maxDD": -0.444,
+   "green": 0.628,
+   "worst_m": -0.206,
+   "n_months": 78
+  },
+  "atr_stop_only_RANDOMCTL": {
+   "growth_med": 45.407,
+   "maxDD_med": -0.425,
+   "green_med": 0.615,
+   "worst_med": -0.203
+  }
+ }
+}

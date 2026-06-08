@@ -1,0 +1,68 @@
+======================================================================
+DIFFERENTIAL ENGINE — RESULTS SUMMARY
+======================================================================
+data: C:/Users/admin/tradevision-repos/data/binance  months=96 years=2018..2026  configs=100
+
+--- PART 1: config x year (portfolio, engine units; platform~/10) ---
+years analyzed: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
+5 LEAST-concentrated configs (most spread across years):
+  cfg72 W1700 tpd0.29 ntp14 stop0.005 sltp1 | conc=0.22 growthx=94.5 DD=18 posMo=62
+      yearly%: {2018: 29.0, 2019: 94.0, 2020: 176.0, 2021: 175.0, 2022: 83.0, 2023: 7.0, 2024: 109.0, 2025: 17.0, 2026: 4.0}
+  cfg41 W1700 tpd0.3 ntp13 stop0.005 sltp1 | conc=0.22 growthx=95.7 DD=18 posMo=62
+      yearly%: {2018: 30.0, 2019: 95.0, 2020: 177.0, 2021: 177.0, 2022: 83.0, 2023: 7.0, 2024: 107.0, 2025: 17.0, 2026: 4.0}
+  cfg16 W1700 tpd0.29 ntp15 stop0.005 sltp1 | conc=0.22 growthx=98.2 DD=18 posMo=62
+      yearly%: {2018: 29.0, 2019: 94.0, 2020: 177.0, 2021: 180.0, 2022: 83.0, 2023: 7.0, 2024: 115.0, 2025: 17.0, 2026: 4.0}
+  cfg92 W1700 tpd0.25 ntp15 stop0.005 sltp1 | conc=0.22 growthx=94.0 DD=18 posMo=62
+      yearly%: {2018: 30.0, 2019: 93.0, 2020: 178.0, 2021: 176.0, 2022: 84.0, 2023: 6.0, 2024: 104.0, 2025: 17.0, 2026: 4.0}
+  cfg88 W1700 tpd0.26 ntp15 stop0.005 sltp1 | conc=0.23 growthx=94.0 DD=22 posMo=62
+      yearly%: {2018: 32.0, 2019: 96.0, 2020: 179.0, 2021: 181.0, 2022: 85.0, 2023: -4.0, 2024: 109.0, 2025: 19.0, 2026: 4.0}
+most-concentrated (one year dominates):
+  cfg22 W2800 tpd0.28 ntp15 | conc=0.36 growthx=103.5
+  cfg98 W2800 tpd0.26 ntp15 | conc=0.36 growthx=99.8
+  cfg29 W2800 tpd0.28 ntp15 | conc=0.36 growthx=102.9
+
+--- PART 1b: which year-FEATURE predicts which winning PARAMETER ---
+(Spearman rho across years of return-weighted preferred param vs year feature)
+  *     W ~ ac1         rho=-0.75 p=0.02 n=9
+     sltp ~ er          rho=+0.57 p=0.11 n=9
+      ntp ~ ncross      rho=+0.55 p=0.12 n=9
+      tpd ~ er          rho=+0.52 p=0.15 n=9
+     stop ~ ac1         rho=-0.48 p=0.19 n=9
+     stop ~ er          rho=+0.43 p=0.24 n=9
+     sltp ~ ncross      rho=-0.43 p=0.24 n=9
+     sltp ~ ac1         rho=-0.42 p=0.26 n=9
+      tpd ~ ncross      rho=-0.38 p=0.31 n=9
+        W ~ drift       rho=+0.37 p=0.33 n=9
+        W ~ ret         rho=+0.37 p=0.33 n=9
+      ntp ~ dispersion  rho=-0.33 p=0.38 n=9
+
+--- PART 2: ensemble / rotation (anti-correlated basket, static) ---
+mean pairwise between-year corr of configs: +0.93
+most anti-correlated pair: [3, 72] (corr +0.79)
+  k=1: posMo=61 posY=100 DD=18 conc=0.23 worstY=4% growthx=103.1 members=[1]
+  k=2: posMo=65 posY=100 DD=14 conc=0.27 worstY=7% growthx=115.3 members=[1, 61]
+  k=3: posMo=68 posY=100 DD=14 conc=0.28 worstY=3% growthx=118.2 members=[1, 61, 71]
+  k=4: posMo=70 posY=100 DD=13 conc=0.30 worstY=5% growthx=117.9 members=[1, 61, 71, 79]
+  k=5: posMo=68 posY=100 DD=12 conc=0.30 worstY=4% growthx=115.6 members=[1, 61, 71, 79, 85]
+  k=6: posMo=68 posY=100 DD=13 conc=0.31 worstY=3% growthx=114.3 members=[1, 61, 71, 79, 85, 10]
+
+--- PART 3: adaptive differential engine, LOCKBOX (cal<2024, test>=2024) ---
+selected rule: {'param': 'tpd', 'feat': 'rvol', 'lo': 0.33, 'hi': 1.0, 'invert': 0.0, 'score': 89.5238705750433}
+IN-SAMPLE  adaptive: {'growth': 33.90956724299248, 'DD': 16.886333266114196, 'posMo': 68.65671641791045, 'obj': 89.5238705750433}
+OOS static : {'growth': 2.6388409587493014, 'DD': 18.430522605740318, 'posMo': 60.71428571428571, 'obj': 65.97913799621176}
+OOS adaptive: {'growth': 2.1254927603348515, 'DD': 18.58204408666063, 'posMo': 60.71428571428571, 'obj': 64.77198603613763}
+control obj p95: 66.0 (mean 65.2)
+  adaptive beats static OOS? False
+  adaptive beats random-timing? False
+  >>> VERDICT adaptive wins: False <<<
+
+--- PART 4: Fear & Greed (out-of-sample added power) ---
+  n_fg_days: 3046
+  fg_start: 2018-02-01
+  auc_tech_oos: 0.49732620320855614
+  auc_tech_plus_fng_oos: 0.49732620320855614
+  fng_adds_oos: False
+  spearman_fng_level_vs_next_month_ret: -0.029822437167843857
+
+elapsed: 1464s
+======================================================================

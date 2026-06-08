@@ -1,0 +1,39 @@
+{
+  "rule": {
+    "param": "tpd",
+    "feat": "rvol",
+    "lo": 0.33,
+    "hi": 1.0,
+    "invert": 0.0,
+    "score": 89.5238705750433
+  },
+  "in_sample": {
+    "growth": 33.90956724299248,
+    "DD": 16.886333266114196,
+    "posMo": 68.65671641791045,
+    "obj": 89.5238705750433
+  },
+  "base_in": {
+    "growth": 39.05970682159969,
+    "DD": 17.98268608647008,
+    "posMo": 62.68656716417911,
+    "obj": 83.06779053620085
+  },
+  "adaptive_oos": {
+    "growth": 2.1254927603348515,
+    "DD": 18.58204408666063,
+    "posMo": 60.71428571428571,
+    "obj": 64.77198603613763
+  },
+  "static_oos": {
+    "growth": 2.6388409587493014,
+    "DD": 18.430522605740318,
+    "posMo": 60.71428571428571,
+    "obj": 65.97913799621176
+  },
+  "control_obj_mean": 65.18143460479433,
+  "control_obj_p95": 65.95580447457867,
+  "adaptive_beats_static_oos": false,
+  "adaptive_beats_control": false,
+  "VERDICT_adaptive_wins": false
+}

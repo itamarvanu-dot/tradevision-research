@@ -333,7 +333,7 @@ def _sig(cfg, kw):
     return json.dumps([cfg, {k: kw[k] for k in sorted(kw)}], sort_keys=True, default=str)
 
 
-def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, screen30=False):
+def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, screen30=False, ckpt_path=None):
     """Scale GPU geometry screen. Returns top-K (cfg, kw, screen_retDD) by cross-coin geo-mean
     full-period return/DD. screen30=True runs on 30-min bars (~30x faster; coarse candidate gen).
     Requires cupy + v6_cuda on a GPU box (Colab L4/A100)."""
@@ -384,6 +384,20 @@ def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, sc
             done += m
         heap.sort(key=lambda x: x[0], reverse=True); heap = heap[:topk]
         log(f'  W{W} ({wi+1}/{len(W_GRID)}) swept; global best geo-retDD {heap[0][0]:.1f}')
+        # CHECKPOINT (overnight robustness): persist top-K to disk each W, AND echo the top-3
+        # candidate PARAMS to stdout every few W so progress survives even if /content is wiped
+        # on a Colab disconnect (the log is read back by the monitor).
+        if ckpt_path:
+            try:
+                json.dump({'wi': wi, 'W': W, 'done_per_W': per_w, 'screen30': screen30,
+                           'top': [{'cfg': c, 'kw': k, 'screen_retDD': round(r, 3)} for r, c, k in heap[:60]]},
+                          open(ckpt_path, 'w'), default=str)
+            except Exception:
+                pass
+        if wi % 4 == 0 or wi == len(W_GRID) - 1:
+            for rr, cc, kk in heap[:3]:
+                log(f'    CKPT top: W{cc["longSMA"]} tpd{cc["tp_difference"]} ntp{cc["tp_count"]} '
+                    f'lev{cc["leverage"]} stop{cc["stop_loose"]} +{list(kk)} | screen_retDD {rr:.1f}')
     return [(cfg, kw, rd) for rd, cfg, kw in heap]
 
 
@@ -547,6 +561,11 @@ def main():
                 continue
             survs_tag = 'PASS' if res['PASS'] else 'fail'
             survs.append(res)
+            try:    # incremental persistence so the gate's work survives a mid-gate disconnect
+                json.dump(sorted(survs, key=lambda s: (s['oos_retDD'] or -1e9), reverse=True),
+                          open(os.path.join(args.out, 'gate_partial.json'), 'w'), default=str, indent=1)
+            except Exception:
+                pass
             log(f"  {survs_tag} W{cfg['longSMA']} tpd{cfg['tp_difference']} ntp{cfg['tp_count']} "
                 f"lev{cfg['leverage']} stop{cfg['stop_loose']} +{list(kw)} | "
                 f"OOS retDD {res['oos_retDD']} (base {base_oos['return_over_dd']:.1f}) "
@@ -557,7 +576,8 @@ def main():
     screen_ret = {}
     if args.engine == 'gpu':
         per_w = max(1, args.n // len(W_GRID))
-        cands = gpu_stage_a(coins, per_w=per_w, topk=max(args.gpu_keep, args.topk), screen30=args.screen30)
+        cands = gpu_stage_a(coins, per_w=per_w, topk=max(args.gpu_keep, args.topk), screen30=args.screen30,
+                            ckpt_path=os.path.join(args.out, 'screen_ckpt.json'))
         # persist candidates BEFORE the slow CPU gate, so a Colab disconnect never loses the screen
         os.makedirs(args.out, exist_ok=True)
         json.dump([{'cfg': c, 'kw': k, 'screen_retDD': round(rd, 3)} for c, k, rd in cands],

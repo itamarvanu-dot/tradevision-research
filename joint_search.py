@@ -290,32 +290,77 @@ def _cand_to_cfgkw(g, i, W):
     return cfg, kw
 
 
-def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000):
-    """Billion-scale GPU geometry screen. Returns top-K (cfg, kw) candidates by cross-coin
-    geo-mean full-period return/DD. Requires cupy + v6_cuda on a GPU box (Colab L4/A100)."""
+# ---- 30-min funnel: a COARSE screen at ~1/30 the bar count, then 1m validation on survivors ----
+# Itamar's "billion-sample" dream is only feasible by coarsening the SCREEN: 1e8 configs each
+# simulating 4.2M 1-min bars is ~20-45h on an L4, but on 30-min bars (~140k bars) it is ~30x
+# faster. The screen only GENERATES candidates; the binding ranking stays the faithful 1-min
+# engine (train<2024 -> OOS + super_gate), run on the top-K survivors. "Same edge, coarse
+# resolution": the MA is the SAME SMA(longSMA 15m-closes), just sampled at 30m bars (window
+# W/2 of 30m closes); only fill/cross granularity is coarsened. Self-calibrated: the funnel
+# reports Spearman(screen 30m geo-retDD vs the 1m gate retDD) across the gated survivors.
+def _coin30(coin):
+    """Resample the cached 1m coin to 30-min bars (h=max,l=min,c=last). Cached under (coin,'30m')."""
+    key = (coin, '30m')
+    if key in _CACHE:
+        return _CACHE[key]
+    d = _CACHE[coin]
+    idx = pd.to_datetime(d['ts'], unit='ms', utc=True)
+    df = pd.DataFrame({'h': d['h'], 'l': d['l'], 'c': d['c']}, index=idx)
+    r = df.resample('30min')
+    c30 = r['c'].last()
+    keep = c30.notna().values
+    ts30 = (c30.index.view('int64') // 10**6).astype(np.int64)[keep]
+    out = dict(ts=ts30, h=r['h'].max().values[keep], l=r['l'].min().values[keep],
+               c=c30.values[keep], ma={})
+    out['vol'] = E.realized_vol(ts30, out['c'], 1440)
+    _CACHE[key] = out
+    return out
+
+
+def _ma30(d30, W):
+    """MA for the 30m screen: SMA over W/2 of the 30m closes (== SMA over W 15m-closes, coarsened)."""
+    if W not in d30['ma']:
+        win = max(2, int(round(W / 2)))
+        d30['ma'][W] = pd.Series(d30['c']).rolling(win, min_periods=win).mean().values
+        if len(d30['ma']) > 16:
+            for k in list(d30['ma'])[:-16]:
+                del d30['ma'][k]
+    return d30['ma'][W]
+
+
+def _sig(cfg, kw):
+    """Stable signature string for a (cfg, kw) candidate — to match screen candidates to gated survivors."""
+    return json.dumps([cfg, {k: kw[k] for k in sorted(kw)}], sort_keys=True, default=str)
+
+
+def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, screen30=False):
+    """Scale GPU geometry screen. Returns top-K (cfg, kw, screen_retDD) by cross-coin geo-mean
+    full-period return/DD. screen30=True runs on 30-min bars (~30x faster; coarse candidate gen).
+    Requires cupy + v6_cuda on a GPU box (Colab L4/A100)."""
     import cupy as cp  # noqa
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'colab_v6'))
     import v6_cuda as G
     import kernel_ref as K
-    log(f'GPU stage A: {len(W_GRID)} longSMA x {per_w:,}/W = {len(W_GRID)*per_w:,} samples '
-        f'over {len(coins)} coins (geom: base + ideas 1&3)')
-    # per-coin GPU data
+    bars = '30-min (coarse screen)' if screen30 else '1-min (faithful)'
+    log(f'GPU stage A [{bars}]: {len(W_GRID)} longSMA x {per_w:,}/W = {len(W_GRID)*per_w:,} '
+        f'samples over {len(coins)} coins (geom: base + ideas 1&3)')
     gd = {}
     for coin in coins:
-        d = _CACHE[coin]
+        d = _coin30(coin) if screen30 else _CACHE[coin]
         midx = K.month_index(d['ts'])
-        gd[coin] = dict(gpu=G.CoinData(d['h'], d['l'], d['c'], midx), vol=d['vol'])
+        gd[coin] = dict(gpu=G.CoinData(d['h'], d['l'], d['c'], midx), vol=d['vol'], d=d)
     heap = []   # list of (retDD, cfg, kw); keep best `topk`
     for wi, W in enumerate(W_GRID):
-        # MA + start per coin for this W
         ma = {}; start = {}
         for coin in coins:
-            d = _CACHE[coin]; m = _ma(coin, W); ma[coin] = m; start[coin] = K.start_index(m, W)
+            d = gd[coin]['d']
+            m = _ma30(d, W) if screen30 else _ma(coin, W)
+            ma[coin] = m
+            start[coin] = int(np.argmax(~np.isnan(m))) if screen30 else K.start_index(m, W)
         done = 0
         while done < per_w:
             m = min(batch, per_w - done)
             g = _geom_sobol(m, seed=seed0 + wi * 100003 + done)
-            # per-coin geom run -> growth, dd
             rdd = np.full(m, np.nan)
             acc = np.zeros(m); nok = np.zeros(m, int)
             for coin in coins:
@@ -329,8 +374,7 @@ def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000):
                 acc[ok] += np.log(grw[ok] / (dd[ok] / 100.0)); nok[ok] += 1
             full = nok == len(coins)
             rdd[full] = np.exp(acc[full] / len(coins))         # geo-mean cross-coin return/DD
-            # keep this batch's top
-            k = min(topk, np.isfinite(rdd).sum())
+            k = min(topk, int(np.isfinite(rdd).sum()))
             if k > 0:
                 idx = np.argpartition(np.nan_to_num(rdd, nan=-1), -k)[-k:]
                 for i in idx:
@@ -340,7 +384,7 @@ def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000):
             done += m
         heap.sort(key=lambda x: x[0], reverse=True); heap = heap[:topk]
         log(f'  W{W} ({wi+1}/{len(W_GRID)}) swept; global best geo-retDD {heap[0][0]:.1f}')
-    return [(cfg, kw) for _, cfg, kw in heap]
+    return [(cfg, kw, rd) for rd, cfg, kw in heap]
 
 
 # ============================================================ PIPELINE
@@ -440,6 +484,7 @@ def main():
     ap.add_argument('--rounds', type=int, default=2, help='CPU Sobol refinement rounds (GPU = 1 screen)')
     ap.add_argument('--engine', choices=['cpu', 'gpu'], default='cpu')
     ap.add_argument('--gpu-keep', type=int, default=400, help='GPU: top candidates kept from the screen')
+    ap.add_argument('--screen30', action='store_true', help='GPU screen on 30-min bars (~30x faster, coarse candidate gen); 1m gate on survivors')
     ap.add_argument('--coins', default=','.join(COINS))
     ap.add_argument('--out', default='.')
     ap.add_argument('--smoke', action='store_true')
@@ -466,12 +511,12 @@ def main():
     # --gpu-smoke: validate cupy + the v6_cuda kernel on THIS box, FAST (GPU only, no CPU gate)
     if args.gpu_smoke:
         t0 = time.time()
-        cands = gpu_stage_a(coins, per_w=200, topk=10)
+        cands = gpu_stage_a(coins, per_w=200, topk=10, screen30=args.screen30)
         dt = time.time() - t0
         n_done = len(W_GRID) * 200 * len(coins)
-        log(f'GPU SMOKE OK: scored {n_done:,} (geom x coin) in {dt:.1f}s '
+        log(f'GPU SMOKE OK [{"30m" if args.screen30 else "1m"}]: scored {n_done:,} (geom x coin) in {dt:.1f}s '
             f'(~{n_done/max(dt,1e-9):,.0f}/s). top candidates:')
-        for cfg, kw in cands[:5]:
+        for cfg, kw, _rd in cands[:5]:
             log(f'  W{cfg["longSMA"]} tpd{cfg["tp_difference"]} ntp{cfg["tp_count"]} '
                 f'lev{cfg["leverage"]} stop{cfg["stop_loose"]} +{list(kw)}')
         log('GPU path works. Now run the full screen: '
@@ -509,10 +554,34 @@ def main():
         return survs
 
     all_survivors = []
+    screen_ret = {}
     if args.engine == 'gpu':
         per_w = max(1, args.n // len(W_GRID))
-        cands = gpu_stage_a(coins, per_w=per_w, topk=max(args.gpu_keep, args.topk))
-        all_survivors = gate_candidates(cands[:args.topk], 'GPU-geom')
+        cands = gpu_stage_a(coins, per_w=per_w, topk=max(args.gpu_keep, args.topk), screen30=args.screen30)
+        # persist candidates BEFORE the slow CPU gate, so a Colab disconnect never loses the screen
+        os.makedirs(args.out, exist_ok=True)
+        json.dump([{'cfg': c, 'kw': k, 'screen_retDD': round(rd, 3)} for c, k, rd in cands],
+                  open(os.path.join(args.out, 'screen_candidates.json'), 'w'), indent=1, default=str)
+        log(f'wrote {len(cands)} screen candidates -> screen_candidates.json (safe before gate)')
+        screen_ret = {_sig(c, k): rd for c, k, rd in cands}
+        all_survivors = gate_candidates([(c, k) for c, k, _ in cands[:args.topk]],
+                                        '30m-screen' if args.screen30 else 'GPU-geom')
+        # self-calibration: does the coarse screen rank like the faithful 1m gate?
+        try:
+            xs, ys = [], []
+            for s in all_survivors:
+                key = _sig(s['cfg'], s['kw'])
+                if key in screen_ret and s.get('full'):
+                    xs.append(screen_ret[key]); ys.append(s['full'].get('maxDD%') and s['full'].get('return_over_dd'))
+            xs = [x for x, y in zip(xs, ys) if y is not None]; ys = [y for y in ys if y is not None]
+            if len(xs) >= 5:
+                from scipy.stats import spearmanr
+                rho, p = spearmanr(xs, ys)
+                log(f'CALIBRATION [{"30m" if args.screen30 else "1m"} screen vs 1m gate] '
+                    f'Spearman(screen geo-retDD, 1m full retDD) rho={rho:.2f} p={p:.3f} n={len(xs)} '
+                    f'-> {"screen ranks like 1m (valid)" if rho > 0.4 else "weak — screen may misrank"}')
+        except Exception as e:
+            log(f'calibration skipped: {e}')
     else:
         lo = hi = None
         for rnd in range(args.rounds):

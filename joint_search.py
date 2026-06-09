@@ -477,13 +477,18 @@ def gate_survivor(coins, cfg, kw, base_per, base_pm, base_oos, n5r_base):
                          oos_idea_rdd=(oos_pm['return_over_dd'] if oos_pm else None),
                          oos_base_rdd=(base_oos['return_over_dd'] if base_oos else None),
                          coins_passed=(kgen, len(coins)))
+    # LENIENT verdict (gate-sensitivity): ONLY lockbox-OOS > base + generalises to >=3/4 coins,
+    # DROPPING the strict shuffle (structural-decorrelation) and matched-L (leverage-disguise)
+    # checks. Higher overfit risk — shows what the strict gate rejected vs what is truly marginal.
+    lenient = bool(oos_pm and base_oos and oos_pm['return_over_dd'] > base_oos['return_over_dd']
+                   and kgen >= 3)
     return dict(cfg=cfg, kw=kw, full=DC.summarize(idea_pm), oos=DC.summarize(oos_pm) if oos_pm else None,
                 matched_retDD=(round(matched_pm['return_over_dd'], 2) if matched_pm else None),
                 avg_lev=(round(avgL, 3) if avgL else None), n5r_idea=n5r_idea, n5r_base=n5r_base,
                 shuffle_pass=shuf['shuffle_gate_pass'], real_dd_impr=round(shuf['real_dd_improvement'], 3),
                 cross_coin=f'{kgen}/{len(coins)}',
                 oos_retDD=(round(oos_pm['return_over_dd'], 2) if oos_pm else None),
-                PASS=gate['PASS'], checks=gate['checks'])
+                PASS=gate['PASS'], LENIENT_PASS=lenient, checks=gate['checks'])
 
 
 def refine_box(top_pts, frac=0.25):
@@ -629,22 +634,32 @@ def main():
     # ---- report ----
     passers = [s for s in all_survivors if s['PASS']]
     passers.sort(key=lambda s: (s['oos_retDD'] or -1e9), reverse=True)
+    lenient = [s for s in all_survivors if s.get('LENIENT_PASS')]
+    lenient.sort(key=lambda s: (s['oos_retDD'] or -1e9), reverse=True)
     os.makedirs(args.out, exist_ok=True)
     bundle = dict(space_dims=NDIM, full_factorial='5.9e13', samples_per_round=args.n,
                   rounds=args.rounds, base_oos_retDD=base_oos['return_over_dd'],
                   base_full=DC.summarize(base_pm), n_survivors=len(all_survivors),
-                  n_pass=len(passers), passers=passers[:20],
+                  n_pass=len(passers), n_lenient=len(lenient), passers=passers[:20],
+                  lenient_passers=lenient[:20],
                   all_survivors=sorted(all_survivors, key=lambda s: (s['oos_retDD'] or -1e9), reverse=True)[:50])
     json.dump(bundle, open(os.path.join(args.out, 'joint_search_results.json'), 'w'), indent=2, default=str)
-    log(f'DONE. {len(all_survivors)} survivors, {len(passers)} PASS super_gate. '
+    log(f'DONE. {len(all_survivors)} survivors | STRICT {len(passers)} PASS | LENIENT {len(lenient)} PASS '
         f'-> {os.path.join(args.out, "joint_search_results.json")}')
     if passers:
         w = passers[0]
-        log(f'WINNER (best OOS retDD passing super_gate): {w["cfg"]} + {list(w["kw"])} | '
-            f'OOS retDD {w["oos_retDD"]} vs base {base_oos["return_over_dd"]:.2f} | '
-            f'full DD {w["full"]["maxDD%"]}% | cross {w["cross_coin"]}')
+        log(f'STRICT WINNER: {w["cfg"]} +{list(w["kw"])} | OOS retDD {w["oos_retDD"]} vs base '
+            f'{base_oos["return_over_dd"]:.2f} | full DD {w["full"]["maxDD%"]}% | cross {w["cross_coin"]}')
     else:
-        log('No survivor passed super_gate — base floor holds (report this honestly).')
+        log('STRICT: 0 pass super_gate — base floor holds (report this honestly).')
+    # GATE SENSITIVITY: strict vs lenient table (what the strict shuffle/matched-L rejected)
+    log(f'--- GATE SENSITIVITY (strict vs lenient) --- base OOS retDD {base_oos["return_over_dd"]:.2f}')
+    for s in lenient[:12]:
+        f = s.get('full') or {}
+        log(f'  LENIENT-pass W{s["cfg"]["longSMA"]} lev{s["cfg"]["leverage"]} stop{s["cfg"]["stop_loose"]} '
+            f'+{len(s["kw"])}i | full g x{f.get("growth",0):.0f} DD {f.get("maxDD%",0):.1f}% '
+            f'OOS {s["oos_retDD"]} cross {s["cross_coin"]} | STRICT={s["PASS"]} (shuf {s["shuffle_pass"]}) '
+            f'-> rejected by: {"shuffle " if not s["shuffle_pass"] else ""}{"matched-L" if s.get("matched_retDD") and s["full"]["return_over_dd"]<=s["matched_retDD"] else ""}'.rstrip())
 
 
 def _invert(cfg, kw):

@@ -250,13 +250,17 @@ def score_portfolio(coins, cfg, kw, window):
 # end-bar index to the kernel (KERNEL_EXTENSION).
 W_GRID = list(range(1500, 3501, 50))   # 41 values; one MA build per W per coin
 
-def _geom_sobol(m, seed):
-    """m Sobol points over the 13 GEOM dims (no W; 2/4/5 forced off). Returns dict of arrays."""
+def _geom_sobol(m, seed, fix_lev1=False):
+    """m Sobol points over the 13 GEOM dims (no W; 2/4/5 forced off). Returns dict of arrays.
+    fix_lev1=True pins leverage to 1.0 — the council principle: return/DD is ~leverage-invariant
+    and the gate's matched-L control rejects leverage-disguise, so the screen should explore the
+    GEOMETRY edge at lev1 (leverage is applied separately as a pure DD dial), not waste samples on
+    leverage-inflated configs that the gate always kills."""
     from scipy.stats import qmc
     p = qmc.Sobol(d=13, scramble=True, seed=seed).random(m)
     tpd = 0.02 + p[:, 0] * 0.28
     ntp = np.clip(np.round(1 + p[:, 1] * 14), 1, 15).astype(np.int32)
-    lev = (np.round((10 + p[:, 2] * 20) / 5) * 5) / 10.0           # {1,1.5,2,2.5,3}
+    lev = np.ones(m) if fix_lev1 else (np.round((10 + p[:, 2] * 20) / 5) * 5) / 10.0   # {1,1.5,2,2.5,3}
     stop = np.exp(np.log(0.003) + p[:, 3] * (np.log(0.020) - np.log(0.003)))
     sltp = np.clip(np.round(1 + p[:, 4] * 3), 1, 4).astype(np.int32)
     trail_on = p[:, 5] >= 0.50
@@ -333,7 +337,7 @@ def _sig(cfg, kw):
     return json.dumps([cfg, {k: kw[k] for k in sorted(kw)}], sort_keys=True, default=str)
 
 
-def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, screen30=False, ckpt_path=None):
+def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, screen30=False, ckpt_path=None, fix_lev1=False):
     """Scale GPU geometry screen. Returns top-K (cfg, kw, screen_retDD) by cross-coin geo-mean
     full-period return/DD. screen30=True runs on 30-min bars (~30x faster; coarse candidate gen).
     Requires cupy + v6_cuda on a GPU box (Colab L4/A100)."""
@@ -360,7 +364,7 @@ def gpu_stage_a(coins, per_w=1_000_000, topk=300, seed0=777, batch=2_000_000, sc
         done = 0
         while done < per_w:
             m = min(batch, per_w - done)
-            g = _geom_sobol(m, seed=seed0 + wi * 100003 + done)
+            g = _geom_sobol(m, seed=seed0 + wi * 100003 + done, fix_lev1=fix_lev1)
             rdd = np.full(m, np.nan)
             acc = np.zeros(m); nok = np.zeros(m, int)
             for coin in coins:
@@ -499,6 +503,7 @@ def main():
     ap.add_argument('--engine', choices=['cpu', 'gpu'], default='cpu')
     ap.add_argument('--gpu-keep', type=int, default=400, help='GPU: top candidates kept from the screen')
     ap.add_argument('--screen30', action='store_true', help='GPU screen on 30-min bars (~30x faster, coarse candidate gen); 1m gate on survivors')
+    ap.add_argument('--fix-lev1', action='store_true', help='pin leverage=1 in the screen (search the geometry edge; leverage is a separate DD dial the gate matches out)')
     ap.add_argument('--coins', default=','.join(COINS))
     ap.add_argument('--out', default='.')
     ap.add_argument('--smoke', action='store_true')
@@ -577,7 +582,7 @@ def main():
     if args.engine == 'gpu':
         per_w = max(1, args.n // len(W_GRID))
         cands = gpu_stage_a(coins, per_w=per_w, topk=max(args.gpu_keep, args.topk), screen30=args.screen30,
-                            ckpt_path=os.path.join(args.out, 'screen_ckpt.json'))
+                            ckpt_path=os.path.join(args.out, 'screen_ckpt.json'), fix_lev1=args.fix_lev1)
         # persist candidates BEFORE the slow CPU gate, so a Colab disconnect never loses the screen
         os.makedirs(args.out, exist_ok=True)
         json.dump([{'cfg': c, 'kw': k, 'screen_retDD': round(rd, 3)} for c, k, rd in cands],

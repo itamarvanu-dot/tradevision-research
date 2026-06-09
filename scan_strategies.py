@@ -14,7 +14,12 @@ date afterwards (no double run). Ranking objective = TEST portfolio CAGR with a 
 ties/eligibility decided by the gates. Champions are re-printed with full train+test stats.
 
 Usage:  python scan_strategies.py <onestep|dt|avi> [--top N] [--workers W]
-Writes  scan_<strategy>.csv  (all configs, ranked) and prints the top.
+Writes  scan_<strategy>.partial.csv incrementally (one row per finished config) and, at the
+end, the ranked scan_<strategy>.csv. Re-running RESUMES from the .partial checkpoint, so an
+OOM/kill never loses completed work.
+
+RAM NOTE: each worker process holds all 4 coins' 1m arrays (~0.8 GB/worker). On a
+RAM-constrained box use --workers 1-2 (or run on cloud). Default 3 needs ~2.5 GB free.
 """
 import sys, os, json, time, itertools
 import numpy as np
@@ -180,19 +185,35 @@ def main():
     top = int(sys.argv[sys.argv.index('--top') + 1]) if '--top' in sys.argv else 15
     workers = int(sys.argv[sys.argv.index('--workers') + 1]) if '--workers' in sys.argv else 3
     cfgs = GRIDS[strat]()
-    print(f'[{strat}] {len(cfgs)} configs x 4 coins, fee={FEE}, liq=ON, lockbox 2024 split, {workers} workers')
+    out = os.path.join(os.path.dirname(__file__), f'scan_{strat}.csv')
+    ckpt = os.path.join(os.path.dirname(__file__), f'scan_{strat}.partial.csv')
+    # RESUME: skip configs already in the checkpoint (keyed by the config dict).
+    done_keys = set()
+    if os.path.exists(ckpt):
+        try:
+            prev = pd.read_csv(ckpt)
+            keycols = [k for k in cfgs[0].keys() if k in prev.columns]
+            done_keys = set(tuple(str(r[k]) for k in keycols) for _, r in prev.iterrows())
+            print(f'[{strat}] resume: {len(done_keys)} configs already in {os.path.basename(ckpt)}')
+        except Exception as e:
+            print(f'[{strat}] checkpoint unreadable ({e}); starting fresh')
+    todo = [c for c in cfgs if tuple(str(c[k]) for k in c.keys()) not in done_keys]
+    print(f'[{strat}] {len(todo)}/{len(cfgs)} configs to run x 4 coins, fee={FEE}, liq=ON, '
+          f'lockbox 2024 split, {workers} workers')
     t0 = time.time()
-    rows = []
-    args = [(strat, c) for c in cfgs]
+    args = [(strat, c) for c in todo]
+    # CHECKPOINT: append each result row to a .partial.csv as it finishes, so an OOM/kill
+    # never loses completed work — re-running resumes from the checkpoint.
+    wrote_header = os.path.exists(ckpt)
     with ProcessPoolExecutor(max_workers=workers) as ex:
         for i, row in enumerate(ex.map(eval_config, args), 1):
             if row is not None:
-                rows.append(row)
+                pd.DataFrame([row]).to_csv(ckpt, mode='a', header=not wrote_header, index=False)
+                wrote_header = True
             if i % 20 == 0 or i == len(args):
                 el = time.time() - t0
-                print(f'  {i}/{len(args)}  {el:.0f}s  ~{el/i*(len(args)-i):.0f}s left', flush=True)
-    df = pd.DataFrame(rows).sort_values('objective', ascending=False).reset_index(drop=True)
-    out = os.path.join(os.path.dirname(__file__), f'scan_{strat}.csv')
+                print(f'  {i}/{len(args)}  {el:.0f}s  ~{el/max(i,1)*(len(args)-i):.0f}s left', flush=True)
+    df = pd.read_csv(ckpt).sort_values('objective', ascending=False).reset_index(drop=True)
     df.to_csv(out, index=False)
     elig = df[df['eligible'] == 1]
     print(f'\nDONE {time.time()-t0:.0f}s. {len(elig)}/{len(df)} eligible. -> {out}')

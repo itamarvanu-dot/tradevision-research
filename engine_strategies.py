@@ -29,7 +29,8 @@ import numpy as np
 import pandas as pd
 
 DATA = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data'))
-BIN = os.path.join(DATA, 'binance')
+# honour DATA_DIR (Colab/off-machine: point straight at the {COIN}USDT_1m.npz folder)
+BIN = os.environ.get('DATA_DIR') or os.path.join(DATA, 'binance')
 
 
 def load_1m(symbol):

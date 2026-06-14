@@ -1,0 +1,16 @@
+# tradevision-research — Python dependencies
+#
+# CPU research / harness (runs anywhere, no GPU needed):
+numpy
+pandas
+scipy
+scikit-learn
+numba
+requests
+
+# Market-data fetchers (download_*.py / fetch_*.py):
+yfinance
+
+# GPU stage (Colab / CUDA 12 only) — install separately on the GPU box, NOT here:
+#   pip install cupy-cuda12x
+# `google.colab` is provided by the Colab runtime and is not pip-installed.

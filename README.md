@@ -6,6 +6,10 @@ the controlled-experiment gates (`dd_controls.py`), the differential engine
 (`joint_search.py`). This repo is a code-delivery snapshot for running the GPU search on Colab
 (L4 is fine). It contains no proprietary trading-engine source — only the Python research port + harness.
 
+**New here?** See [`DOCS_INDEX.md`](DOCS_INDEX.md) for a full map of every engine, script and
+findings doc, and [`CLAUDE.md`](CLAUDE.md) for working conventions. CPU deps:
+`pip install -r requirements.txt` (the GPU stage needs `cupy-cuda12x`, installed separately).
+
 ## Run the joint GPU search on Colab (single cell)
 
 Needs a GPU runtime (Runtime → Change runtime type → **L4 GPU**) and the 4-coin 1-minute

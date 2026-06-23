@@ -1,0 +1,24 @@
+---
+name: tradevision-percoin-validation
+description: "The per-coin 50M GutNet (gutnet-percoin) verdict is PARTIAL and its win-prediction band is UNVALIDATED — broken shuffle control + suspected config-identity leakage. The leverage dial IS clean. Don't trust the band as a winner-picker until the corrected re-run resolves it."
+metadata:
+  node_type: memory
+  type: project
+  originSessionId: 8d31f3d8-aa6e-4ab4-951f-10dc8fbc2a3b
+---
+
+The per-coin 50M engine (gutnet-percoin, finished 2026-06-14: 36M trades / 9 coins, 6 epochs) gave a **PARTIAL** verdict that looked like a breakthrough but is NOT validated as a winner-picker. Don't repeat the mistake of citing its band as real signal.
+
+**What it reported:** top-5% lift ×1.81 (weaker than the gating k-NN's ×2.65), positive per-coin expectancy in all 9 coins, best band width top-20%, leverage dial beats fixed+matched — BUT the **shuffle control did NOT collapse** (red flag).
+
+**Diagnosis (why shuffle didn't collapse) — TWO causes:**
+1. **The shuffle control was BROKEN** (`train_eval.py:305-321`): it loaded the real trained weights, FROZE the encoder (gru+static_mlp+trunk), and re-trained only the heads on shuffled labels. The frozen encoder already encoded green-separation, so it leaked ~65% of the signal → the control could not collapse by construction. So "shuffle didn't collapse" was a broken-control artifact, NOT proof the band is fake (or real). The gating k-NN rebuilt the whole pipeline from scratch on shuffled labels → collapsed correctly (that one was clean).
+2. **Suspected config-identity leakage** (`percoin_net.py`): static features include 12 `cfg_*` config descriptors (longSMA, leverage, stop, etc.). The model can rank trades by CONFIG QUALITY rather than market regime, and train/OOS share the same 1500-config space so "config X wins" leaks forward. Evidence: lift suspiciously uniform across all 9 coins (1.57–2.10) = shared mechanism (config selection), not coin-specific timing. This is the scan we already had, not "gut feel reading the moment."
+
+**Ruled out (clean):** feature look-ahead (featurelib strict-no-lookahead, ATR shift(1)); calibration/split (isotonic on 2023-val only, normalization on train<2023).
+
+**The corrected re-run (in progress) decides it:** (A) fixed shuffle = train a FRESH model from scratch on shuffled labels; (B1) config-holdout = train on subset of configs, test on UNSEEN configs; (B2) cfg-ablation = zero the 12 cfg_* features, market-window only — if the band survives → real market-timing signal; if it collapses → all edge was config-selection. Honest expectation: the band may partially or fully collapse.
+
+**What IS clean / keep:** the **leverage dial** (NN-confidence → leverage) — validated against matched-fixed-lev which this bug doesn't touch; it beat fixed+matched per-coin. So leverage modulation is a real result even if the skip/win-prediction isn't.
+
+**RESOLVED 2026-06-14 (percoin v2 corrected re-run) — the band is ~78% REAL market-timing, NOT mostly config-selection.** The decisive corrected tests PASSED: lift survives on **unseen configs** (config-holdout 1.83 ≈ full 1.79 → not config-memorization) AND survives with the 12 cfg_* features **zeroed** (cfg-ablation 1.62 → edge is mostly market-info). **market_timing_fraction = 0.78** → ~78% of the edge is genuine gut-feel that generalizes; only ~22% was config-selection. So the win-prediction band is VALIDATED as real (modest, ×1.79 lift), upgrading it from "unvalidated." Caveat: the shuffle control is STILL buggy in v2 (it shuffled only `green`, not the correlated sev/rmult), so shuffle stays uninformative — but config-holdout + ablation are the direct tests and they're clean. **Equities cross-asset — DATA VOLUME WAS THE ISSUE (resolved 2026-06-14 eve).** First small equities run (60K configs → small trade set): OOS Spearman ~0.04 ≈ 0, looked like "NN doesn't transfer to stocks." But the BIG run (`hourly_long_v2`, ~12M labeled trades across 29 assets incl. stable/indices, trained on Itamar's Colab GPU) FLIPPED it: **OOS Spearman 0.18** (vs 0.04), shuffle-retrain collapses to −0.05, config-holdout holds 0.21, seq-window ablation → −0.08 (window essential). So with enough trade-mass the stock NN DOES learn a real predictive signal — Itamar's volume thesis was right. BUT same as crypto: the learned signal is the **RISK/DD axis, not return-alpha** (skip30 cuts DD ~2.8pp but does NOT beat buy&hold on return → "NN signal NOT established" as alpha). **Conclusion: the NN is a UNIVERSAL RISK-MANAGER across asset classes (crypto + stocks both learn risk, not alpha)** — exactly the universal-model vision. Alpha comes from the strategy/configs; the NN adds risk/stability on top. Saved gs://tradevision-lab-data/equities/pipeline/hourly_long_v2/. Related: [[tradevision-key-findings]], [[tradevision-nn-iteration-goal]].

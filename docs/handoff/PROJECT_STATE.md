@@ -30,12 +30,14 @@ how-to-check commands are in **`RESULTS_LOG.md`**; the OPEN items are reconciled
   DD-champions (the real signal — medians are in-sample + leverage-dial inflated): ETH +20%@2%DD,
   SOL +13%@3%DD, XRP +13%@7%DD, DOGE +29%, BNB +8%@2%DD, ADA +9%@3%DD. **`percoin` LED the dict on
   the alts SOL / DOGE / ADA** — the fix was decisive there.
-- **⏳ Corrected 1M whole-period net-lift re-score STREAMING.** **BTC ✅ FINAL: `gutnet_r1` wins**
-  (ret/DD −0.73 → +0.16, beats base 71%, DD 92% → 41%); corrected `percoin` (−0.80) ≈ old broken,
-  **below base — BTC's weakest net** (BTC top-100 mix: combo 53 / gutnet 33 / base 9 / percoin 5).
-  ETH verdict computing. Status: BTC+ETH done, BNB in progress, XRP/SOL/ADA/DOGE queued
-  (~1,130/3,234, ~10–11 h remaining; shard-resumable). **Takeaway: percoin wins on the alts'
-  own-pools but NOT on BTC's 1M catalog — no net wins everywhere.**
+- **✅ Corrected 1M whole-period net-lift re-score COMPLETE (all 7 coins, 2026-06-25).** Final
+  winners: BTC `gutnet_r1` (+0.16), ETH `crypto_combo` (+0.65), BNB gutnet by median but **percoin
+  OWNS top-100** (+1.47, the percoin highlight), SOL `gutnet_r1`, DOGE `crypto_combo` top-100;
+  **XRP/ADA had empty 1M baselines** (use their own-pool dicts). The **percoin fix barely changes
+  the whole-period ranking** (corrected ≈ old-broken everywhere); gutnet_r1/combo dominate.
+  **Takeaway: whole-period 1M winner ≠ per-level own-pool leader — percoin's real payoff is the
+  per-danger-level own-pool dicts (leads SOL/DOGE/ADA), not the 1M catalog.** Full table in
+  `RESULTS_LOG.md` (2026-06-25). Re-score VM deleted, no ongoing cost.
 
 ---
 

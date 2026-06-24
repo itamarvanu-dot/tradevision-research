@@ -24,9 +24,11 @@ The actionable list the cloud instance should pick up. Grouped by priority. Cros
   net catalog; keep as-is.
 
 **🔶 STILL OPEN (new/carried — the live priorities):**
-- **(a) Full 7-coin corrected 1M re-score completing** — STREAMING (~10–11 h remaining as of
-  2026-06-24 morning; BTC+ETH done, BNB in progress, XRP/SOL/ADA/DOGE queued). Append each coin's
-  verdict to `RESULTS_LOG.md` as it lands; ETH verdict was computing.
+- **(a) Full 7-coin corrected 1M re-score — ✅ DONE (2026-06-25).** Complete; VM deleted, no
+  ongoing cost. Final 7-coin verdict table in `RESULTS_LOG.md` (2026-06-25 section). Outcome: the
+  percoin fix barely changes the whole-period ranking (corrected ≈ old-broken); gutnet_r1/combo
+  dominate; BNB is the only coin where percoin owns its top-100; XRP/ADA had empty 1M baselines
+  (use their own-pool dicts). percoin's real payoff stays the per-level own-pool dicts (SOL/DOGE/ADA).
 - **(b) DECISION PENDING — run BTC as a 7th own-pool coin?** for a per-15-danger-level BTC dict +
   dashboard parity with the other 6. Itamar earlier said BTC needn't be recomputed (it already has
   the full-million dict); decide whether the dashboard/own-pool parity is worth it.

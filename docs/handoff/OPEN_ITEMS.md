@@ -1,11 +1,44 @@
-# OPEN_ITEMS — live TODO / bug list (as of 2026-06-23)
+# OPEN_ITEMS — live TODO / bug list (updated 2026-06-24)
 
 The actionable list the cloud instance should pick up. Grouped by priority. Cross-reference
-`PROJECT_STATE.md` (sections noted) and the `MEMORY/` files.
+`PROJECT_STATE.md` (sections noted), `RESULTS_LOG.md` (latest results), and the `MEMORY/` files.
 
 > ⚠️ At handoff time a **separate live session** was running the per-asset/net research in the
 > shared working tree and writing to GCS. Before acting, check the latest state in GCS
 > (`gs://tradevision-lab-data/.../round2/`) and the lab — some of these may already be done.
+
+---
+
+## STATUS UPDATE (2026-06-24) — what's now DONE vs still open
+
+**✅ DONE since the 2026-06-23 list** (details in `RESULTS_LOG.md`):
+- **Net-application bug** — CLOSED in production (100% net-apply all coins; percoin 0% → 100%).
+  Resolves the bug class behind items 5, and the net concerns in B8–B10.
+- **6 per-asset TOP-100 dictionaries (nets applied)** — built for all of ETH/SOL/XRP/DOGE/BNB/ADA.
+  Resolves items **1, 2, 7, B8, B9, B10** (and item 4 dashboard/lab for those coins).
+- **Drill-down dashboard** (`own_pools_dashboard.html`, public) + **lab `/scan` integration**
+  (245 own-pool champion rows, filter `src=own-pool:<net>`) — resolves items **3, 4**.
+- **Corrected BTC 1M net-lift verdict** — FINAL (gutnet_r1 wins; percoin is BTC's weakest net).
+- **Cloud migration + self-onboarding** — `CLOUD_SETUP.md` + `setup_cloud.sh` live on both repos.
+- Item **6** (40k vs 1M per asset) — settled: per-asset own-pools were built from each coin's own
+  net catalog; keep as-is.
+
+**🔶 STILL OPEN (new/carried — the live priorities):**
+- **(a) Full 7-coin corrected 1M re-score completing** — STREAMING (~10–11 h remaining as of
+  2026-06-24 morning; BTC+ETH done, BNB in progress, XRP/SOL/ADA/DOGE queued). Append each coin's
+  verdict to `RESULTS_LOG.md` as it lands; ETH verdict was computing.
+- **(b) DECISION PENDING — run BTC as a 7th own-pool coin?** for a per-15-danger-level BTC dict +
+  dashboard parity with the other 6. Itamar earlier said BTC needn't be recomputed (it already has
+  the full-million dict); decide whether the dashboard/own-pool parity is worth it.
+- **(c) Social: Postiz route being explored** to make Alphic cloud-capable. X API has **0 credits**
+  → posting is **browser-only today and host-bound** (`PROJECT_STATE.md` §12–13). Postiz could give
+  a server-side posting path that survives the cloud migration.
+- Validation gates (§C below) still owed before any "real" claim — the per-asset medians are
+  **in-sample + leverage-dial inflated**; the DD champions (2–7% DD) are the real signal but still
+  need walk-forward + faithful execution.
+
+> The numbered list below is the original 2026-06-23 list, kept for traceability. Where an item is
+> marked DONE above, treat the STATUS UPDATE as authoritative.
 
 ---
 

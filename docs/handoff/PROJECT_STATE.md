@@ -17,6 +17,28 @@
 
 ---
 
+## LATEST RESULTS (2026-06-24) — read `RESULTS_LOG.md` for the full detail
+
+Newer than the rest of this doc (which was written 2026-06-23). Full numbers, GCS paths and
+how-to-check commands are in **`RESULTS_LOG.md`**; the OPEN items are reconciled in `OPEN_ITEMS.md`.
+
+- **✅ Net-application bug CLOSED in production** — the 3 fixes (percoin raw-logit, combo per-net
+  features, key by `(config_id, net)`) are validated: **100% net-apply on all coins**
+  (percoin 0% → 100%). (§6.)
+- **✅ 6 per-asset TOP-100 dictionaries (nets applied) DONE** → on GCS + the public drill-down
+  dashboard + the lab `/scan` (245 own-pool champion rows, filter `src=own-pool:<net>`). Per-coin
+  DD-champions (the real signal — medians are in-sample + leverage-dial inflated): ETH +20%@2%DD,
+  SOL +13%@3%DD, XRP +13%@7%DD, DOGE +29%, BNB +8%@2%DD, ADA +9%@3%DD. **`percoin` LED the dict on
+  the alts SOL / DOGE / ADA** — the fix was decisive there.
+- **⏳ Corrected 1M whole-period net-lift re-score STREAMING.** **BTC ✅ FINAL: `gutnet_r1` wins**
+  (ret/DD −0.73 → +0.16, beats base 71%, DD 92% → 41%); corrected `percoin` (−0.80) ≈ old broken,
+  **below base — BTC's weakest net** (BTC top-100 mix: combo 53 / gutnet 33 / base 9 / percoin 5).
+  ETH verdict computing. Status: BTC+ETH done, BNB in progress, XRP/SOL/ADA/DOGE queued
+  (~1,130/3,234, ~10–11 h remaining; shard-resumable). **Takeaway: percoin wins on the alts'
+  own-pools but NOT on BTC's 1M catalog — no net wins everywhere.**
+
+---
+
 ## 0. HOW TO CONTINUE THE WORK FROM THE CLOUD
 
 1. **Connect this GitHub repo.** The code lives in `itamarvanu-dot/bot`, branch

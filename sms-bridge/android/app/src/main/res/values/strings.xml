@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMS Bridge</string>
+
+    <string name="channel_name">גשר SMS</string>
+    <string name="notif_title">גשר SMS פעיל</string>
+    <string name="notif_stop">כיבוי</string>
+    <string name="notif_no_network">לא מחובר לרשת Wi-Fi</string>
+    <string name="error_port_busy">הפורט %1$d תפוס. נסה פורט אחר בהגדרות.</string>
+
+    <string name="header_off">הגשר כבוי</string>
+    <string name="header_on">הגשר פעיל</string>
+    <string name="subtitle_off">כשהגשר כבוי אף אחד לא יכול לגשת להודעות</string>
+
+    <string name="btn_turn_on">הפעל גשר</string>
+    <string name="btn_turn_off">כבה גשר</string>
+
+    <string name="label_address">כתובת לאייפון</string>
+    <string name="hint_address">סרוק את הקוד במצלמת האייפון, או הקלד את הכתובת בספארי</string>
+    <string name="no_network">אין חיבור Wi-Fi — חבר את הטלפון לאותה רשת כמו האייפון</string>
+
+    <string name="btn_copy">העתק כתובת</string>
+    <string name="btn_share">שתף</string>
+    <string name="copied">הכתובת הועתקה</string>
+
+    <string name="label_token">קוד גישה</string>
+    <string name="hint_token">הקוד כלול בכתובת למעלה. החלפת הקוד מנתקת מכשירים שכבר התחברו.</string>
+    <string name="btn_new_token">החלף קוד גישה</string>
+
+    <string name="label_auto_stop">כיבוי אוטומטי אחרי חוסר פעילות</string>
+    <string name="auto_stop_5">5 דקות</string>
+    <string name="auto_stop_15">15 דקות</string>
+    <string name="auto_stop_30">30 דקות</string>
+    <string name="auto_stop_60">שעה</string>
+    <string name="auto_stop_never">בלי כיבוי אוטומטי</string>
+    <string name="auto_stop_pending">ייכבה מעצמו בעוד %1$d דקות</string>
+
+    <string name="label_permissions">הרשאות</string>
+    <string name="perm_sms_missing">חסרה הרשאת קריאת SMS — בלעדיה אין מה להציג</string>
+    <string name="perm_sms_ok">הרשאת קריאת SMS ניתנה</string>
+    <string name="perm_contacts_missing">אין הרשאת אנשי קשר — יוצגו מספרי טלפון במקום שמות</string>
+    <string name="perm_contacts_ok">שמות אנשי קשר יוצגו</string>
+    <string name="btn_grant">אשר הרשאות</string>
+    <string name="btn_battery">הוצא מאופטימיזציית סוללה</string>
+    <string name="hint_battery">סמסונג נוטה לסגור אפליקציות ברקע. בלי זה הגשר עלול להיסגר כשהמסך כבוי.</string>
+
+    <string name="label_help">איך זה עובד</string>
+    <string name="help_body">האפליקציה מריצה שרת קטן על הטלפון הזה. האייפון ניגש אליו דרך אותה רשת Wi-Fi ומושך את ההודעות ישירות — שום דבר לא עובר דרך שרת חיצוני ושום הודעה לא נשמרת בשום מקום אחר.\n\nאחרי שסורקים את הקוד באייפון פעם אחת, אפשר להוסיף את הדף למסך הבית ולפתוח אותו כמו אפליקציה.</string>
+
+    <string name="qr_content_description">קוד QR עם כתובת הגשר</string>
+
+    <string name="api_no_sms_permission">הרשאת קריאת SMS לא ניתנה באפליקציה בסמסונג</string>
+</resources>

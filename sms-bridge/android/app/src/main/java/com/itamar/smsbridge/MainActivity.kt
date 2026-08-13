@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var qrImage: ImageView
     private lateinit var urlText: TextView
     private lateinit var tokenText: TextView
+    private lateinit var alwaysOnSwitch: Switch
+    private lateinit var reachText: TextView
+    private lateinit var reachHint: TextView
     private lateinit var autoStopSpinner: Spinner
     private lateinit var autoStopPending: TextView
     private lateinit var permSms: TextView
@@ -67,6 +71,9 @@ class MainActivity : AppCompatActivity() {
         qrImage = findViewById(R.id.qrImage)
         urlText = findViewById(R.id.urlText)
         tokenText = findViewById(R.id.tokenText)
+        alwaysOnSwitch = findViewById(R.id.alwaysOnSwitch)
+        reachText = findViewById(R.id.reachText)
+        reachHint = findViewById(R.id.reachHint)
         autoStopSpinner = findViewById(R.id.autoStopSpinner)
         autoStopPending = findViewById(R.id.autoStopPending)
         permSms = findViewById(R.id.permSms)
@@ -78,6 +85,14 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnNewToken).setOnClickListener { regenerateToken() }
         findViewById<Button>(R.id.btnGrant).setOnClickListener { requestPermissions() }
         findViewById<Button>(R.id.btnBattery).setOnClickListener { openBatterySettings() }
+
+        alwaysOnSwitch.isChecked = prefs.alwaysOn
+        alwaysOnSwitch.setOnCheckedChangeListener { _, checked ->
+            prefs.alwaysOn = checked
+            // Re-issuing the start command applies the new mode to a bridge that is already up.
+            if (BridgeService.State.running) BridgeService.start(this)
+            render()
+        }
 
         setUpAutoStopSpinner()
     }
@@ -177,10 +192,13 @@ class MainActivity : AppCompatActivity() {
 
     // ------------------------------------------------------------ Rendering
 
-    /** The URL the iPhone opens: host, port and token in one scannable string. */
+    /**
+     * The URL the iPhone opens: host, port and token in one scannable string. Prefers the
+     * Tailscale address when there is one, since that keeps working away from home.
+     */
     private fun pairingUrl(): String? {
-        val ip = Net.localIpv4() ?: return null
-        return "http://$ip:${prefs.port}/?t=${prefs.token}"
+        val address = Net.preferred() ?: return null
+        return "http://${address.ip}:${prefs.port}/?t=${prefs.token}"
     }
 
     private fun render() {
@@ -217,7 +235,12 @@ class MainActivity : AppCompatActivity() {
             renderedQrUrl = null
         }
 
+        renderReachability()
+
         tokenText.text = prefs.token
+
+        // The idle timeout is meaningless while the bridge is meant to stay up.
+        autoStopSpinner.isEnabled = !prefs.alwaysOn
 
         val autoStopAt = BridgeService.State.autoStopAt
         if (running && autoStopAt > 0L) {
@@ -237,11 +260,34 @@ class MainActivity : AppCompatActivity() {
         permContacts.setText(if (hasContacts) R.string.perm_contacts_ok else R.string.perm_contacts_missing)
     }
 
+    /** Spells out whether the iPhone will be able to reach this phone from outside the house. */
+    private fun renderReachability() {
+        val address = Net.preferred()
+        when (address?.kind) {
+            Net.Kind.TAILSCALE -> {
+                reachText.text = getString(R.string.reach_tailscale, address.ip)
+                reachText.setTextColor(COLOR_ON)
+                reachHint.setText(R.string.reach_hint_tailscale)
+            }
+            Net.Kind.LAN -> {
+                reachText.text = getString(R.string.reach_lan, address.ip)
+                reachText.setTextColor(COLOR_WARN)
+                reachHint.setText(R.string.reach_hint_lan)
+            }
+            else -> {
+                reachText.setText(R.string.reach_none)
+                reachText.setTextColor(COLOR_OFF)
+                reachHint.setText(R.string.reach_hint_none)
+            }
+        }
+    }
+
     companion object {
         private const val QR_SIZE_PX = 600
         private const val TICK_MS = 20_000L
 
         private val COLOR_ON = Color.parseColor("#1B873F")
+        private val COLOR_WARN = Color.parseColor("#B26A00")
         private val COLOR_OFF = Color.parseColor("#C62828")
 
         /** minutes to string resource; 0 means "never auto-stop". */

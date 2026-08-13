@@ -13,7 +13,16 @@ class Prefs(context: Context) {
         get() = sp.getInt(KEY_PORT, DEFAULT_PORT)
         set(value) = sp.edit().putInt(KEY_PORT, value).apply()
 
-    /** Minutes of inactivity after which the bridge shuts itself down. 0 = never. */
+    /**
+     * When set, the bridge stays up indefinitely and comes back by itself after a reboot,
+     * so the phone can be left alone. When cleared, the bridge is a temporary thing that
+     * shuts down after [autoStopMinutes] and has to be switched on by hand.
+     */
+    var alwaysOn: Boolean
+        get() = sp.getBoolean(KEY_ALWAYS_ON, true)
+        set(value) = sp.edit().putBoolean(KEY_ALWAYS_ON, value).apply()
+
+    /** Minutes of inactivity after which the bridge shuts itself down. Ignored when [alwaysOn]. */
     var autoStopMinutes: Int
         get() = sp.getInt(KEY_AUTO_STOP, DEFAULT_AUTO_STOP_MINUTES)
         set(value) = sp.edit().putInt(KEY_AUTO_STOP, value).apply()
@@ -42,6 +51,7 @@ class Prefs(context: Context) {
         const val DEFAULT_AUTO_STOP_MINUTES = 30
 
         private const val KEY_PORT = "port"
+        private const val KEY_ALWAYS_ON = "always_on"
         private const val KEY_AUTO_STOP = "auto_stop_minutes"
         private const val KEY_TOKEN = "token"
 

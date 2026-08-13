@@ -5,12 +5,25 @@
     <string name="channel_name">גשר SMS</string>
     <string name="notif_title">גשר SMS פעיל</string>
     <string name="notif_stop">כיבוי</string>
-    <string name="notif_no_network">לא מחובר לרשת Wi-Fi</string>
+    <string name="notif_no_network">אין חיבור רשת</string>
+    <string name="notif_remote_ready">זמין מכל מקום · %1$s</string>
+    <string name="notif_local_only">זמין ברשת המקומית בלבד · %1$s</string>
     <string name="error_port_busy">הפורט %1$d תפוס. נסה פורט אחר בהגדרות.</string>
 
     <string name="header_off">הגשר כבוי</string>
     <string name="header_on">הגשר פעיל</string>
     <string name="subtitle_off">כשהגשר כבוי אף אחד לא יכול לגשת להודעות</string>
+
+    <string name="always_on_title">להשאיר פעיל תמיד</string>
+    <string name="always_on_hint">הגשר יישאר דלוק ויחזור מעצמו אחרי הפעלה מחדש של הטלפון. מומלץ להשאיר את הטלפון בטעינה.</string>
+
+    <string name="label_reach">מאיפה אפשר להתחבר</string>
+    <string name="reach_tailscale">מכל מקום — Tailscale פעיל (%1$s)</string>
+    <string name="reach_lan">מהרשת המקומית בלבד (%1$s)</string>
+    <string name="reach_none">אין חיבור רשת</string>
+    <string name="reach_hint_tailscale">הכתובת הזו נשארת קבועה גם כשהטלפון עובר בין Wi-Fi לסלולר.</string>
+    <string name="reach_hint_lan">להתחברות מרחוק צריך להתקין Tailscale על שני הטלפונים ולחבר אותם לאותו חשבון.</string>
+    <string name="reach_hint_none">חבר את הטלפון ל-Wi-Fi או לרשת סלולרית.</string>
 
     <string name="btn_turn_on">הפעל גשר</string>
     <string name="btn_turn_off">כבה גשר</string>

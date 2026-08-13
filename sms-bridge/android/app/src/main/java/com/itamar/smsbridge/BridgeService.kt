@@ -13,13 +13,17 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.PowerManager
+import android.util.Log
 import androidx.core.app.NotificationCompat
 
 /**
- * Keeps [HttpServer] alive while the bridge is on.
+ * Keeps [HttpServer] alive.
  *
- * The bridge is meant to be temporary, so the service shuts itself down after
- * [Prefs.autoStopMinutes] with no API traffic. Every authenticated request pushes that back.
+ * Two modes, chosen by [Prefs.alwaysOn]:
+ *  - always on — the phone is left alone. The service is sticky, comes back after a reboot
+ *    via [BootReceiver], holds a wake lock, and a watchdog re-opens the socket if it dies.
+ *  - temporary — the bridge is switched on by hand and shuts itself down after
+ *    [Prefs.autoStopMinutes] without traffic.
  */
 class BridgeService : Service() {
 
@@ -28,66 +32,92 @@ class BridgeService : Service() {
     private var wifiLock: WifiManager.WifiLock? = null
     private var wakeLock: PowerManager.WakeLock? = null
 
-    private val autoStopRunnable = Runnable {
-        State.lastError = null
-        stopSelf()
+    private val autoStopRunnable = Runnable { stopSelf() }
+
+    /**
+     * OEM battery managers and transient network errors can take the listening socket down
+     * without taking the service with it. Nothing would notice until the iPhone failed to
+     * connect, so re-open it here instead.
+     */
+    private val watchdogRunnable = object : Runnable {
+        override fun run() {
+            val current = server
+            if (current != null && !current.isListening()) {
+                Log.w(TAG, "listening socket died — restarting it")
+                current.stop()
+                server = null
+                startServer(Prefs(this@BridgeService))
+            }
+            refreshNotification()
+            handler.postDelayed(this, WATCHDOG_INTERVAL_MS)
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when (intent?.action) {
-            ACTION_STOP -> {
-                stopSelf()
-                return START_NOT_STICKY
-            }
+        if (intent?.action == ACTION_STOP) {
+            stopSelf()
+            return START_NOT_STICKY
         }
+
+        val prefs = Prefs(this)
         if (server == null) {
-            startBridge()
+            startBridge(prefs)
         } else {
-            // Already up: this is a restart request, e.g. after the auto-stop timeout changed.
-            scheduleAutoStop()
+            // Already up: a restart request, e.g. after a settings change.
+            scheduleAutoStop(prefs)
         }
-        return START_NOT_STICKY
+
+        // Sticky only in always-on mode, so the system brings the bridge back if it kills us.
+        return if (prefs.alwaysOn) START_STICKY else START_NOT_STICKY
     }
 
-    private fun startBridge() {
-        val prefs = Prefs(this)
-        val port = prefs.port
-
+    private fun startBridge(prefs: Prefs) {
         createChannel()
-        startForeground(NOTIFICATION_ID, buildNotification(port))
+        startForeground(NOTIFICATION_ID, buildNotification(prefs.port))
 
-        val httpServer = HttpServer(
-            context = this,
-            port = port,
-            tokenProvider = { prefs.token },
-            onApiRequest = { handler.post { scheduleAutoStop() } },
-        )
-        try {
-            httpServer.start()
-        } catch (e: Exception) {
-            State.lastError = getString(R.string.error_port_busy, port)
-            State.running = false
-            State.notifyChanged()
+        if (!startServer(prefs)) {
             stopSelf()
             return
         }
 
-        server = httpServer
-        acquireLocks()
-        scheduleAutoStop()
+        acquireLocks(prefs)
+        scheduleAutoStop(prefs)
+        handler.removeCallbacks(watchdogRunnable)
+        handler.postDelayed(watchdogRunnable, WATCHDOG_INTERVAL_MS)
 
         State.lastError = null
         State.running = true
-        State.port = port
+        State.port = prefs.port
         State.notifyChanged()
     }
 
-    private fun scheduleAutoStop() {
+    /** Returns false when the port could not be opened. */
+    private fun startServer(prefs: Prefs): Boolean {
+        val httpServer = HttpServer(
+            context = this,
+            port = prefs.port,
+            tokenProvider = { prefs.token },
+            onApiRequest = { handler.post { scheduleAutoStop(prefs) } },
+        )
+        return try {
+            httpServer.start()
+            server = httpServer
+            true
+        } catch (e: Exception) {
+            Log.w(TAG, "could not bind port ${prefs.port}", e)
+            State.lastError = getString(R.string.error_port_busy, prefs.port)
+            State.running = false
+            State.notifyChanged()
+            false
+        }
+    }
+
+    private fun scheduleAutoStop(prefs: Prefs) {
         handler.removeCallbacks(autoStopRunnable)
-        val minutes = Prefs(this).autoStopMinutes
-        if (minutes <= 0) {
+        val minutes = prefs.autoStopMinutes
+        if (prefs.alwaysOn || minutes <= 0) {
             State.autoStopAt = 0L
         } else {
             val delay = minutes * 60_000L
@@ -98,10 +128,10 @@ class BridgeService : Service() {
     }
 
     @Suppress("DEPRECATION")
-    private fun acquireLocks() {
-        // Without the Wi-Fi lock, older Android parks the radio while the screen is off and the
-        // iPhone's request never arrives. From Android 10 the platform handles this itself, and
-        // WIFI_MODE_FULL_HIGH_PERF is deprecated, so only take the lock where it still does work.
+    private fun acquireLocks(prefs: Prefs) {
+        // Before Android 10 the Wi-Fi radio is parked while the screen is off and the request
+        // never arrives. From Android 10 the platform handles this and the constant is
+        // deprecated, so only take the lock where it still does something.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
             wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, WIFI_LOCK_TAG)
@@ -109,8 +139,12 @@ class BridgeService : Service() {
         }
 
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKE_LOCK_TAG)
-            .apply { setReferenceCounted(false); acquire(MAX_WAKE_LOCK_MS) }
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKE_LOCK_TAG).apply {
+            setReferenceCounted(false)
+            // An always-on bridge has to answer at any hour, so the lock is held with no
+            // timeout. That costs battery — the phone is expected to be on a charger.
+            if (prefs.alwaysOn) acquire() else acquire(TEMPORARY_WAKE_LOCK_MS)
+        }
     }
 
     private fun releaseLocks() {
@@ -122,6 +156,7 @@ class BridgeService : Service() {
 
     override fun onDestroy() {
         handler.removeCallbacks(autoStopRunnable)
+        handler.removeCallbacks(watchdogRunnable)
         server?.stop()
         server = null
         releaseLocks()
@@ -131,22 +166,30 @@ class BridgeService : Service() {
         super.onDestroy()
     }
 
+    // -------------------------------------------------------- Notification
+
     private fun createChannel() {
-        val manager = getSystemService(NotificationManager::class.java)
         val channel = NotificationChannel(
             CHANNEL_ID,
             getString(R.string.channel_name),
             NotificationManager.IMPORTANCE_LOW,
         ).apply { setShowBadge(false) }
-        manager.createNotificationChannel(channel)
+        getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+    }
+
+    private fun refreshNotification() {
+        if (!State.running) return
+        getSystemService(NotificationManager::class.java)
+            .notify(NOTIFICATION_ID, buildNotification(State.port))
     }
 
     private fun buildNotification(port: Int): Notification {
-        val ip = Net.localIpv4()
-        val text = if (ip == null) {
-            getString(R.string.notif_no_network)
-        } else {
-            "http://$ip:$port"
+        val address = Net.preferred()
+        val text = when {
+            address == null -> getString(R.string.notif_no_network)
+            address.kind == Net.Kind.TAILSCALE ->
+                getString(R.string.notif_remote_ready, "${address.ip}:$port")
+            else -> getString(R.string.notif_local_only, "${address.ip}:$port")
         }
 
         val openIntent = PendingIntent.getActivity(
@@ -166,6 +209,7 @@ class BridgeService : Service() {
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(getString(R.string.notif_title))
             .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setOngoing(true)
             .setSilent(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
@@ -196,19 +240,26 @@ class BridgeService : Service() {
     companion object {
         const val ACTION_STOP = "com.itamar.smsbridge.STOP"
 
+        private const val TAG = "SmsBridgeService"
         private const val CHANNEL_ID = "sms_bridge"
         private const val NOTIFICATION_ID = 1001
         private const val WIFI_LOCK_TAG = "SmsBridge:wifi"
         private const val WAKE_LOCK_TAG = "SmsBridge:cpu"
-        private const val MAX_WAKE_LOCK_MS = 6 * 60 * 60 * 1000L
+        private const val TEMPORARY_WAKE_LOCK_MS = 6 * 60 * 60 * 1000L
+        private const val WATCHDOG_INTERVAL_MS = 5 * 60 * 1000L
 
-        fun start(context: Context) {
+        /**
+         * Starting a foreground service from the background is blocked on Android 12+ outside
+         * a few exemptions, so this can legitimately fail when called from a boot or alarm
+         * broadcast on a phone that has not granted the battery-optimization exemption.
+         */
+        fun start(context: Context): Boolean = try {
             val intent = Intent(context, BridgeService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
+            context.startForegroundService(intent)
+            true
+        } catch (e: Exception) {
+            Log.w(TAG, "could not start the bridge from the background", e)
+            false
         }
 
         fun stop(context: Context) {

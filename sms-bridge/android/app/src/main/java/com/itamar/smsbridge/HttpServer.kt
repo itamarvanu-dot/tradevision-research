@@ -55,6 +55,12 @@ class HttpServer(
         }
     }
 
+    /** False once the listening socket has died, which is what the service watchdog checks. */
+    fun isListening(): Boolean {
+        val socket = serverSocket
+        return running && socket != null && socket.isBound && !socket.isClosed
+    }
+
     fun stop() {
         running = false
         try {

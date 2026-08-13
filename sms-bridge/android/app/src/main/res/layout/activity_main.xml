@@ -43,6 +43,44 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+        <Switch
+            android:id="@+id/alwaysOnSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/always_on_title"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/always_on_hint"
+            android:textSize="13sp" />
+
+        <!-- Remote reachability -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/label_reach"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/reachText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/reachHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="13sp" />
+
         <!-- Pairing -->
         <LinearLayout
             android:id="@+id/addressBlock"

@@ -9,16 +9,15 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- A short, silent "sent N messages to the iPhone" note after each pull. -->
+    <!-- The visible "sharing" notice and the per-request note. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Lets the app open the one-tap "unrestricted battery" prompt. It costs nothing:
-         the app has no background work to run. -->
+    <!-- Lets the app open the one-tap "unrestricted battery" prompt. Costs nothing: no background work. -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <!--
       Nothing here runs in the background. No service, no wake lock, no alarm, no boot
-      receiver: the process is started by Google Play services only when the iPhone asks
-      for messages (a high-priority FCM push), does a few seconds of work and is gone.
+      receiver: the process is started by Google Play services only when the controller
+      asks for messages (a high-priority FCM push), does a few seconds of work and is gone.
     -->
     <application
         android:name=".App"
@@ -35,6 +34,13 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Opening an enrollment link hands this phone its (public) settings. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="smsbridge" android:host="enroll" />
             </intent-filter>
         </activity>
 

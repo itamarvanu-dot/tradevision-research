@@ -47,7 +47,82 @@
             android:textSize="13sp"
             android:visibility="gone" />
 
-        <!-- 1. Permissions -->
+        <!-- Enroll -->
+        <LinearLayout
+            android:id="@+id/enrollBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView style="@style/SectionTitle" android:text="@string/enroll_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enroll_hint"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/enrollInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/enroll_input_hint"
+                android:inputType="textUri"
+                android:textDirection="ltr"
+                android:textSize="13sp"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/btnEnroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_enroll" />
+
+            <TextView
+                android:id="@+id/enrollProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Manage -->
+        <LinearLayout
+            android:id="@+id/manageBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView style="@style/SectionTitle" android:text="@string/manage_title" />
+
+            <TextView
+                android:id="@+id/sharingWith"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/SectionTitle"
+                android:text="@string/consent_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/consent_body"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btnUnenroll"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/btn_unenroll" />
+        </LinearLayout>
+
+        <!-- Permissions -->
         <TextView style="@style/SectionTitle" android:text="@string/step1_title" />
 
         <TextView
@@ -67,129 +142,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_grant" />
-
-        <!-- 2. Firebase -->
-        <TextView style="@style/SectionTitle" android:text="@string/step2_title" />
-
-        <TextView
-            android:id="@+id/fbStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/fbHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/step2_hint"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btnImport"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/btn_import" />
-
-        <Button
-            android:id="@+id/btnRetry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_retry_setup"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/setupProgress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
-        <!-- 3. iPhone -->
-        <LinearLayout
-            android:id="@+id/pairBlock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView style="@style/SectionTitle" android:text="@string/step3_title" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/step3_hint"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/qrImage"
-                android:layout_width="280dp"
-                android:layout_height="280dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
-                android:background="#FFFFFF"
-                android:contentDescription="@string/qr_content_description" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnShare"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btn_share" />
-
-                <Button
-                    android:id="@+id/btnCopy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/btn_copy" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/page_url_label"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/pageUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textUri"
-                android:textDirection="ltr"
-                android:textSize="13sp" />
-
-            <!-- Self test -->
-            <TextView style="@style/SectionTitle" android:text="@string/selftest_title" />
-
-            <Button
-                android:id="@+id/btnSelfTest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_selftest" />
-
-            <TextView
-                android:id="@+id/selfTestResult"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/btnRotate"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/btn_rotate" />
-        </LinearLayout>
 
         <!-- Reliability -->
         <TextView style="@style/SectionTitle" android:text="@string/reliability_title" />

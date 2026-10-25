@@ -2,76 +2,61 @@
 <resources>
     <string name="app_name">SMS Bridge</string>
 
-    <string name="channel_pulls">משיכות מהאייפון</string>
-    <string name="notif_pulled">נשלחו %1$d הודעות לאייפון</string>
-    <string name="notif_selftest">הבדיקה העצמית עברה</string>
+    <string name="channel_pulls">משיכות</string>
+    <string name="channel_sharing">שיתוף פעיל</string>
+    <string name="notif_pulled">נשלחו %1$d הודעות</string>
+    <string name="notif_pulled_to">נשלחו %1$d הודעות אל %2$s</string>
+    <string name="notif_selftest">בדיקת החיבור עברה</string>
+    <string name="sharing_notice">הטלפון הזה משתף הודעות SMS לפי בקשה</string>
+    <string name="sharing_notice_with">משתף הודעות SMS עם %1$s לפי בקשה</string>
 
-    <string name="header_ready">מוכן</string>
+    <string name="header_setup">צריך לחבר</string>
+    <string name="header_ready">מחובר</string>
     <string name="header_paused">מושהה</string>
-    <string name="header_setup">צריך להגדיר</string>
-    <string name="sub_ready">כשתלחץ "רענן" באייפון, הטלפון הזה יתעורר לשנייה וישלח את ההודעות. בשאר הזמן האפליקציה לא רצה בכלל.</string>
-    <string name="sub_paused">האייפון לא יקבל הודעות עד שתפעיל מחדש.</string>
-    <string name="sub_setup">שלושה שלבים, פעם אחת בלבד.</string>
+    <string name="sub_setup">הדבק את קישור החיבור ששלחו לך, או פתח אותו ישירות.</string>
+    <string name="sub_ready">כשיבקשו רענון, הטלפון הזה יתעורר לרגע וישלח את ההודעות האחרונות. בשאר הזמן האפליקציה לא רצה.</string>
+    <string name="sub_paused">השיתוף מושהה. לא יישלחו הודעות עד שתפעיל מחדש.</string>
 
-    <string name="enabled_title">לאפשר לאייפון למשוך הודעות</string>
-    <string name="last_pull">משיכה אחרונה: %1$s · %2$d הודעות</string>
-    <string name="last_pull_never">עדיין לא הייתה משיכה</string>
-    <string name="last_error">שגיאה אחרונה: %1$s</string>
-
-    <string name="step1_title">1 · הרשאות</string>
-    <string name="perm_sms_missing">חסרה הרשאת קריאת SMS — בלעדיה אין מה לשלוח</string>
+    <string name="step1_title">הרשאות</string>
+    <string name="perm_sms_missing">חסרה הרשאת קריאת SMS — בלעדיה אין מה לשתף</string>
     <string name="perm_sms_ok">✓ קריאת SMS</string>
     <string name="perm_contacts_missing">אין הרשאת אנשי קשר — יוצגו מספרים במקום שמות</string>
     <string name="perm_contacts_ok">✓ שמות אנשי קשר</string>
     <string name="btn_grant">אשר הרשאות</string>
 
-    <string name="step2_title">2 · חיבור ל-Firebase</string>
-    <string name="step2_hint">פרויקט Firebase חינמי משמש כ"תיבת דואר" מוצפנת בין הטלפונים. לא צריך שום חשבון על הטלפונים עצמם. ההוראות המלאות ב-README.\n\nבקונסול Firebase: Project settings ← Service accounts ← Generate new private key. בחר כאן את הקובץ שירד (אפשר לבחור יחד איתו גם google-services.json).</string>
-    <string name="btn_import">בחר קובץ מפתח</string>
-    <string name="fb_connected">✓ מחובר לפרויקט %1$s</string>
-    <string name="fb_none">לא מחובר</string>
-    <string name="btn_retry_setup">השלם הגדרה</string>
+    <string name="enroll_title">חיבור</string>
+    <string name="enroll_hint">קיבלת קישור חיבור? פתח אותו, או הדבק אותו כאן. החיבור מספר לטלפון הזה למי לשלוח את ההודעות — הכל מוגדר מראש, אין צורך בחשבון או בהגדרות.</string>
+    <string name="enroll_input_hint">קישור או קוד חיבור</string>
+    <string name="btn_enroll">התחבר</string>
+    <string name="enroll_done">מחובר</string>
 
-    <string name="step3_title">3 · חיבור האייפון</string>
-    <string name="step3_hint">סרוק במצלמת האייפון, פתח בספארי, ואז שיתוף ← "הוסף למסך הבית". פעם אחת בלבד.</string>
-    <string name="btn_share">שלח את הקישור</string>
-    <string name="btn_copy">העתק</string>
-    <string name="copied">הועתק</string>
-    <string name="btn_rotate">נתק את האייפון (מפתח חדש)</string>
-    <string name="rotate_confirm">האייפון שמחובר עכשיו יפסיק לעבוד עד שיסרוק קוד חדש. להמשיך?</string>
-    <string name="qr_content_description">קוד QR לחיבור האייפון</string>
-    <string name="page_url_label">כתובת דף האייפון</string>
+    <string name="consent_title">מה האפליקציה עושה</string>
+    <string name="consent_body">כל עוד הטלפון מחובר, מי שמחזיק את המכשיר השני יכול לבקש את הודעות ה-SMS שמתקבלות כאן ולראות אותן אצלו. בכל פעם שזה קורה תופיע כאן התראה. אפשר להשהות בכל רגע, ולנתק לגמרי בכפתור למטה. התקן את האפליקציה רק בטלפון שבעליו מסכים לשיתוף.</string>
 
-    <string name="selftest_title">בדיקה עצמית</string>
-    <string name="btn_selftest">שלח לעצמי בקשת משיכה</string>
-    <string name="selftest_running">בודק…</string>
-    <string name="selftest_ok">✓ עובד. הטלפון קיבל דחיפה, קרא הודעות והעלה אותן.</string>
-    <string name="selftest_fail">✗ לא התקבלה תשובה תוך 20 שניות. %1$s</string>
+    <string name="manage_title">מצב</string>
+    <string name="sharing_with">משותף עם: %1$s</string>
+    <string name="sharing_generic">משותף עם המכשיר שחיבר אותך</string>
+    <string name="enabled_title">לאפשר שיתוף הודעות</string>
+    <string name="last_pull">בקשה אחרונה: %1$s · %2$d הודעות</string>
+    <string name="last_pull_never">עדיין לא התקבלה בקשה</string>
+    <string name="last_error">שגיאה אחרונה: %1$s</string>
+    <string name="btn_unenroll">נתק את הטלפון הזה</string>
+    <string name="unenroll_confirm">לנתק? הטלפון הזה יפסיק לשתף הודעות עד שתחבר אותו מחדש עם קישור.</string>
 
-    <string name="reliability_title">שיענה תמיד, גם אחרי ימים בלי שימוש</string>
-    <string name="reliability_hint">האפליקציה לא רצה ברקע, ולכן ההגדרות האלה לא עולות בסוללה. הן רק מונעות מסמסונג "להרדים" אותה כשלא פותחים אותה הרבה זמן:\n\n• הגדרות ← סוללה ← הגבלות שימוש ברקע: להוסיף את SMS Bridge ל"אפליקציות שאף פעם לא נרדמות".\n• בפרטי האפליקציה: לכבות "השהה פעילות אם לא בשימוש".\n• לא לבצע "עצירה בכוח" לאפליקציה.</string>
+    <string name="reliability_title">שיעבוד תמיד, גם אחרי ימים בלי שימוש</string>
+    <string name="reliability_hint">האפליקציה לא רצה ברקע, ולכן ההגדרות האלה לא עולות בסוללה. הן רק מונעות מהמערכת "להרדים" אפליקציה שלא פותחים הרבה זמן:\n\n• הגדרות ← סוללה ← אפליקציות שאף פעם לא נרדמות ← להוסיף את SMS Bridge.\n• בפרטי האפליקציה: לכבות "השהה פעילות אם לא בשימוש".\n• לא לבצע "עצירה בכוח" לאפליקציה.</string>
     <string name="btn_app_settings">פתח את הגדרות האפליקציה</string>
     <string name="btn_battery">סוללה: ללא הגבלה</string>
     <string name="hibernation_ok">✓ השהיה כשלא בשימוש — כבויה</string>
     <string name="hibernation_on">⚠ "השהה פעילות אם לא בשימוש" דלוק — לכבות</string>
 
-    <string name="working">עובד…</string>
-    <string name="step_auth">בודק את קובץ המפתח…</string>
-    <string name="step_app">רושם את האפליקציה בפרויקט…</string>
-    <string name="step_db">מכין מסד נתונים מוצפן…</string>
-    <string name="step_token">נרשם לקבלת דחיפות…</string>
-    <string name="step_page">מעלה את דף האייפון…</string>
-    <string name="step_publish">מפרסם את פרטי החיבור…</string>
-    <string name="setup_done">ההגדרה הושלמה</string>
-    <string name="restarting">מפעיל מחדש כדי לעבור לפרויקט החדש…</string>
+    <string name="working">מתחבר…</string>
+    <string name="step_token">נרשם לקבלת בקשות…</string>
+    <string name="step_publish">מסיים חיבור…</string>
+    <string name="restarting">מפעיל מחדש כדי להחיל את החיבור החדש…</string>
 
-    <string name="hosting_failed">לא הצלחתי להעלות את דף האייפון ל-Firebase Hosting, ולכן הקוד מפנה לכתובת שבשדה "כתובת דף האייפון". (%1$s)</string>
-    <string name="err_need_key">צריך את קובץ ה-service account (מ-Firebase: Project settings ← Service accounts ← Generate new private key).</string>
-    <string name="err_unknown_files">הקבצים שנבחרו אינם קובץ service account או google-services.json.</string>
-    <string name="err_project_mismatch">שני הקבצים שייכים לפרויקטים שונים.</string>
-    <string name="err_key_rejected">גוגל דחתה את קובץ המפתח. ייתכן שהוא בוטל — צור מפתח חדש.</string>
-    <string name="err_need_google_services">לא הצלחתי לרשום את האפליקציה אוטומטית. בקונסול: Add app ← Android ← חבילה com.itamar.smsbridge, הורד את google-services.json ובחר אותו כאן יחד עם קובץ המפתח.</string>
-    <string name="err_db">לא הצלחתי ליצור מסד נתונים. בקונסול: Build ← Realtime Database ← Create database, ואז "השלם הגדרה".</string>
-    <string name="err_rules">לא הצלחתי לנעול את מסד הנתונים.</string>
-    <string name="err_fcm">ההרשמה לדחיפות נכשלה. ודא שיש אינטרנט ושירותי Google Play מעודכנים.</string>
+    <string name="err_bad_link">הקישור או הקוד אינם תקינים. בקש קישור חדש מהמכשיר השני.</string>
+    <string name="err_fcm">ההרשמה לקבלת בקשות נכשלה. ודא שיש אינטרנט ושירותי Google Play מעודכנים.</string>
+    <string name="err_publish">סיום החיבור נכשל. ודא שיש אינטרנט ונסה שוב.</string>
+    <string name="err_revoked">החיבור בוטל מצד המכשיר השני. בקש קישור חדש.</string>
 </resources>

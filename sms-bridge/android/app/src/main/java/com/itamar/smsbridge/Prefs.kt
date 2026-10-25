@@ -1,73 +1,124 @@
 package com.itamar.smsbridge
 
 import android.content.Context
-import java.security.SecureRandom
+import org.json.JSONObject
 
-/** Small wrapper over SharedPreferences. The access token lives here and nowhere else. */
+/** Small wrapper over SharedPreferences. Every secret the app holds lives here and nowhere else. */
 class Prefs(context: Context) {
 
     private val sp = context.applicationContext
         .getSharedPreferences("sms_bridge", Context.MODE_PRIVATE)
 
-    var port: Int
-        get() = sp.getInt(KEY_PORT, DEFAULT_PORT)
-        set(value) = sp.edit().putInt(KEY_PORT, value).apply()
+    var serviceAccount: ServiceAccount?
+        get() = sp.getString(KEY_SA, null)?.let { ServiceAccount.parse(JSONObject(it)) }
+        set(value) = sp.edit().putString(KEY_SA, value?.toJson()?.toString()).apply()
 
-    /**
-     * When set, the bridge stays up indefinitely and comes back by itself after a reboot,
-     * so the phone can be left alone. When cleared, the bridge is a temporary thing that
-     * shuts down after [autoStopMinutes] and has to be switched on by hand.
-     */
-    var alwaysOn: Boolean
-        get() = sp.getBoolean(KEY_ALWAYS_ON, true)
-        set(value) = sp.edit().putBoolean(KEY_ALWAYS_ON, value).apply()
-
-    /**
-     * Set when the bridge was switched off deliberately, from the app or the notification.
-     * The boot receiver and the alarm watchdog honour it, so "off" means off until the next
-     * time the bridge is started by hand.
-     */
-    var manuallyStopped: Boolean
-        get() = sp.getBoolean(KEY_MANUALLY_STOPPED, false)
-        set(value) = sp.edit().putBoolean(KEY_MANUALLY_STOPPED, value).apply()
-
-    /** Minutes of inactivity after which the bridge shuts itself down. Ignored when [alwaysOn]. */
-    var autoStopMinutes: Int
-        get() = sp.getInt(KEY_AUTO_STOP, DEFAULT_AUTO_STOP_MINUTES)
-        set(value) = sp.edit().putInt(KEY_AUTO_STOP, value).apply()
-
-    /** Generated lazily on first use so a fresh install always has a token. */
-    val token: String
-        get() = sp.getString(KEY_TOKEN, null) ?: regenerateToken()
-
-    fun regenerateToken(): String {
-        val token = randomToken()
-        sp.edit().putString(KEY_TOKEN, token).apply()
-        return token
-    }
-
-    private fun randomToken(): String {
-        val random = SecureRandom()
-        val sb = StringBuilder(TOKEN_LENGTH)
-        repeat(TOKEN_LENGTH) {
-            sb.append(TOKEN_ALPHABET[random.nextInt(TOKEN_ALPHABET.length)])
+    var firebase: FirebaseConfig?
+        get() {
+            val raw = sp.getString(KEY_FIREBASE, null) ?: return null
+            val j = JSONObject(raw)
+            return FirebaseConfig(
+                projectId = j.getString("projectId"),
+                appId = j.getString("appId"),
+                apiKey = j.getString("apiKey"),
+                senderId = j.getString("senderId"),
+                databaseUrl = j.optString("databaseUrl").ifBlank { null },
+            )
         }
-        return sb.toString()
+        set(value) {
+            val raw = value?.let {
+                JSONObject()
+                    .put("projectId", it.projectId)
+                    .put("appId", it.appId)
+                    .put("apiKey", it.apiKey)
+                    .put("senderId", it.senderId)
+                    .put("databaseUrl", it.databaseUrl ?: "")
+                    .toString()
+            }
+            sp.edit().putString(KEY_FIREBASE, raw).apply()
+        }
+
+    /** Random path segment under /boxes. Changing it (with [boxKey]) unpairs the iPhone. */
+    var boxId: String?
+        get() = sp.getString(KEY_BOX, null)
+        set(value) = sp.edit().putString(KEY_BOX, value).apply()
+
+    /** AES key shared with the iPhone through the pairing link only. */
+    var boxKey: String?
+        get() = sp.getString(KEY_BOX_KEY, null)
+        set(value) = sp.edit().putString(KEY_BOX_KEY, value).apply()
+
+    var fcmToken: String?
+        get() = sp.getString(KEY_FCM, null)
+        set(value) = sp.edit().putString(KEY_FCM, value).apply()
+
+    /** The FCM token most recently written to the setup record the iPhone reads. */
+    var publishedToken: String?
+        get() = sp.getString(KEY_PUBLISHED, null)
+        set(value) = sp.edit().putString(KEY_PUBLISHED, value).apply()
+
+    var pageUrl: String
+        get() = sp.getString(KEY_PAGE_URL, null) ?: BuildConfig.DEFAULT_PAGE_URL
+        set(value) = sp.edit().putString(KEY_PAGE_URL, value).apply()
+
+    /** Master switch. When off, pull requests from the iPhone are answered with "paused". */
+    var enabled: Boolean
+        get() = sp.getBoolean(KEY_ENABLED, true)
+        set(value) = sp.edit().putBoolean(KEY_ENABLED, value).apply()
+
+    var lastPullAt: Long
+        get() = sp.getLong(KEY_LAST_PULL_AT, 0L)
+        set(value) = sp.edit().putLong(KEY_LAST_PULL_AT, value).apply()
+
+    var lastPullCount: Int
+        get() = sp.getInt(KEY_LAST_PULL_COUNT, 0)
+        set(value) = sp.edit().putInt(KEY_LAST_PULL_COUNT, value).apply()
+
+    var lastError: String?
+        get() = sp.getString(KEY_LAST_ERROR, null)
+        set(value) = sp.edit().putString(KEY_LAST_ERROR, value).apply()
+
+    val isPaired: Boolean
+        get() = serviceAccount != null && firebase?.databaseUrl != null &&
+            boxId != null && boxKey != null && publishedToken != null
+
+    /** The link inside the QR code. Everything after '#' stays on the iPhone; browsers never send it. */
+    fun pairingUrl(): String? {
+        val db = firebase?.databaseUrl ?: return null
+        val box = boxId ?: return null
+        val key = boxKey ?: return null
+        val payload = JSONObject().put("d", db).put("b", box).put("k", key).toString()
+        return pageUrl + "#p=" + Crypto.b64url(payload.toByteArray(Charsets.UTF_8))
     }
+
+    val tokenCache = object : Google.TokenCache {
+        override fun load(): Pair<String, Long>? {
+            val t = sp.getString(KEY_ACCESS, null) ?: return null
+            return t to sp.getLong(KEY_ACCESS_EXP, 0L)
+        }
+
+        override fun store(token: String, expiresAtMs: Long) {
+            sp.edit().putString(KEY_ACCESS, token).putLong(KEY_ACCESS_EXP, expiresAtMs).apply()
+        }
+    }
+
+    fun google(): Google? = serviceAccount?.let { Google(it, tokenCache) }
+
+    fun clearAccessToken() = sp.edit().remove(KEY_ACCESS).remove(KEY_ACCESS_EXP).apply()
 
     companion object {
-        const val DEFAULT_PORT = 8080
-        const val DEFAULT_AUTO_STOP_MINUTES = 30
-
-        private const val KEY_PORT = "port"
-        private const val KEY_ALWAYS_ON = "always_on"
-        private const val KEY_MANUALLY_STOPPED = "manually_stopped"
-        private const val KEY_AUTO_STOP = "auto_stop_minutes"
-        private const val KEY_TOKEN = "token"
-
-        private const val TOKEN_LENGTH = 12
-
-        /** No 0/O/1/I/l — the token gets typed by hand often enough to matter. */
-        private const val TOKEN_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789"
+        private const val KEY_SA = "service_account"
+        private const val KEY_FIREBASE = "firebase"
+        private const val KEY_BOX = "box_id"
+        private const val KEY_BOX_KEY = "box_key"
+        private const val KEY_FCM = "fcm_token"
+        private const val KEY_PUBLISHED = "published_token"
+        private const val KEY_PAGE_URL = "page_url"
+        private const val KEY_ENABLED = "enabled"
+        private const val KEY_LAST_PULL_AT = "last_pull_at"
+        private const val KEY_LAST_PULL_COUNT = "last_pull_count"
+        private const val KEY_LAST_ERROR = "last_error"
+        private const val KEY_ACCESS = "access_token"
+        private const val KEY_ACCESS_EXP = "access_token_exp"
     }
 }

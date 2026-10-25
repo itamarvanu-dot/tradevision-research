@@ -93,18 +93,6 @@ object SmsRepository {
         return out
     }
 
-    /** Total inbox size, used only for the status line. */
-    fun totalCount(context: Context): Int {
-        if (!hasSmsPermission(context)) return 0
-        return context.contentResolver.query(
-            Telephony.Sms.Inbox.CONTENT_URI,
-            arrayOf(Telephony.Sms._ID),
-            null,
-            null,
-            null,
-        )?.use { it.count } ?: 0
-    }
-
     fun hasSmsPermission(context: Context): Boolean =
         ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) ==
             PackageManager.PERMISSION_GRANTED

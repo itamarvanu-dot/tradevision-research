@@ -14,7 +14,6 @@
             android:id="@+id/statusHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/header_off"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -23,105 +22,114 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/subtitle_off"
             android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/btnToggle"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/btn_turn_on"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/errorText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/alwaysOnSwitch"
+            android:id="@+id/enabledSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/always_on_title"
+            android:layout_marginTop="12dp"
+            android:text="@string/enabled_title"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/always_on_hint"
-            android:textSize="13sp" />
-
-        <!-- Remote reachability -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/label_reach"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/reachText"
+            android:id="@+id/lastPull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/lastError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <!-- 1. Permissions -->
+        <TextView style="@style/SectionTitle" android:text="@string/step1_title" />
+
+        <TextView
+            android:id="@+id/permSms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/reachHint"
+            android:id="@+id/permContacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnGrant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_grant" />
+
+        <!-- 2. Firebase -->
+        <TextView style="@style/SectionTitle" android:text="@string/step2_title" />
+
+        <TextView
+            android:id="@+id/fbStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fbHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/step2_hint"
             android:textSize="13sp" />
 
-        <!-- Pairing -->
-        <LinearLayout
-            android:id="@+id/addressBlock"
+        <Button
+            android:id="@+id/btnImport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/btn_import" />
+
+        <Button
+            android:id="@+id/btnRetry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_retry_setup"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/setupProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- 3. iPhone -->
+        <LinearLayout
+            android:id="@+id/pairBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/label_address"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <TextView style="@style/SectionTitle" android:text="@string/step3_title" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/hint_address"
+                android:text="@string/step3_hint"
                 android:textSize="13sp" />
 
             <ImageView
                 android:id="@+id/qrImage"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 android:background="#FFFFFF"
-                android:contentDescription="@string/qr_content_description"
-                android:padding="8dp" />
-
-            <TextView
-                android:id="@+id/urlText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:textIsSelectable="true"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:contentDescription="@string/qr_content_description" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,137 +138,88 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btnShare"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/btn_share" />
+
+                <Button
                     android:id="@+id/btnCopy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/btn_copy" />
-
-                <Button
-                    android:id="@+id/btnShare"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:text="@string/btn_share" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/page_url_label"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/pageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"
+                android:textDirection="ltr"
+                android:textSize="13sp" />
+
+            <!-- Self test -->
+            <TextView style="@style/SectionTitle" android:text="@string/selftest_title" />
+
+            <Button
+                android:id="@+id/btnSelfTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_selftest" />
+
+            <TextView
+                android:id="@+id/selfTestResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnRotate"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/btn_rotate" />
         </LinearLayout>
 
-        <!-- Token -->
+        <!-- Reliability -->
+        <TextView style="@style/SectionTitle" android:text="@string/reliability_title" />
+
         <TextView
+            android:id="@+id/hibernation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/label_token"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tokenText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="monospace"
-            android:textIsSelectable="true"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="@string/hint_token"
+            android:text="@string/reliability_hint"
             android:textSize="13sp" />
 
         <Button
-            android:id="@+id/btnNewToken"
+            android:id="@+id/btnAppSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/btn_new_token" />
-
-        <!-- Auto stop -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/label_auto_stop"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/autoStopSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
-
-        <TextView
-            android:id="@+id/autoStopPending"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="13sp"
-            android:visibility="gone" />
-
-        <!-- Permissions -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/label_permissions"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/permSms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/permContacts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btnGrant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/btn_grant" />
+            android:text="@string/btn_app_settings" />
 
         <Button
             android:id="@+id/btnBattery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="@string/btn_battery" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="@string/hint_battery"
-            android:textSize="13sp" />
-
-        <!-- Help -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/label_help"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/help_body"
-            android:textSize="14sp" />
 
     </LinearLayout>
 </ScrollView>

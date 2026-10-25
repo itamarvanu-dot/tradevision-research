@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="הודעות">
+<meta name="theme-color" content="#0b1220">
+<meta name="referrer" content="no-referrer">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<title>הודעות מהסמסונג</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --card: #151d2e;
+    --card-2: #1b2438;
+    --line: #26314a;
+    --text: #eef2f9;
+    --muted: #94a3b8;
+    --accent: #3b82f6;
+    --accent-press: #2563eb;
+    --ok: #22c55e;
+    --bad: #f87171;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+    padding: max(12px, env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));
+    -webkit-text-size-adjust: 100%;
+  }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  h1 { font-size: 20px; margin: 0; font-weight: 700; }
+  #status { font-size: 13px; color: var(--muted); text-align: left; }
+
+  button {
+    font: inherit; color: inherit; border: none; border-radius: 12px;
+    background: var(--card-2); padding: 10px 14px; cursor: pointer;
+  }
+  button:active { opacity: .75; }
+
+  #fetchBtn {
+    width: 100%; background: var(--accent); color: #fff; font-size: 19px;
+    font-weight: 700; padding: 18px; border-radius: 16px; margin-bottom: 10px;
+  }
+  #fetchBtn:active { background: var(--accent-press); }
+  #fetchBtn[disabled] { opacity: .65; }
+
+  .chips { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 10px; padding-bottom: 2px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; font-size: 14px; border: 1px solid var(--line); padding: 7px 12px; border-radius: 999px; }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .row > * { flex: 1; min-width: 0; }
+
+  input[type="search"], input[type="url"] {
+    width: 100%; font: inherit; color: var(--text); background: var(--card);
+    border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px;
+  }
+  input::placeholder { color: var(--muted); }
+
+  .toggle { flex: 0 0 auto; border: 1px solid var(--line); font-size: 14px; white-space: nowrap; }
+  .toggle[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  #banner {
+    display: none; border-radius: 12px; padding: 12px 14px; margin-bottom: 12px;
+    font-size: 14px; background: #3f1d1d; color: #fecaca; border: 1px solid #7f1d1d;
+  }
+  #banner.show { display: block; }
+  #banner.info { background: #14283f; color: #bfdbfe; border-color: #1e3a5f; }
+
+  .msg {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 12px 14px; margin-bottom: 10px;
+  }
+  .msg.unread { border-color: var(--accent); }
+  .msg.fresh { box-shadow: 0 0 0 1px var(--ok) inset; }
+  .msg-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+  .from { font-weight: 700; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .when { color: var(--muted); font-size: 12px; flex: 0 0 auto; }
+  .body { white-space: pre-wrap; word-break: break-word; font-size: 15px; }
+
+  .codes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .code {
+    font-family: ui-monospace, Menlo, monospace; font-size: 17px; font-weight: 700;
+    letter-spacing: 1px; background: var(--card-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 6px 12px;
+  }
+  .code.copied { background: var(--ok); color: #07240f; border-color: var(--ok); }
+
+  #empty { text-align: center; color: var(--muted); padding: 40px 12px; font-size: 15px; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 18px; }
+  .link { color: var(--accent); background: none; padding: 4px; font-size: 12px; }
+
+  #pair { display: none; }
+  #pair.show { display: block; }
+  #pair p { color: var(--muted); font-size: 15px; }
+  #app.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="pair">
+  <h1>חיבור לסמסונג</h1>
+  <p>פתח את SMS Bridge בסמסונג וסרוק את קוד ה-QR במצלמה של האייפון.
+     אחר כך, בספארי: שיתוף ← "הוסף למסך הבית".</p>
+  <p>או הדבק כאן את הקישור שנשלח מהאפליקציה:</p>
+  <div class="row">
+    <input type="url" id="pairInput" placeholder="https://…#p=…" autocomplete="off">
+  </div>
+  <button id="pairBtn" style="width:100%">התחבר</button>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <h1>הודעות מהסמסונג</h1>
+    <span id="status"></span>
+  </header>
+
+  <div id="banner"></div>
+
+  <button id="fetchBtn">רענן הודעות</button>
+
+  <div class="chips" id="windows"></div>
+
+  <div class="row">
+    <input type="search" id="search" placeholder="חיפוש בהודעות…" autocomplete="off" enterkeyhint="search">
+    <button class="toggle" id="unreadBtn" aria-pressed="false">לא נקראו</button>
+  </div>
+
+  <div id="list"></div>
+  <div id="empty"></div>
+
+  <footer>
+    <span id="deviceInfo"></span>
+    <br>
+    <button class="link" id="clearBtn">נקה הודעות שמורות באייפון</button>
+    ·
+    <button class="link" id="unpairBtn">נתק</button>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // How it works: "refresh" sends a high-priority push to the Samsung through Firebase Cloud
+  // Messaging. The push wakes the app there for a few seconds; it reads the recent inbox,
+  // encrypts it with the key from the pairing link and writes it to the Realtime Database.
+  // This page polls for that reply and decrypts it. There is no server of our own, and
+  // Firebase only ever holds ciphertext.
+
+  var SCOPES = "https://www.googleapis.com/auth/firebase.messaging " +
+               "https://www.googleapis.com/auth/firebase.database " +
+               "https://www.googleapis.com/auth/userinfo.email";
+  var REPLY_TIMEOUT_MS = 25000;
+  var POLL_MS = 700;
+  var MAX_KEPT = 500;
+
+  var WINDOWS = [
+    { id: "15m", label: "15 דק׳", min: 15, lim: 200 },
+    { id: "1h", label: "שעה", min: 60, lim: 200 },
+    { id: "6h", label: "6 שעות", min: 360, lim: 300 },
+    { id: "1d", label: "יום", min: 1440, lim: 400 },
+    { id: "3d", label: "3 ימים", min: 4320, lim: 500 },
+    { id: "last50", label: "50 אחרונות", min: 0, lim: 50 }
+  ];
+
+  var K = {
+    pairing: "smsbridge.pairing",
+    setup: "smsbridge.setup",
+    token: "smsbridge.token",
+    messages: "smsbridge.messages",
+    meta: "smsbridge.meta",
+    window: "smsbridge.window"
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var els = {
+    pair: $("pair"), pairInput: $("pairInput"), pairBtn: $("pairBtn"), app: $("app"),
+    fetchBtn: $("fetchBtn"), windows: $("windows"), search: $("search"), unreadBtn: $("unreadBtn"),
+    list: $("list"), empty: $("empty"), status: $("status"), banner: $("banner"),
+    deviceInfo: $("deviceInfo"), clearBtn: $("clearBtn"), unpairBtn: $("unpairBtn")
+  };
+
+  var pairing = null;   // { d: databaseUrl, b: boxId, k: aesKey }
+  var messages = [];
+  var meta = {};        // { at, device, battery }
+  var freshIds = {};
+  var unreadOnly = false;
+  var loading = false;
+
+  // ------------------------------------------------------------- storage
+
+  function makeStore() {
+    var mem = {};
+    return {
+      get: function (k) { try { var v = localStorage.getItem(k); return v === null ? mem[k] : v; } catch (e) { return mem[k]; } },
+      set: function (k, v) { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } },
+      del: function (k) { delete mem[k]; try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
+    };
+  }
+  var store = makeStore();
+  var windowId = store.get(K.window) || "1h";
+
+  function getJson(k) { try { return JSON.parse(store.get(k) || "null"); } catch (e) { return null; } }
+  function setJson(k, v) { store.set(k, JSON.stringify(v)); }
+
+  // ------------------------------------------------------------- encoding
+
+  var te = new TextEncoder();
+  var td = new TextDecoder();
+
+  function b64urlToBytes(s) {
+    s = s.replace(/-/g, "+").replace(/_/g, "/");
+    while (s.length % 4) s += "=";
+    var bin = atob(s);
+    var out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  function bytesToB64url(buf) {
+    var bytes = new Uint8Array(buf);
+    var bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+
+  function strToB64url(s) { return bytesToB64url(te.encode(s)); }
+
+  function randomId() {
+    var a = new Uint8Array(9);
+    crypto.getRandomValues(a);
+    return bytesToB64url(a);
+  }
+
+  // --------------------------------------------------------------- crypto
+
+  function decrypt(sealed) {
+    return crypto.subtle.importKey("raw", b64urlToBytes(pairing.k), "AES-GCM", false, ["decrypt"])
+      .then(function (key) {
+        return crypto.subtle.decrypt({ name: "AES-GCM", iv: b64urlToBytes(sealed.iv) }, key, b64urlToBytes(sealed.ct));
+      })
+      .then(function (plain) { return JSON.parse(td.decode(plain)); });
+  }
+
+  function pemToDer(pem) {
+    var body = pem.replace(/-----(BEGIN|END) PRIVATE KEY-----/g, "").replace(/\\n/g, "").replace(/\s+/g, "");
+    return b64urlToBytes(body.replace(/\+/g, "-").replace(/\//g, "_"));
+  }
+
+  function signedAssertion(sa) {
+    var now = Math.floor(Date.now() / 1000);
+    var input = strToB64url(JSON.stringify({ alg: "RS256", typ: "JWT" })) + "." +
+      strToB64url(JSON.stringify({ iss: sa.client_email, scope: SCOPES, aud: sa.token_uri, iat: now, exp: now + 3600 }));
+    return crypto.subtle.importKey("pkcs8", pemToDer(sa.private_key), { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"])
+      .then(function (key) { return crypto.subtle.sign("RSASSA-PKCS1-v1_5", key, te.encode(input)); })
+      .then(function (sig) { return input + "." + bytesToB64url(sig); });
+  }
+
+  // -------------------------------------------------------------- network
+
+  function http(method, url, body, headers) {
+    return fetch(url, {
+      method: method,
+      headers: headers || (body ? { "Content-Type": "application/json" } : undefined),
+      body: body,
+      cache: "no-store",
+      referrerPolicy: "no-referrer"
+    }).then(function (r) {
+      return r.text().then(function (text) {
+        var data = null;
+        try { data = text ? JSON.parse(text) : null; } catch (e) { data = text; }
+        if (!r.ok) {
+          var err = new Error("HTTP " + r.status);
+          err.status = r.status;
+          err.data = data;
+          throw err;
+        }
+        return data;
+      });
+    });
+  }
+
+  function dbUrl(path) { return pairing.d.replace(/\/$/, "") + "/" + path + ".json"; }
+
+  /** The encrypted record the Samsung publishes: service-account key + push token. */
+  function loadSetup(force) {
+    var cached = getJson(K.setup);
+    if (cached && !force) return decrypt(cached);
+    return http("GET", dbUrl("boxes/" + pairing.b + "/setup")).then(function (sealed) {
+      if (!sealed || !sealed.ct) {
+        var e = new Error("no setup");
+        e.code = "unpaired";
+        throw e;
+      }
+      setJson(K.setup, sealed);
+      return decrypt(sealed);
+    });
+  }
+
+  function accessToken(sa, force) {
+    var cached = getJson(K.token);
+    if (!force && cached && cached.email === sa.client_email && cached.exp - Date.now() > 120000) {
+      return Promise.resolve(cached.token);
+    }
+    return signedAssertion(sa).then(function (assertion) {
+      var form = "grant_type=" + encodeURIComponent("urn:ietf:params:oauth:grant-type:jwt-bearer") +
+        "&assertion=" + encodeURIComponent(assertion);
+      return http("POST", sa.token_uri, form, { "Content-Type": "application/x-www-form-urlencoded" });
+    }).then(function (res) {
+      setJson(K.token, { token: res.access_token, exp: Date.now() + (res.expires_in || 3600) * 1000, email: sa.client_email });
+      return res.access_token;
+    });
+  }
+
+  function sendPull(setup, token, req, win) {
+    var body = {
+      message: {
+        token: setup.fcm,
+        data: { t: "pull", req: req, min: String(win.min), lim: String(win.lim) },
+        android: { priority: "HIGH", ttl: "120s" }
+      }
+    };
+    return http("POST", "https://fcm.googleapis.com/v1/projects/" + setup.sa.project_id + "/messages:send",
+      JSON.stringify(body), { "Content-Type": "application/json", "Authorization": "Bearer " + token });
+  }
+
+  function waitForReply(token, req) {
+    var deadline = Date.now() + REPLY_TIMEOUT_MS;
+    var inboxUrl = dbUrl("boxes/" + pairing.b + "/inbox");
+    var reqUrl = dbUrl("boxes/" + pairing.b + "/inbox/req");
+    var q = "?access_token=" + encodeURIComponent(token);
+
+    return new Promise(function (resolve, reject) {
+      function tick() {
+        if (Date.now() > deadline) {
+          var e = new Error("timeout");
+          e.code = "timeout";
+          reject(e);
+          return;
+        }
+        // Poll the tiny "req" field; fetch the full reply only once it is ours.
+        http("GET", reqUrl + q).then(function (got) {
+          if (got === req) return http("GET", inboxUrl + q).then(resolve);
+          setTimeout(tick, POLL_MS);
+        }).catch(function (e) {
+          if (e.status === 401) { reject(e); return; }
+          setTimeout(tick, POLL_MS * 2);
+        });
+      }
+      tick();
+    });
+  }
+
+  function isStaleTokenError(e) {
+    var s = e && e.data && e.data.error && (e.data.error.status || "");
+    var details = JSON.stringify((e && e.data) || "");
+    return e && (e.status === 404 || s === "NOT_FOUND" || /UNREGISTERED|registration token/i.test(details));
+  }
+
+  // ----------------------------------------------------------------- pull
+
+  function refresh() {
+    if (loading || !pairing) return;
+    loading = true;
+    setBusy("מעיר את הסמסונג…");
+
+    var win = currentWindow();
+    var req = randomId();
+    var setup, token;
+
+    loadSetup(false)
+      .then(function (s) { setup = s; return accessToken(setup.sa, false); })
+      .then(function (t) {
+        token = t;
+        return sendPull(setup, token, req, win).catch(function (e) {
+          if (e.status === 401) {
+            return accessToken(setup.sa, true).then(function (t2) { token = t2; return sendPull(setup, token, req, win); });
+          }
+          if (isStaleTokenError(e)) {
+            // The Samsung got a new push token; its setup record has the new one.
+            return loadSetup(true).then(function (s) { setup = s; return sendPull(setup, token, req, win); });
+          }
+          throw e;
+        });
+      })
+      .then(function () {
+        setBusy("ממתין לסמסונג…");
+        return waitForReply(token, req);
+      })
+      .then(function (reply) { return decrypt(reply); })
+      .then(function (data) {
+        if (data.status === "paused") {
+          showBanner("המשיכה מושהית באפליקציה בסמסונג (המתג \"לאפשר לאייפון למשוך הודעות\").");
+        } else if (data.status === "no_permission") {
+          showBanner("לאפליקציה בסמסונג אין הרשאת קריאת SMS.");
+        } else {
+          hideBanner();
+        }
+        merge(data.messages || []);
+        meta = { at: data.at, device: data.device, battery: data.battery };
+        setJson(K.meta, meta);
+        render();
+      })
+      .catch(function (e) {
+        if (e.code === "timeout") {
+          showBanner("הסמסונג לא ענה תוך 25 שניות. הוא כבוי, בלי אינטרנט, או שהאפליקציה \"נרדמה\" " +
+            "(ראה \"שיענה תמיד\" באפליקציה). ההודעות למטה הן מהמשיכה הקודמת.");
+        } else if (e.code === "unpaired" || (e.status === 401 && !token)) {
+          showBanner("החיבור לסמסונג בוטל או הוחלף. סרוק שוב את הקוד מהאפליקציה.");
+        } else if (e.status === 401 || e.status === 403) {
+          showBanner("גוגל דחתה את ההרשאה (" + e.status + "). ייתכן שמפתח ה-Firebase בוטל — טען מפתח חדש באפליקציה בסמסונג וסרוק שוב.");
+        } else if (e.name === "OperationError") {
+          showBanner("לא הצלחתי לפענח. ייתכן שהוחלף מפתח בסמסונג — סרוק שוב את הקוד.");
+        } else if (!navigator.onLine) {
+          showBanner("אין חיבור לאינטרנט באייפון.");
+        } else {
+          showBanner("משהו נכשל: " + (e.message || e));
+        }
+      })
+      .then(function () {
+        loading = false;
+        els.fetchBtn.disabled = false;
+        els.fetchBtn.textContent = "רענן הודעות";
+        renderStatus();
+      });
+  }
+
+  function merge(incoming) {
+    freshIds = {};
+    var byId = {};
+    var hadAny = messages.length > 0; // on the very first pull nothing is "new"
+    messages.forEach(function (m) { byId[m.id] = m; });
+    incoming.forEach(function (m) {
+      if (hadAny && !byId[m.id]) freshIds[m.id] = true;
+      byId[m.id] = m;
+    });
+    messages = Object.keys(byId).map(function (k) { return byId[k]; })
+      .sort(function (a, b) { return b.date - a.date; })
+      .slice(0, MAX_KEPT);
+    setJson(K.messages, messages);
+  }
+
+  function currentWindow() {
+    for (var i = 0; i < WINDOWS.length; i++) if (WINDOWS[i].id === windowId) return WINDOWS[i];
+    return WINDOWS[1];
+  }
+
+  // -------------------------------------------------------------- helpers
+
+  function showBanner(text, kind) {
+    els.banner.textContent = text;
+    els.banner.className = "show" + (kind === "info" ? " info" : "");
+  }
+
+  function hideBanner() { els.banner.className = ""; }
+
+  function setBusy(text) {
+    els.fetchBtn.disabled = true;
+    els.fetchBtn.textContent = text;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function formatWhen(ms) {
+    var date = new Date(ms);
+    var diff = Date.now() - ms;
+    if (diff < 60000) return "עכשיו";
+    if (diff < 3600000) return "לפני " + Math.floor(diff / 60000) + " דק׳";
+
+    var today = new Date();
+    var time = date.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+    if (date.toDateString() === today.toDateString()) return time;
+
+    var yesterday = new Date(today.getTime() - 86400000);
+    if (date.toDateString() === yesterday.toDateString()) return "אתמול " + time;
+
+    return date.toLocaleDateString("he-IL", { day: "2-digit", month: "2-digit" }) + " " + time;
+  }
+
+  // Verification codes are the main reason to look at another phone's SMS,
+  // so pull them out and make them one tap to copy.
+  function extractCodes(body) {
+    if (!/קוד|code|otp|סיסמ|verification|אימות/i.test(body)) return [];
+    var found = [];
+    var re = /\b(\d{4,8})\b/g;
+    var m;
+    while ((m = re.exec(body)) !== null) {
+      if (found.indexOf(m[1]) === -1) found.push(m[1]);
+      if (found.length >= 3) break;
+    }
+    return found;
+  }
+
+  function copyText(text, node) {
+    var done = function () {
+      node.classList.add("copied");
+      setTimeout(function () { node.classList.remove("copied"); }, 1200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done); });
+    } else {
+      legacyCopy(text, done);
+    }
+  }
+
+  function legacyCopy(text, done) {
+    var input = document.createElement("textarea");
+    input.value = text;
+    input.setAttribute("readonly", "");
+    input.style.position = "absolute";
+    input.style.left = "-9999px";
+    document.body.appendChild(input);
+    input.select();
+    input.setSelectionRange(0, text.length);
+    try { document.execCommand("copy"); done(); } catch (e) { /* nothing else to try */ }
+    document.body.removeChild(input);
+  }
+
+  // ----------------------------------------------------------------- view
+
+  function renderWindows() {
+    els.windows.innerHTML = "";
+    WINDOWS.forEach(function (w) {
+      var b = document.createElement("button");
+      b.className = "chip";
+      b.textContent = w.label;
+      b.setAttribute("aria-pressed", String(w.id === windowId));
+      b.addEventListener("click", function () {
+        windowId = w.id;
+        store.set(K.window, windowId);
+        renderWindows();
+        refresh();
+      });
+      els.windows.appendChild(b);
+    });
+  }
+
+  function renderStatus() {
+    if (meta && meta.at) {
+      els.status.textContent = "עודכן " + formatWhen(meta.at);
+      els.deviceInfo.textContent = (meta.device || "") + (meta.battery != null ? " · סוללה " + meta.battery + "%" : "");
+    } else {
+      els.status.textContent = "";
+    }
+  }
+
+  function render() {
+    renderStatus();
+    var query = els.search.value.trim().toLowerCase();
+    var visible = messages.filter(function (m) {
+      if (unreadOnly && m.read) return false;
+      if (!query) return true;
+      return (m.body || "").toLowerCase().indexOf(query) !== -1 ||
+             (m.from || "").toLowerCase().indexOf(query) !== -1 ||
+             (m.name || "").toLowerCase().indexOf(query) !== -1;
+    });
+
+    els.list.innerHTML = "";
+    if (!visible.length) {
+      els.empty.style.display = "block";
+      els.empty.textContent = messages.length
+        ? "אין הודעות שמתאימות לסינון"
+        : (meta && meta.at ? "לא התקבלו הודעות בטווח הזמן הזה" : "לחץ \"רענן הודעות\" כדי למשוך מהסמסונג");
+      return;
+    }
+    els.empty.style.display = "none";
+
+    var fragment = document.createDocumentFragment();
+    visible.forEach(function (m) {
+      var card = document.createElement("div");
+      card.className = "msg" + (m.read ? "" : " unread") + (freshIds[m.id] ? " fresh" : "");
+
+      var who = m.name || m.from || "לא ידוע";
+      card.innerHTML =
+        '<div class="msg-head">' +
+          '<span class="from" dir="auto">' + escapeHtml(who) + "</span>" +
+          '<span class="when">' + escapeHtml(formatWhen(m.date)) + "</span>" +
+        "</div>" +
+        '<div class="body" dir="auto">' + escapeHtml(m.body || "") + "</div>";
+
+      var codes = extractCodes(m.body || "");
+      if (codes.length) {
+        var wrap = document.createElement("div");
+        wrap.className = "codes";
+        codes.forEach(function (code) {
+          var btn = document.createElement("button");
+          btn.className = "code";
+          btn.textContent = code;
+          btn.addEventListener("click", function () { copyText(code, btn); });
+          wrap.appendChild(btn);
+        });
+        card.appendChild(wrap);
+      }
+      fragment.appendChild(card);
+    });
+    els.list.appendChild(fragment);
+  }
+
+  // -------------------------------------------------------------- pairing
+
+  /** "#p=<base64url JSON>" — the fragment never leaves the iPhone; browsers do not send it. */
+  function parsePairing(url) {
+    var m = /#p=([A-Za-z0-9_-]+)/.exec(url || "");
+    if (!m) return null;
+    try {
+      var p = JSON.parse(td.decode(b64urlToBytes(m[1])));
+      if (p && p.d && p.b && p.k && /^https:\/\//.test(p.d)) return p;
+    } catch (e) { /* fall through */ }
+    return null;
+  }
+
+  function applyPairing(p) {
+    var old = getJson(K.pairing);
+    if (!old || old.b !== p.b || old.k !== p.k || old.d !== p.d) {
+      // A new pairing: anything cached belongs to the old one.
+      [K.setup, K.token, K.messages, K.meta].forEach(store.del);
+      messages = [];
+      meta = {};
+    }
+    pairing = p;
+    setJson(K.pairing, p);
+  }
+
+  function showApp() {
+    els.pair.className = "";
+    els.app.className = "";
+    renderWindows();
+    render();
+  }
+
+  function showPairScreen() {
+    els.app.className = "hidden";
+    els.pair.className = "show";
+  }
+
+  // --------------------------------------------------------------- wiring
+
+  els.fetchBtn.addEventListener("click", refresh);
+  els.search.addEventListener("input", render);
+  els.unreadBtn.addEventListener("click", function () {
+    unreadOnly = !unreadOnly;
+    els.unreadBtn.setAttribute("aria-pressed", String(unreadOnly));
+    render();
+  });
+  els.clearBtn.addEventListener("click", function () {
+    messages = [];
+    freshIds = {};
+    store.del(K.messages);
+    render();
+  });
+  els.unpairBtn.addEventListener("click", function () {
+    if (!confirm("לנתק את האייפון מהסמסונג? כדי לחזור תצטרך לסרוק שוב את הקוד.")) return;
+    [K.pairing, K.setup, K.token, K.messages, K.meta].forEach(store.del);
+    pairing = null;
+    history.replaceState(null, "", location.pathname);
+    showPairScreen();
+  });
+  els.pairBtn.addEventListener("click", function () {
+    var p = parsePairing(els.pairInput.value.trim());
+    if (!p) { alert("הקישור לא תקין. העתק אותו שוב מהאפליקציה בסמסונג."); return; }
+    applyPairing(p);
+    // Put the pairing in the address so "Add to Home Screen" keeps it.
+    history.replaceState(null, "", location.pathname + "#p=" + /#p=([A-Za-z0-9_-]+)/.exec(els.pairInput.value)[1]);
+    showApp();
+    refresh();
+  });
+
+  // Coming back to an open page later: fetch again without a tap.
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible" && pairing && !loading &&
+        (!meta.at || Date.now() - meta.at > 30000)) {
+      refresh();
+    }
+  });
+
+  // ----------------------------------------------------------------- boot
+
+  // The pairing travels in the URL fragment and is deliberately left there: a home-screen
+  // icon on iOS keeps the URL it was added from but not always this page's storage.
+  var fromUrl = parsePairing(location.hash);
+  if (fromUrl) applyPairing(fromUrl);
+  else pairing = getJson(K.pairing);
+
+  if (!pairing || !(window.crypto && crypto.subtle)) {
+    showPairScreen();
+    if (!(window.crypto && crypto.subtle)) showBanner("הדפדפן הזה לא תומך בהצפנה הנדרשת. פתח בספארי.");
+  } else {
+    messages = getJson(K.messages) || [];
+    meta = getJson(K.meta) || {};
+    showApp();
+    refresh();
+  }
+})();
+</script>
+</body>
+</html>

@@ -6,7 +6,6 @@ import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.io.OutputStream
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
@@ -98,10 +97,13 @@ class HttpServer(
             client.getInputStream().buffered().use { input ->
                 client.getOutputStream().buffered().use { output ->
                     val request = HttpUtil.readRequest(input)
+                    // A request we could not parse has no usable method, so answer as if
+                    // it were a GET rather than announcing a body and sending none.
+                    val responder = HttpUtil.Responder(output, request?.method ?: "GET")
                     if (request == null) {
-                        respond(output, 400, "text/plain; charset=utf-8", BAD_REQUEST, false)
+                        responder.sendText(400, "Bad Request")
                     } else {
-                        handle(request, output)
+                        handle(request, responder)
                     }
                     output.flush()
                 }
@@ -117,39 +119,36 @@ class HttpServer(
         }
     }
 
-    private fun handle(request: HttpUtil.Request, output: OutputStream) {
-        // HEAD gets the same headers as GET but no body, per the spec.
-        val withBody = request.method != "HEAD"
+    private fun handle(request: HttpUtil.Request, responder: HttpUtil.Responder) {
         if (request.method != "GET" && request.method != "HEAD") {
-            respond(output, 405, "text/plain; charset=utf-8", METHOD_NOT_ALLOWED, withBody)
+            responder.sendText(405, "Method Not Allowed")
             return
         }
         if (request.path.startsWith("/api/")) {
-            handleApi(request, output, withBody)
+            handleApi(request, responder)
         } else {
-            handleStatic(request.path, output, withBody)
+            handleStatic(request.path, responder)
         }
     }
 
     // ---------------------------------------------------------------- API
 
-    private fun handleApi(request: HttpUtil.Request, output: OutputStream, withBody: Boolean) {
+    private fun handleApi(request: HttpUtil.Request, responder: HttpUtil.Responder) {
         // Unauthenticated liveness probe, so the web UI can tell "wrong address" from "wrong token".
         if (request.path == "/api/ping") {
-            respondJson(output, 200, JSONObject().put("ok", true).put("app", "sms-bridge"), withBody)
+            responder.sendJson(200, JSONObject().put("ok", true).put("app", "sms-bridge").toString())
             return
         }
 
         val now = System.currentTimeMillis()
         if (now < lockedOutUntil) {
-            respondJson(
-                output,
+            responder.sendJson(
                 429,
                 JSONObject()
                     .put("ok", false)
                     .put("error", "locked")
-                    .put("retryAfterSeconds", (lockedOutUntil - now) / 1000),
-                withBody,
+                    .put("retryAfterSeconds", (lockedOutUntil - now) / 1000)
+                    .toString(),
             )
             return
         }
@@ -160,20 +159,18 @@ class HttpServer(
                 lockedOutUntil = now + LOCKOUT_MS
                 Log.w(TAG, "too many bad tokens — locking the API for ${LOCKOUT_MS / 1000}s")
             }
-            respondJson(output, 401, JSONObject().put("ok", false).put("error", "bad_token"), withBody)
+            responder.sendJson(401, JSONObject().put("ok", false).put("error", "bad_token").toString())
             return
         }
         failedAuthCount.set(0)
         onApiRequest()
 
         when (request.path) {
-            "/api/messages" -> respondJson(output, 200, messagesPayload(request.query), withBody)
-            "/api/info" -> respondJson(output, 200, infoPayload(), withBody)
-            else -> respondJson(
-                output,
+            "/api/messages" -> responder.sendJson(200, messagesPayload(request.query).toString())
+            "/api/info" -> responder.sendJson(200, infoPayload().toString())
+            else -> responder.sendJson(
                 404,
-                JSONObject().put("ok", false).put("error", "not_found"),
-                withBody,
+                JSONObject().put("ok", false).put("error", "not_found").toString(),
             )
         }
     }
@@ -222,42 +219,19 @@ class HttpServer(
 
     // ------------------------------------------------------------- Static
 
-    private fun handleStatic(path: String, output: OutputStream, withBody: Boolean) {
+    private fun handleStatic(path: String, responder: HttpUtil.Responder) {
         val name = HttpUtil.assetNameFor(path)
         if (name == null) {
-            respond(output, 404, "text/plain; charset=utf-8", NOT_FOUND, withBody)
+            responder.sendText(404, "Not Found")
             return
         }
         val bytes = try {
             context.assets.open("web/$name").use { it.readBytes() }
         } catch (_: IOException) {
-            respond(output, 404, "text/plain; charset=utf-8", NOT_FOUND, withBody)
+            responder.sendText(404, "Not Found")
             return
         }
-        respond(output, 200, HttpUtil.contentTypeFor(name), bytes, withBody)
-    }
-
-    // ------------------------------------------------------------ Plumbing
-
-    private fun respondJson(output: OutputStream, status: Int, body: JSONObject, withBody: Boolean) {
-        respond(
-            output,
-            status,
-            "application/json; charset=utf-8",
-            body.toString().toByteArray(),
-            withBody,
-        )
-    }
-
-    private fun respond(
-        output: OutputStream,
-        status: Int,
-        contentType: String,
-        body: ByteArray,
-        withBody: Boolean,
-    ) {
-        output.write(HttpUtil.headerBlock(status, contentType, body.size).toByteArray(Charsets.US_ASCII))
-        if (withBody) output.write(body)
+        responder.send(200, HttpUtil.contentTypeFor(name), bytes)
     }
 
     companion object {
@@ -267,9 +241,5 @@ class HttpServer(
         private const val DEFAULT_LIMIT = 200
         private const val MAX_FAILED_AUTH = 10
         private const val LOCKOUT_MS = 5 * 60 * 1000L
-
-        private val NOT_FOUND = "Not Found".toByteArray()
-        private val BAD_REQUEST = "Bad Request".toByteArray()
-        private val METHOD_NOT_ALLOWED = "Method Not Allowed".toByteArray()
     }
 }

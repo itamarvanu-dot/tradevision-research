@@ -14,7 +14,12 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action ?: return
         if (action !in HANDLED_ACTIONS) return
-        if (!Prefs(context).alwaysOn) return
+        val prefs = Prefs(context)
+        if (!prefs.alwaysOn) return
+        if (prefs.manuallyStopped) {
+            Log.i(TAG, "not restarting after $action: the bridge was switched off deliberately")
+            return
+        }
 
         // Without the SMS permission the bridge has nothing to serve, and asking for it needs
         // an activity — so wait for the user to open the app rather than starting a useless service.
@@ -25,6 +30,7 @@ class BootReceiver : BroadcastReceiver() {
 
         Log.i(TAG, "restarting the bridge after $action")
         BridgeService.start(context)
+        Watchdog.schedule(context)
     }
 
     companion object {

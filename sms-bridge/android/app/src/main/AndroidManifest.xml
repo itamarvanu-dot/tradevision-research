@@ -52,6 +52,15 @@
         </service>
 
         <receiver
+            android:name=".Watchdog$Receiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.itamar.smsbridge.WATCHDOG_CHECK" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".BootReceiver"
             android:enabled="true"
             android:exported="true">

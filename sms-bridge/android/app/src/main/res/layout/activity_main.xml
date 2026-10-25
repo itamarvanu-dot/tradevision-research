@@ -43,7 +43,7 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/alwaysOnSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -46,7 +46,13 @@ class BridgeService : Service() {
                 Log.w(TAG, "listening socket died — restarting it")
                 current.stop()
                 server = null
-                startServer(Prefs(this@BridgeService))
+                // A failed rebind leaves State.running false and the error visible; the next
+                // tick tries again rather than tearing the service down.
+                if (startServer(Prefs(this@BridgeService))) {
+                    State.lastError = null
+                    State.running = true
+                    State.notifyChanged()
+                }
             }
             refreshNotification()
             handler.postDelayed(this, WATCHDOG_INTERVAL_MS)
@@ -56,12 +62,17 @@ class BridgeService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val prefs = Prefs(this)
+
         if (intent?.action == ACTION_STOP) {
+            // An explicit stop has to stick: without this the alarm watchdog or the next
+            // reboot would helpfully switch the bridge straight back on.
+            prefs.manuallyStopped = true
+            Watchdog.cancel(this)
             stopSelf()
             return START_NOT_STICKY
         }
-
-        val prefs = Prefs(this)
+        prefs.manuallyStopped = false
         if (server == null) {
             startBridge(prefs)
         } else {
@@ -84,6 +95,7 @@ class BridgeService : Service() {
 
         acquireLocks(prefs)
         scheduleAutoStop(prefs)
+        if (prefs.alwaysOn) Watchdog.schedule(this) else Watchdog.cancel(this)
         handler.removeCallbacks(watchdogRunnable)
         handler.postDelayed(watchdogRunnable, WATCHDOG_INTERVAL_MS)
 

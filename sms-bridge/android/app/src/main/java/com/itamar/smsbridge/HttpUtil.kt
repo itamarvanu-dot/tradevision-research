@@ -3,6 +3,7 @@ package com.itamar.smsbridge
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.io.OutputStream
 import java.net.URLDecoder
 
 /**
@@ -12,6 +13,31 @@ import java.net.URLDecoder
 internal object HttpUtil {
 
     const val MAX_HEADER_BYTES = 8192
+
+
+    /**
+     * Writes responses for one request.
+     *
+     * Body inclusion is decided here, once, from the request method — a HEAD response carries
+     * the same Content-Length as a GET but no body. Leaving that to each call site is how you
+     * end up announcing a body you never send, which makes the client wait for bytes that
+     * never arrive.
+     */
+    class Responder(private val out: OutputStream, method: String) {
+
+        private val includeBody = !method.equals("HEAD", ignoreCase = true)
+
+        fun send(status: Int, contentType: String, body: ByteArray) {
+            out.write(headerBlock(status, contentType, body.size).toByteArray(Charsets.US_ASCII))
+            if (includeBody) out.write(body)
+        }
+
+        fun sendText(status: Int, text: String) =
+            send(status, "text/plain; charset=utf-8", text.toByteArray(Charsets.UTF_8))
+
+        fun sendJson(status: Int, json: String) =
+            send(status, "application/json; charset=utf-8", json.toByteArray(Charsets.UTF_8))
+    }
 
     /** A parsed request line plus the headers we care about. */
     data class Request(

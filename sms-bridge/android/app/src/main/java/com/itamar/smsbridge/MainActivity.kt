@@ -18,11 +18,11 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var qrImage: ImageView
     private lateinit var urlText: TextView
     private lateinit var tokenText: TextView
-    private lateinit var alwaysOnSwitch: Switch
+    private lateinit var alwaysOnSwitch: SwitchCompat
     private lateinit var reachText: TextView
     private lateinit var reachHint: TextView
     private lateinit var autoStopSpinner: Spinner
@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         alwaysOnSwitch.isChecked = prefs.alwaysOn
         alwaysOnSwitch.setOnCheckedChangeListener { _, checked ->
             prefs.alwaysOn = checked
+            if (!checked) Watchdog.cancel(this)
             // Re-issuing the start command applies the new mode to a bridge that is already up.
             if (BridgeService.State.running) BridgeService.start(this)
             render()
@@ -114,7 +115,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleBridge() {
         if (BridgeService.State.running) {
-            BridgeService.stop(this)
+            // Goes through the service so the stop is recorded and the watchdog stands down.
+            try {
+                startService(Intent(this, BridgeService::class.java).setAction(BridgeService.ACTION_STOP))
+            } catch (_: Exception) {
+                // The service died between the state check and here; make sure it stays off.
+                prefs.manuallyStopped = true
+                Watchdog.cancel(this)
+                BridgeService.stop(this)
+            }
             return
         }
         if (!SmsRepository.hasSmsPermission(this)) {

@@ -22,6 +22,15 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_ALWAYS_ON, true)
         set(value) = sp.edit().putBoolean(KEY_ALWAYS_ON, value).apply()
 
+    /**
+     * Set when the bridge was switched off deliberately, from the app or the notification.
+     * The boot receiver and the alarm watchdog honour it, so "off" means off until the next
+     * time the bridge is started by hand.
+     */
+    var manuallyStopped: Boolean
+        get() = sp.getBoolean(KEY_MANUALLY_STOPPED, false)
+        set(value) = sp.edit().putBoolean(KEY_MANUALLY_STOPPED, value).apply()
+
     /** Minutes of inactivity after which the bridge shuts itself down. Ignored when [alwaysOn]. */
     var autoStopMinutes: Int
         get() = sp.getInt(KEY_AUTO_STOP, DEFAULT_AUTO_STOP_MINUTES)
@@ -52,6 +61,7 @@ class Prefs(context: Context) {
 
         private const val KEY_PORT = "port"
         private const val KEY_ALWAYS_ON = "always_on"
+        private const val KEY_MANUALLY_STOPPED = "manually_stopped"
         private const val KEY_AUTO_STOP = "auto_stop_minutes"
         private const val KEY_TOKEN = "token"
 

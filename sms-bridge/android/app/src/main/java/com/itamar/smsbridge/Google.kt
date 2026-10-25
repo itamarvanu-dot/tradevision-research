@@ -8,7 +8,19 @@ import java.net.URL
 import java.net.URLEncoder
 
 /** The handful of Google REST calls the app makes, over plain HttpURLConnection. */
-class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache? = null) {
+class Google(
+    private val sa: ServiceAccount,
+    private val tokenCache: TokenCache? = null,
+    private val api: Endpoints = Endpoints(),
+) {
+
+    /** Google API roots. Overridable only so the request choreography can be unit tested. */
+    data class Endpoints(
+        val database: String = "https://firebasedatabase.googleapis.com",
+        val firebase: String = "https://firebase.googleapis.com",
+        val hosting: String = "https://firebasehosting.googleapis.com",
+        val fcm: String = "https://fcm.googleapis.com",
+    )
 
     class HttpError(val code: Int, val body: String) : IOException("HTTP $code: ${body.take(300)}")
 
@@ -35,21 +47,21 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
     // ------------------------------------------------------------- database
 
     fun dbPut(dbUrl: String, path: String, value: Any) {
-        request("PUT", dbPath(dbUrl, path), value.toString(), accessToken())
+        request("PUT", dbPath(dbUrl, path) + authQuery(), value.toString(), null)
     }
 
     fun dbDelete(dbUrl: String, path: String) {
-        request("DELETE", dbPath(dbUrl, path), null, accessToken())
+        request("DELETE", dbPath(dbUrl, path) + authQuery(), null, null)
     }
 
     /** Replaces the project's database rules. The project is dedicated to this app. */
     fun setRules(dbUrl: String, rules: JSONObject) {
-        request("PUT", dbUrl.trimEnd('/') + "/.settings/rules.json", rules.toString(2), accessToken())
+        request("PUT", dbUrl.trimEnd('/') + "/.settings/rules.json" + authQuery(), rules.toString(2), null)
     }
 
     /** The project's default Realtime Database URL, creating the database if there is none. */
     fun ensureDatabase(): String {
-        val base = "https://firebasedatabase.googleapis.com/v1beta/projects/${sa.projectId}/locations"
+        val base = "${api.database}/v1beta/projects/${sa.projectId}/locations"
         val list = JSONObject(request("GET", "$base/-/instances", null, accessToken()))
         val instances = list.optJSONArray("instances") ?: JSONArray()
         for (i in 0 until instances.length()) {
@@ -74,7 +86,7 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
      * config — so the only file the user really has to bring is the service-account key.
      */
     fun androidAppConfig(packageName: String): FirebaseConfig {
-        val base = "https://firebase.googleapis.com/v1beta1/projects/${sa.projectId}"
+        val base = "${api.firebase}/v1beta1/projects/${sa.projectId}"
         var appId: String? = null
 
         val apps = JSONObject(request("GET", "$base/androidApps?pageSize=100", null, accessToken()))
@@ -96,7 +108,7 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
             val deadline = System.currentTimeMillis() + 60_000
             while (!op.optBoolean("done") && System.currentTimeMillis() < deadline) {
                 Thread.sleep(1500)
-                op = JSONObject(request("GET", "https://firebase.googleapis.com/v1beta1/" + op.getString("name"), null, accessToken()))
+                op = JSONObject(request("GET", "${api.firebase}/v1beta1/" + op.getString("name"), null, accessToken()))
             }
             op.optJSONObject("error")?.let { throw IOException(it.optString("message")) }
             appId = op.optJSONObject("response")?.optString("appId")
@@ -106,6 +118,84 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
         val config = JSONObject(request("GET", "$base/androidApps/$appId/config", null, accessToken()))
         val file = String(java.util.Base64.getDecoder().decode(config.getString("configFileContents")))
         return FirebaseConfig.fromGoogleServices(JSONObject(file), packageName)
+    }
+
+    // --------------------------------------------------------------- hosting
+
+    /**
+     * Publishes the iPhone page to the project's own Firebase Hosting site and returns its
+     * URL, so the page lives next to the data and needs no third-party host.
+     */
+    fun deployPage(html: ByteArray): String {
+        val api = "${this.api.hosting}/v1beta1"
+        val sites = JSONObject(request("GET", "$api/projects/${sa.projectId}/sites", null, accessToken()))
+            .optJSONArray("sites") ?: JSONArray()
+        var site: JSONObject? = null
+        for (i in 0 until sites.length()) {
+            val s = sites.getJSONObject(i)
+            if (s.optString("type") == "DEFAULT_SITE" || site == null) site = s
+        }
+        if (site == null) {
+            site = JSONObject(
+                request("POST", "$api/projects/${sa.projectId}/sites?siteId=" + enc(sa.projectId), "{}", accessToken())
+            )
+        }
+        val siteName = site.getString("name").substringAfterLast("/sites/").let { "sites/$it" }
+        val siteUrl = site.optString("defaultUrl").ifBlank { "https://${siteName.removePrefix("sites/")}.web.app" }
+
+        val config = JSONObject().put(
+            "config",
+            JSONObject().put(
+                "headers",
+                JSONArray().put(
+                    JSONObject().put("glob", "**").put("headers", JSONObject().put("Cache-Control", "no-cache"))
+                ),
+            ),
+        )
+        val version = JSONObject(request("POST", "$api/$siteName/versions", config.toString(), accessToken()))
+            .getString("name")
+
+        val gz = java.io.ByteArrayOutputStream().also { out ->
+            java.util.zip.GZIPOutputStream(out).use { it.write(html) }
+        }.toByteArray()
+        val hash = java.security.MessageDigest.getInstance("SHA-256").digest(gz)
+            .joinToString("") { "%02x".format(it) }
+
+        val populated = JSONObject(
+            request(
+                "POST",
+                "$api/$version:populateFiles",
+                JSONObject().put("files", JSONObject().put("/index.html", hash)).toString(),
+                accessToken(),
+            )
+        )
+        val required = populated.optJSONArray("uploadRequiredHashes") ?: JSONArray()
+        if (required.length() > 0) {
+            upload(populated.getString("uploadUrl") + "/" + hash, gz)
+        }
+
+        request("PATCH", "$api/$version?update_mask=status", JSONObject().put("status", "FINALIZED").toString(), accessToken())
+        request("POST", "$api/$siteName/releases?versionName=" + enc(version), "{}", accessToken())
+        return siteUrl.trimEnd('/') + "/"
+    }
+
+    private fun upload(url: String, bytes: ByteArray) {
+        val conn = URL(url).openConnection() as HttpURLConnection
+        try {
+            conn.requestMethod = "POST"
+            conn.connectTimeout = 10_000
+            conn.readTimeout = 30_000
+            conn.doOutput = true
+            conn.setRequestProperty("Authorization", "Bearer ${accessToken()}")
+            conn.setRequestProperty("Content-Type", "application/octet-stream")
+            conn.outputStream.use { it.write(bytes) }
+            val code = conn.responseCode
+            if (code !in 200..299) {
+                throw HttpError(code, conn.errorStream?.bufferedReader()?.use { it.readText() } ?: "")
+            }
+        } finally {
+            conn.disconnect()
+        }
     }
 
     // ------------------------------------------------------------- messaging
@@ -120,7 +210,7 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
         )
         request(
             "POST",
-            "https://fcm.googleapis.com/v1/projects/${sa.projectId}/messages:send",
+            "${api.fcm}/v1/projects/${sa.projectId}/messages:send",
             body.toString(),
             accessToken(),
         )
@@ -129,6 +219,9 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
     // ------------------------------------------------------------------ http
 
     private fun dbPath(dbUrl: String, path: String) = dbUrl.trimEnd('/') + "/" + path.trim('/') + ".json"
+
+    /** Realtime Database REST takes the OAuth token as a query parameter. */
+    private fun authQuery() = "?access_token=" + enc(accessToken())
 
     private fun request(
         method: String,
@@ -139,7 +232,13 @@ class Google(private val sa: ServiceAccount, private val tokenCache: TokenCache?
     ): String {
         val conn = URL(url).openConnection() as HttpURLConnection
         try {
-            conn.requestMethod = method
+            // HttpURLConnection has no PATCH; Google APIs accept it as an override on POST.
+            if (method == "PATCH") {
+                conn.requestMethod = "POST"
+                conn.setRequestProperty("X-HTTP-Method-Override", "PATCH")
+            } else {
+                conn.requestMethod = method
+            }
             conn.connectTimeout = 10_000
             conn.readTimeout = 15_000
             if (bearer != null) conn.setRequestProperty("Authorization", "Bearer $bearer")

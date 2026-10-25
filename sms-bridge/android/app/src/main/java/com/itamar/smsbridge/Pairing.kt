@@ -88,6 +88,10 @@ object Pairing {
         }
 
         prefs.firebase = config
+
+        progress(R.string.step_page)
+        deployPage(context)
+
         if (!App.initFirebase(context)) return false
 
         progress(R.string.step_token)
@@ -132,6 +136,26 @@ object Pairing {
             JSONObject().put("v", 1).put("iv", sealed.iv).put("ct", sealed.ct),
         )
         prefs.publishedToken = token
+    }
+
+    /**
+     * Puts the iPhone page (bundled in the APK) on the project's Firebase Hosting, unless the
+     * same version is already there. Not fatal: on failure the QR keeps pointing at [Prefs.pageUrl].
+     */
+    fun deployPage(context: Context) {
+        val prefs = Prefs(context)
+        val google = prefs.google() ?: return
+        val html = context.assets.open("index.html").use { it.readBytes() }
+        val hash = java.security.MessageDigest.getInstance("SHA-256").digest(html)
+            .joinToString("") { "%02x".format(it) }
+        if (hash == prefs.deployedPageHash && prefs.hostingError == null) return
+        try {
+            prefs.pageUrl = google.deployPage(html)
+            prefs.deployedPageHash = hash
+            prefs.hostingError = null
+        } catch (e: Exception) {
+            prefs.hostingError = e.message ?: e.toString()
+        }
     }
 
     /** New box and key: the old pairing link stops working at once. */

@@ -61,6 +61,16 @@ class Prefs(context: Context) {
         get() = sp.getString(KEY_PAGE_URL, null) ?: BuildConfig.DEFAULT_PAGE_URL
         set(value) = sp.edit().putString(KEY_PAGE_URL, value).apply()
 
+    /** Hash of the iPhone page last deployed to Firebase Hosting; a new APK may carry a newer one. */
+    var deployedPageHash: String?
+        get() = sp.getString(KEY_PAGE_HASH, null)
+        set(value) = sp.edit().putString(KEY_PAGE_HASH, value).apply()
+
+    /** Set when the page could not be put on Firebase Hosting; the QR then uses [pageUrl] as is. */
+    var hostingError: String?
+        get() = sp.getString(KEY_HOSTING_ERROR, null)
+        set(value) = sp.edit().putString(KEY_HOSTING_ERROR, value).apply()
+
     /** Master switch. When off, pull requests from the iPhone are answered with "paused". */
     var enabled: Boolean
         get() = sp.getBoolean(KEY_ENABLED, true)
@@ -114,6 +124,8 @@ class Prefs(context: Context) {
         private const val KEY_FCM = "fcm_token"
         private const val KEY_PUBLISHED = "published_token"
         private const val KEY_PAGE_URL = "page_url"
+        private const val KEY_PAGE_HASH = "page_hash"
+        private const val KEY_HOSTING_ERROR = "hosting_error"
         private const val KEY_ENABLED = "enabled"
         private const val KEY_LAST_PULL_AT = "last_pull_at"
         private const val KEY_LAST_PULL_COUNT = "last_pull_count"

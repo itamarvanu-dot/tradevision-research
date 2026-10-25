@@ -17,9 +17,12 @@ android {
         // Where the iPhone page is hosted. The QR code points here; it can also be changed
         // from inside the app, so a different host never needs a rebuild.
         val pageUrl = (project.findProperty("smsbridge.pageUrl") as String?)
-            ?: "https://itamarvanu-dot.github.io/tradevision-research/"
+            ?: "https://itamarvanu-dot.github.io/tradevision-research/sms-bridge/web/"
         buildConfigField("String", "DEFAULT_PAGE_URL", "\"$pageUrl\"")
     }
+
+    // The iPhone page ships inside the APK; setup publishes it to the project's Firebase Hosting.
+    sourceSets["main"].assets.srcDir("../../web")
 
     buildFeatures {
         buildConfig = true
@@ -57,4 +60,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     // android.jar ships org.json as stubs; the real one lets the payload code run in unit tests.
     testImplementation("org.json:json:20240303")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 }

@@ -60,10 +60,12 @@
     <string name="step_app">רושם את האפליקציה בפרויקט…</string>
     <string name="step_db">מכין מסד נתונים מוצפן…</string>
     <string name="step_token">נרשם לקבלת דחיפות…</string>
+    <string name="step_page">מעלה את דף האייפון…</string>
     <string name="step_publish">מפרסם את פרטי החיבור…</string>
     <string name="setup_done">ההגדרה הושלמה</string>
     <string name="restarting">מפעיל מחדש כדי לעבור לפרויקט החדש…</string>
 
+    <string name="hosting_failed">לא הצלחתי להעלות את דף האייפון ל-Firebase Hosting, ולכן הקוד מפנה לכתובת שבשדה "כתובת דף האייפון". (%1$s)</string>
     <string name="err_need_key">צריך את קובץ ה-service account (מ-Firebase: Project settings ← Service accounts ← Generate new private key).</string>
     <string name="err_unknown_files">הקבצים שנבחרו אינם קובץ service account או google-services.json.</string>
     <string name="err_project_mismatch">שני הקבצים שייכים לפרויקטים שונים.</string>

@@ -111,6 +111,11 @@ class MainActivity : AppCompatActivity() {
         if (prefs.fcmToken != null && prefs.publishedToken != null && prefs.fcmToken != prefs.publishedToken) {
             background { Pairing.publish(this) }
         }
+        // An updated APK may carry a newer iPhone page; the call is a no-op when nothing changed.
+        if (prefs.isPaired) background {
+            Pairing.deployPage(this)
+            runOnUiThread { pageUrl.setText(prefs.pageUrl) }
+        }
     }
 
     override fun onPause() {
@@ -307,9 +312,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             getString(R.string.last_pull_never)
         }
-        val err = prefs.lastError
+        val err = prefs.lastError ?: prefs.hostingError?.let { getString(R.string.hosting_failed, it) }
         lastError.visibility = if (err != null) View.VISIBLE else View.GONE
-        lastError.text = err?.let { getString(R.string.last_error, it.take(200)) }
+        lastError.text = err?.let { getString(R.string.last_error, it.take(400)) }
 
         permSms.setText(if (smsOk) R.string.perm_sms_ok else R.string.perm_sms_missing)
         permContacts.setText(if (contactsOk) R.string.perm_contacts_ok else R.string.perm_contacts_missing)

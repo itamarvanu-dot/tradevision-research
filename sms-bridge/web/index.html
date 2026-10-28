@@ -108,8 +108,11 @@
   <p>הקישור הזה מחבר את הטלפון הזה כך שאפשר יהיה לבקש ממנו את הודעות ה-SMS ולראות אותן במכשיר שחיבר אותך.
      בכל פעם שמושכים הודעות תופיע התראה על הטלפון, ואפשר להשהות או לנתק בכל רגע.</p>
   <p id="enrollFor"></p>
-  <button id="openApp" class="primary wide big">פתח באפליקציית SMS Bridge</button>
-  <p style="margin-top:14px">עדיין לא התקנת את האפליקציה? התקן קודם את קובץ ה-APK ששלחו לך, ואז חזור ולחץ על הכפתור.</p>
+  <a id="downloadApk" class="primary wide big" href="SMS-Bridge.apk" download="SMS-Bridge.apk"
+     style="display:block;box-sizing:border-box;text-align:center;text-decoration:none">1. הורד והתקן את האפליקציה</a>
+  <button id="openApp" class="wide big" style="margin-top:10px">2. פתח באפליקציית SMS Bridge</button>
+  <p style="margin-top:14px">קודם לחץ <b>"הורד והתקן"</b> ← פתח את הקובץ שירד והתקן אותו (אם אנדרואיד מזהיר "לא בטוח":
+     פרטים נוספים ← התקן בכל זאת). רק אחרי שהאפליקציה מותקנת, לחץ <b>"פתח באפליקציה"</b> ואשר הרשאת SMS.</p>
   <h2>או: הדבקה ידנית</h2>
   <p>פתח את האפליקציה, ובשדה "קישור או קוד חיבור" הדבק את הקוד הזה:</p>
   <div class="linkbox" id="enrollCode"></div>
@@ -683,7 +686,7 @@
     $("enrollLink").textContent = link;
     var dlg = $("enrollDialog");
     $("shareLink").onclick = function () {
-      if (navigator.share) navigator.share({ title: "חיבור SMS Bridge", text: "התקן את האפליקציה ואז פתח: " + link });
+      if (navigator.share) navigator.share({ title: "חיבור SMS Bridge", text: "פתח את הקישור — יש בו הורדת האפליקציה והחיבור יחד: " + link });
       else copyText(link);
     };
     $("copyLink").onclick = function () { copyText(link); };

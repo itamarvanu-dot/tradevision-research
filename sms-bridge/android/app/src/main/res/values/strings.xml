@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMS Bridge</string>
+
+    <string name="channel_pulls">משיכות</string>
+    <string name="channel_sharing">שיתוף פעיל</string>
+    <string name="notif_pulled">נשלחו %1$d הודעות</string>
+    <string name="notif_pulled_to">נשלחו %1$d הודעות אל %2$s</string>
+    <string name="notif_selftest">בדיקת החיבור עברה</string>
+    <string name="sharing_notice">הטלפון הזה משתף הודעות SMS לפי בקשה</string>
+    <string name="sharing_notice_with">משתף הודעות SMS עם %1$s לפי בקשה</string>
+
+    <string name="header_setup">צריך לחבר</string>
+    <string name="header_ready">מחובר</string>
+    <string name="header_paused">מושהה</string>
+    <string name="sub_setup">הדבק את קישור החיבור ששלחו לך, או פתח אותו ישירות.</string>
+    <string name="sub_ready">כשיבקשו רענון, הטלפון הזה יתעורר לרגע וישלח את ההודעות האחרונות. בשאר הזמן האפליקציה לא רצה.</string>
+    <string name="sub_paused">השיתוף מושהה. לא יישלחו הודעות עד שתפעיל מחדש.</string>
+
+    <string name="step1_title">הרשאות</string>
+    <string name="perm_sms_missing">חסרה הרשאת קריאת SMS — בלעדיה אין מה לשתף</string>
+    <string name="perm_sms_ok">✓ קריאת SMS</string>
+    <string name="perm_contacts_missing">אין הרשאת אנשי קשר — יוצגו מספרים במקום שמות</string>
+    <string name="perm_contacts_ok">✓ שמות אנשי קשר</string>
+    <string name="btn_grant">אשר הרשאות</string>
+
+    <string name="enroll_title">חיבור</string>
+    <string name="enroll_hint">קיבלת קישור חיבור? פתח אותו, או הדבק אותו כאן. החיבור מספר לטלפון הזה למי לשלוח את ההודעות — הכל מוגדר מראש, אין צורך בחשבון או בהגדרות.</string>
+    <string name="enroll_input_hint">קישור או קוד חיבור</string>
+    <string name="btn_enroll">התחבר</string>
+    <string name="enroll_done">מחובר</string>
+
+    <string name="consent_title">מה האפליקציה עושה</string>
+    <string name="consent_body">כל עוד הטלפון מחובר, מי שמחזיק את המכשיר השני יכול לבקש את הודעות ה-SMS שמתקבלות כאן ולראות אותן אצלו. בכל פעם שזה קורה תופיע כאן התראה. אפשר להשהות בכל רגע, ולנתק לגמרי בכפתור למטה. התקן את האפליקציה רק בטלפון שבעליו מסכים לשיתוף.</string>
+
+    <string name="manage_title">מצב</string>
+    <string name="sharing_with">משותף עם: %1$s</string>
+    <string name="sharing_generic">משותף עם המכשיר שחיבר אותך</string>
+    <string name="enabled_title">לאפשר שיתוף הודעות</string>
+    <string name="last_pull">בקשה אחרונה: %1$s · %2$d הודעות</string>
+    <string name="last_pull_never">עדיין לא התקבלה בקשה</string>
+    <string name="last_error">שגיאה אחרונה: %1$s</string>
+    <string name="btn_unenroll">נתק את הטלפון הזה</string>
+    <string name="unenroll_confirm">לנתק? הטלפון הזה יפסיק לשתף הודעות עד שתחבר אותו מחדש עם קישור.</string>
+
+    <string name="reliability_title">שיעבוד תמיד, גם אחרי ימים בלי שימוש</string>
+    <string name="reliability_hint">האפליקציה לא רצה ברקע, ולכן ההגדרות האלה לא עולות בסוללה. הן רק מונעות מהמערכת "להרדים" אפליקציה שלא פותחים הרבה זמן:\n\n• הגדרות ← סוללה ← אפליקציות שאף פעם לא נרדמות ← להוסיף את SMS Bridge.\n• בפרטי האפליקציה: לכבות "השהה פעילות אם לא בשימוש".\n• לא לבצע "עצירה בכוח" לאפליקציה.</string>
+    <string name="btn_app_settings">פתח את הגדרות האפליקציה</string>
+    <string name="btn_battery">סוללה: ללא הגבלה</string>
+    <string name="hibernation_ok">✓ השהיה כשלא בשימוש — כבויה</string>
+    <string name="hibernation_on">⚠ "השהה פעילות אם לא בשימוש" דלוק — לכבות</string>
+
+    <string name="working">מתחבר…</string>
+    <string name="step_token">נרשם לקבלת בקשות…</string>
+    <string name="step_publish">מסיים חיבור…</string>
+    <string name="restarting">מפעיל מחדש כדי להחיל את החיבור החדש…</string>
+
+    <string name="err_bad_link">הקישור או הקוד אינם תקינים. בקש קישור חדש מהמכשיר השני.</string>
+    <string name="err_fcm">ההרשמה לקבלת בקשות נכשלה. ודא שיש אינטרנט ושירותי Google Play מעודכנים.</string>
+    <string name="err_publish">סיום החיבור נכשל. ודא שיש אינטרנט ונסה שוב.</string>
+    <string name="err_revoked">החיבור בוטל מצד המכשיר השני. בקש קישור חדש.</string>
+</resources>

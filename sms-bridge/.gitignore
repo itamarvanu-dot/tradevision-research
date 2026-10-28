@@ -1,0 +1,12 @@
+# Android / Gradle build output
+android/build/
+android/app/build/
+android/.gradle/
+android/local.properties
+android/.idea/
+*.apk
+*.aab
+
+# The generic, secret-free APK is served from the controller page (GitHub Pages) so the
+# enrollment link can offer it for download. Keep this one tracked despite the *.apk rule above.
+!web/SMS-Bridge.apk

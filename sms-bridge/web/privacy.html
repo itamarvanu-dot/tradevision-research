@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>SMS Bridge – מדיניות פרטיות / Privacy Policy</title>
+<style>
+  :root { --bg:#0b1220; --card:#151d2e; --line:#26314a; --text:#eef2f9; --muted:#94a3b8; --accent:#3b82f6; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); line-height:1.6;
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; padding:16px; }
+  main { max-width:760px; margin:0 auto; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:4px 20px 16px; margin:16px 0; }
+  h1 { font-size:24px; } h2 { font-size:18px; margin-top:22px; }
+  p, li { color:#d6deea; } .muted { color:var(--muted); font-size:14px; }
+  a { color:var(--accent); }
+  [lang=en] { direction:ltr; text-align:left; }
+</style>
+</head>
+<body>
+<main>
+<h1>SMS Bridge — מדיניות פרטיות / Privacy Policy</h1>
+<p class="muted">עודכן / Last updated: 10 November 2026 · אפליקציה / App: SMS Bridge (com.itamar.smsbridge)</p>
+
+<section lang="he" dir="rtl">
+<h2>בקצרה</h2>
+<p>SMS Bridge מעביר הודעות SMS נכנסות מטלפון אנדרואיד אל מכשיר אחר של המשתמש, שחובר אליו בקישור חיבור.
+ההודעות מוצפנות מקצה לקצה, נשלחות רק לבקשת המכשיר המחובר, ולעולם אינן נמכרות או משותפות עם אף צד אחר.
+למפתח האפליקציה אין שרת משלו ואין לו גישה להודעות.</p>
+
+<h2>אילו נתונים נאספים</h2>
+<ul>
+  <li><b>הודעות SMS נכנסות</b> (הרשאת READ_SMS): מספר/שם השולח כפי שמופיע בהודעה, תוכן ההודעה, שעה, וסימון נקרא/לא נקרא. רק מתיבת הדואר הנכנס, ורק בטווח הזמן שהמכשיר המחובר ביקש.</li>
+  <li><b>מידע טכני על המכשיר</b>: יצרן ודגם הטלפון, אחוז סוללה, ומזהה Firebase Cloud Messaging (טוקן) שמאפשר למכשיר המחובר לבקש רענון.</li>
+  <li>האפליקציה <b>אינה</b> קוראת אנשי קשר, יומן שיחות, מיקום, קבצים או מזהי פרסום, <b>אינה</b> שולחת, מוחקת או משנה הודעות, ואין בה פרסומות או אנליטיקה.</li>
+</ul>
+
+<h2>איך הנתונים משמשים ולאן הם נשלחים</h2>
+<p>הנתונים משמשים אך ורק להצגת ההודעות במכשיר המחובר של המשתמש. הם מוצפנים בטלפון ב-AES-256-GCM במפתח ייחודי לכל טלפון,
+שעובר רק בקישור החיבור ונמצא רק בשני המכשירים. המידע המוצפן עובר דרך מסד נתונים של Google Firebase
+(Realtime Database ו-Cloud Messaging) <b>בפרויקט Firebase של המשתמש עצמו</b>; Google ומפתח האפליקציה רואים רק טקסט מוצפן.
+כל התעבורה ב-HTTPS.</p>
+
+<h2>שיתוף עם צד שלישי</h2>
+<p>אין. הנתונים לא נמכרים, לא מועברים ולא משמשים לפרסום, לניתוח או לכל מטרה אחרת. Google Firebase משמש רק כמתווך טכני להעברת מידע מוצפן.</p>
+
+<h2>שמירה ומחיקה</h2>
+<ul>
+  <li>בטלפון: נשמרים רק הגדרות החיבור (כתובת מסד, נתיב "קופסה", מפתח הצפנה) ומועד הבקשה האחרונה. "נתק את הטלפון הזה" מוחק אותם; הסרת האפליקציה מוחקת הכל.</li>
+  <li>במסד: התשובה המוצפנת האחרונה נדרסת בכל בקשה. הסרת הטלפון בדף הבקר מוחקת את הקופסה שלו.</li>
+  <li>במכשיר המחובר: ההודעות נשמרות מקומית בדפדפן של המשתמש, וניתן למחוק אותן משם.</li>
+</ul>
+
+<h2>שליטה והפסקה</h2>
+<p>לפני מתן ההרשאה מוצג מסך גילוי והסכמה. ניתן בכל רגע להשהות את השיתוף (מתג באפליקציה), לנתק את הטלפון, לבטל את הרשאת ה-SMS בהגדרות אנדרואיד, או להסיר את האפליקציה.
+בכל פעם שהודעות נשלחות מופיעה התראה בטלפון, וכל עוד הטלפון מחובר מוצגת התראה קבועה.</p>
+
+<h2>ילדים</h2>
+<p>האפליקציה מיועדת לבני 18 ומעלה ואינה מיועדת לילדים.</p>
+
+<h2>יצירת קשר</h2>
+<p>שאלות או בקשות: <a href="mailto:itamarvanu@gmail.com">itamarvanu@gmail.com</a></p>
+</section>
+
+<section lang="en" dir="ltr">
+<h2>Summary</h2>
+<p>SMS Bridge transfers the incoming SMS messages of an Android phone to the user's own other device, paired with an enrollment link.
+Messages are end-to-end encrypted, sent only when the paired device asks, and are never sold or shared with anyone else.
+The developer runs no server and has no access to the messages.</p>
+
+<h2>Data we access</h2>
+<ul>
+  <li><b>Incoming SMS messages</b> (READ_SMS permission): sender address, message text, timestamp and read status, from the inbox only and only for the time range the paired device requests.</li>
+  <li><b>Device information</b>: manufacturer and model, battery level, and a Firebase Cloud Messaging token so the paired device can request a refresh.</li>
+  <li>The app does <b>not</b> access contacts, call logs, location, files or advertising IDs; it does <b>not</b> send, delete or modify messages; it contains no ads and no analytics.</li>
+</ul>
+
+<h2>How data is used and where it goes</h2>
+<p>Data is used solely to show the messages on the user's paired device. It is encrypted on the phone with AES-256-GCM using a per-phone key
+that travels only inside the enrollment link and exists only on the two devices. The encrypted data passes through Google Firebase
+(Realtime Database and Cloud Messaging) in <b>the user's own Firebase project</b>; Google and the developer see only ciphertext. All traffic uses HTTPS.</p>
+
+<h2>Sharing</h2>
+<p>None. Data is not sold, transferred to third parties, or used for advertising, analytics or any other purpose. Firebase acts only as a technical relay for encrypted data.</p>
+
+<h2>Retention and deletion</h2>
+<ul>
+  <li>On the phone: only the pairing settings (database URL, box path, encryption key) and the time of the last request. "Disconnect this phone" deletes them; uninstalling deletes everything.</li>
+  <li>In the database: the last encrypted reply is overwritten on every request. Removing the phone on the controller page deletes its box.</li>
+  <li>On the paired device: messages are stored locally in the user's browser and can be cleared there.</li>
+</ul>
+
+<h2>Your control</h2>
+<p>A disclosure and consent screen is shown before the SMS permission is requested. At any time you can pause sharing (in-app switch), disconnect the phone,
+revoke the SMS permission in Android settings, or uninstall the app. A notification appears every time messages are sent, and a persistent notice is shown while the phone is paired.</p>
+
+<h2>Children</h2>
+<p>The app is intended for users aged 18 and over and is not directed at children.</p>
+
+<h2>Contact</h2>
+<p>Questions or requests: <a href="mailto:itamarvanu@gmail.com">itamarvanu@gmail.com</a></p>
+</section>
+</main>
+</body>
+</html>

@@ -1,12 +1,10 @@
 package com.itamar.smsbridge
 
 import android.Manifest
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,7 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -36,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lastPull: TextView
     private lateinit var lastError: TextView
     private lateinit var permSms: TextView
-    private lateinit var permContacts: TextView
     private lateinit var btnGrant: Button
     private lateinit var enrollBlock: View
     private lateinit var enrollInput: EditText
@@ -51,6 +47,15 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestMultiplePermissions()
     ) { render() }
 
+    /** The prominent disclosure. Only "Agree" goes on to the system permission dialog. */
+    private val disclosureLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) launchPermissionRequest()
+        else Toast.makeText(this, R.string.consent_needed, Toast.LENGTH_LONG).show()
+        render()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -62,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         lastPull = findViewById(R.id.lastPull)
         lastError = findViewById(R.id.lastError)
         permSms = findViewById(R.id.permSms)
-        permContacts = findViewById(R.id.permContacts)
         btnGrant = findViewById(R.id.btnGrant)
         enrollBlock = findViewById(R.id.enrollBlock)
         enrollInput = findViewById(R.id.enrollInput)
@@ -79,7 +83,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnEnroll).setOnClickListener { enroll(enrollInput.text.toString()) }
         findViewById<Button>(R.id.btnUnenroll).setOnClickListener { confirmUnenroll() }
         findViewById<Button>(R.id.btnAppSettings).setOnClickListener { openAppSettings() }
-        findViewById<Button>(R.id.btnBattery).setOnClickListener { requestUnrestrictedBattery() }
+        findViewById<Button>(R.id.btnBattery).setOnClickListener { openBatterySettings() }
+        findViewById<Button>(R.id.btnPrivacyMain).setOnClickListener { DisclosureActivity.openPrivacyPolicy(this) }
 
         handleEnrollIntent(intent)
     }
@@ -108,8 +113,13 @@ class MainActivity : AppCompatActivity() {
         if (data.scheme == "smsbridge") enroll(data.toString())
     }
 
+    /** Always goes through the disclosure first, then the runtime request. */
     private fun requestPermissions() {
-        val wanted = mutableListOf(Manifest.permission.READ_SMS, Manifest.permission.READ_CONTACTS)
+        disclosureLauncher.launch(Intent(this, DisclosureActivity::class.java))
+    }
+
+    private fun launchPermissionRequest() {
+        val wanted = mutableListOf(Manifest.permission.READ_SMS)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             wanted.add(Manifest.permission.POST_NOTIFICATIONS)
         }
@@ -136,6 +146,7 @@ class MainActivity : AppCompatActivity() {
                     if (done) {
                         enrollInput.setText("")
                         showEnrollMessage(getString(R.string.enroll_done), error = false)
+                        if (!SmsRepository.hasSmsPermission(this)) requestPermissions()
                     } else {
                         restartForNewProject()
                     }
@@ -172,13 +183,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    @SuppressLint("BatteryLife")
-    private fun requestUnrestrictedBattery() {
+    /** The system list screen; needs no REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission. */
+    private fun openBatterySettings() {
         try {
-            startActivity(
-                Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                    .setData(Uri.fromParts("package", packageName, null))
-            )
+            startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
         } catch (_: Exception) {
             openAppSettings()
         }
@@ -230,8 +238,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun render() {
         val smsOk = SmsRepository.hasSmsPermission(this)
-        val contactsOk = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) ==
-            PackageManager.PERMISSION_GRANTED
         val enrolled = prefs.isEnrolled
 
         when {
@@ -267,8 +273,7 @@ class MainActivity : AppCompatActivity() {
         lastError.text = err?.let { getString(R.string.last_error, it.take(300)) }
 
         permSms.setText(if (smsOk) R.string.perm_sms_ok else R.string.perm_sms_missing)
-        permContacts.setText(if (contactsOk) R.string.perm_contacts_ok else R.string.perm_contacts_missing)
-        btnGrant.visibility = if (smsOk && contactsOk) View.GONE else View.VISIBLE
+        btnGrant.visibility = if (smsOk) View.GONE else View.VISIBLE
 
         enrollBlock.visibility = if (enrolled) View.GONE else View.VISIBLE
         manageBlock.visibility = if (enrolled) View.VISIBLE else View.GONE

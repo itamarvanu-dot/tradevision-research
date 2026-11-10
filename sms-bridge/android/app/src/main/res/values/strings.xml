@@ -20,8 +20,6 @@
     <string name="step1_title">הרשאות</string>
     <string name="perm_sms_missing">חסרה הרשאת קריאת SMS — בלעדיה אין מה לשתף</string>
     <string name="perm_sms_ok">✓ קריאת SMS</string>
-    <string name="perm_contacts_missing">אין הרשאת אנשי קשר — יוצגו מספרים במקום שמות</string>
-    <string name="perm_contacts_ok">✓ שמות אנשי קשר</string>
     <string name="btn_grant">אשר הרשאות</string>
 
     <string name="enroll_title">חיבור</string>
@@ -46,7 +44,7 @@
     <string name="reliability_title">שיעבוד תמיד, גם אחרי ימים בלי שימוש</string>
     <string name="reliability_hint">האפליקציה לא רצה ברקע, ולכן ההגדרות האלה לא עולות בסוללה. הן רק מונעות מהמערכת "להרדים" אפליקציה שלא פותחים הרבה זמן:\n\n• הגדרות ← סוללה ← אפליקציות שאף פעם לא נרדמות ← להוסיף את SMS Bridge.\n• בפרטי האפליקציה: לכבות "השהה פעילות אם לא בשימוש".\n• לא לבצע "עצירה בכוח" לאפליקציה.</string>
     <string name="btn_app_settings">פתח את הגדרות האפליקציה</string>
-    <string name="btn_battery">סוללה: ללא הגבלה</string>
+    <string name="btn_battery">הגדרות אופטימיזציית סוללה</string>
     <string name="hibernation_ok">✓ השהיה כשלא בשימוש — כבויה</string>
     <string name="hibernation_on">⚠ "השהה פעילות אם לא בשימוש" דלוק — לכבות</string>
 
@@ -59,4 +57,21 @@
     <string name="err_fcm">ההרשמה לקבלת בקשות נכשלה. ודא שיש אינטרנט ושירותי Google Play מעודכנים.</string>
     <string name="err_publish">סיום החיבור נכשל. ודא שיש אינטרנט ונסה שוב.</string>
     <string name="err_revoked">החיבור בוטל מצד המכשיר השני. בקש קישור חדש.</string>
+
+    <!-- Prominent disclosure (shown before the READ_SMS permission request) -->
+    <string name="disclosure_title">לפני שמאשרים גישה להודעות SMS</string>
+    <string name="disclosure_body">SMS Bridge מעביר את הודעות ה-SMS הנכנסות של הטלפון הזה אל המכשיר השני שלך, שחיברת בעזרת קישור החיבור.
+
+• מה נקרא: הודעות SMS בתיבת הדואר הנכנס (שולח, תוכן, שעה, נקרא/לא נקרא), ודגם הטלפון ומצב הסוללה.
+• מתי: רק כשהמכשיר המחובר מבקש רענון. האפליקציה לא רצה ברקע ולא שולחת, מוחקת או משנה הודעות.
+• לאן: אל המכשיר המחובר בלבד, מוצפן מקצה לקצה (AES-256) במפתח שקיים רק בשני המכשירים. השרת המתווך (Firebase) רואה רק טקסט מוצפן.
+• לא נמכר ולא משותף עם אף אחד אחר. אין פרסומות ואין אנליטיקה.
+• איך מפסיקים: מתג \"לאפשר שיתוף הודעות\", כפתור \"נתק את הטלפון הזה\", ביטול ההרשאה בהגדרות, או הסרת האפליקציה.
+
+בלחיצה על \"מסכים\" תוצג בקשת ההרשאה של אנדרואיד לקריאת SMS.</string>
+    <string name="disclosure_body_en">SMS Bridge reads the incoming SMS messages on this phone (sender, text, time, read status) and sends them, end-to-end encrypted, only to your own paired device, and only when that device asks. Messages are never sold or shared with anyone else, and the app never sends, deletes or changes messages. You can pause sharing, disconnect this phone, revoke the permission or uninstall at any time.</string>
+    <string name="btn_agree">מסכים / Agree</string>
+    <string name="btn_not_now">לא עכשיו / Not now</string>
+    <string name="btn_privacy">מדיניות פרטיות / Privacy policy</string>
+    <string name="consent_needed">כדי לשתף הודעות צריך לאשר את הגילוי ואת הרשאת ה-SMS.</string>
 </resources>

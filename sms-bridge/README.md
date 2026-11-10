@@ -123,6 +123,16 @@ sms-bridge/
 
 כל הקוד של הבקר הוא קובץ אחד, בלי תלויות חיצוניות, ומדבר ישירות עם Google.
 
+### גרסת Google Play
+
+- `targetSdk`/`compileSdk` 36, `versionCode` 10 (גרסאות 1-3 היו ה-APK שהופץ ידנית).
+- ההרשאה הרגישה היחידה היא `READ_SMS` (חריג Play: "העברה/סנכרון SMS בין מכשירים"). הרשאת אנשי הקשר ו-`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` הוסרו.
+- לפני בקשת ההרשאה מוצג מסך גילוי והסכמה (`DisclosureActivity`) עם קישור למדיניות הפרטיות (`web/privacy.html`).
+- אין שירות חזית (foreground service). העבודה נעשית ב-`FirebaseMessagingService` לכמה שניות לכל בקשה.
+- חתימה: מפתח ההעלאה **מחוץ לריפו**. קובץ properties עם `storeFile`, `storePassword`, `keyAlias`, `keyPassword`:
+  `./gradlew bundleRelease -PsmsbridgeSigning=/path/to/signing.properties` (או משתנה הסביבה `SMSBRIDGE_SIGNING`).
+  בלעדיו, release נחתם במפתח debug (ל-CI).
+
 ### הרצת הבדיקות
 
 ```bash

@@ -60,6 +60,11 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_ENABLED, true)
         set(value) = sp.edit().putBoolean(KEY_ENABLED, value).apply()
 
+    /** The user accepted the prominent disclosure (DisclosureActivity). Kept across re-enrollment. */
+    var smsConsent: Boolean
+        get() = sp.getBoolean(KEY_SMS_CONSENT, false)
+        set(value) = sp.edit().putBoolean(KEY_SMS_CONSENT, value).apply()
+
     var lastPullAt: Long
         get() = sp.getLong(KEY_LAST_PULL_AT, 0L)
         set(value) = sp.edit().putLong(KEY_LAST_PULL_AT, value).apply()
@@ -94,5 +99,6 @@ class Prefs(context: Context) {
         private const val KEY_LAST_PULL_AT = "last_pull_at"
         private const val KEY_LAST_PULL_COUNT = "last_pull_count"
         private const val KEY_LAST_ERROR = "last_error"
+        private const val KEY_SMS_CONSENT = "sms_consent"
     }
 }

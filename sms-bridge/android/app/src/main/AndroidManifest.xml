@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
-    <!-- Reading the SMS inbox is the whole point of the app. -->
+    <!--
+      Reading the SMS inbox is the whole point of the app (Play policy exception:
+      "cross-device synchronization or transfer of SMS"). It is the ONLY SMS permission:
+      no RECEIVE_SMS, no SEND_SMS, no call log, no contacts.
+    -->
     <uses-permission android:name="android.permission.READ_SMS" />
-    <!-- Optional: turns raw phone numbers into contact names. The app works without it. -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- The visible "sharing" notice and the per-request note. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Lets the app open the one-tap "unrestricted battery" prompt. Costs nothing: no background work. -->
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- Never used: no ads, no analytics. Strip it in case a library merges it in. -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
 
     <!--
       Nothing here runs in the background. No service, no wake lock, no alarm, no boot
@@ -43,6 +46,11 @@
                 <data android:scheme="smsbridge" android:host="enroll" />
             </intent-filter>
         </activity>
+
+        <!-- Prominent disclosure + consent, always shown before the SMS permission request. -->
+        <activity
+            android:name=".DisclosureActivity"
+            android:exported="false" />
 
         <service
             android:name=".PushService"

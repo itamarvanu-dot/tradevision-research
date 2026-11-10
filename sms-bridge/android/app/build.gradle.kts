@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,23 +7,36 @@ plugins {
 
 android {
     namespace = "com.itamar.smsbridge"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.itamar.smsbridge"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 3
-        versionName = "3.0"
+        targetSdk = 36
+        // 1-3 were the sideloaded APKs; Play builds start above them.
+        versionCode = 10
+        versionName = "4.0"
+    }
+
+    // Play upload key. Its location and passwords live OUTSIDE this public repo, in a
+    // properties file passed as -PsmsbridgeSigning=<path> (or the SMSBRIDGE_SIGNING env var)
+    // with keys storeFile, storePassword, keyAlias, keyPassword.
+    // Without it (e.g. CI), release falls back to the debug key so assembleRelease still works.
+    val signingPropsPath = (findProperty("smsbridgeSigning") as String?) ?: System.getenv("SMSBRIDGE_SIGNING")
+    val uploadSigning = signingPropsPath?.let { path ->
+        val props = Properties().apply { file(path).inputStream().use { load(it) } }
+        signingConfigs.create("upload") {
+            storeFile = file(props.getProperty("storeFile"))
+            storePassword = props.getProperty("storePassword")
+            keyAlias = props.getProperty("keyAlias")
+            keyPassword = props.getProperty("keyPassword")
+        }
     }
 
     buildTypes {
         release {
-            // Signed with the debug key so the APK is installable straight from CI.
-            // This app is sideloaded, never published to Play, and ships no secrets: it is
-            // configured entirely by the enrollment link the controller sends.
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = uploadSigning ?: signingConfigs.getByName("debug")
         }
     }
 
@@ -36,12 +51,12 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
 
     // Only the push receiver. Firebase is configured at runtime from the enrollment link,
     // so there is no google-services.json baked into the APK.
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
     implementation("com.google.firebase:firebase-messaging")
 
     testImplementation("junit:junit:4.13.2")

@@ -3,8 +3,6 @@ package com.itamar.smsbridge
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.provider.ContactsContract
 import android.provider.Telephony
 import androidx.core.content.ContextCompat
 
@@ -66,7 +64,6 @@ object SmsRepository {
             "${Telephony.Sms.DATE} DESC LIMIT $capped",
         ) ?: return emptyList()
 
-        val nameCache = HashMap<String, String?>()
         val out = ArrayList<Message>(capped)
 
         cursor.use { c ->
@@ -82,7 +79,8 @@ object SmsRepository {
                     Message(
                         id = c.getLong(idIdx),
                         address = address,
-                        contactName = nameCache.getOrPut(address) { lookupContactName(context, address) },
+                        // The Play build does not read contacts; the controller shows the sender as sent.
+                        contactName = null,
                         body = c.getString(bodyIdx) ?: "",
                         date = c.getLong(dateIdx),
                         read = c.getInt(readIdx) != 0,
@@ -96,31 +94,4 @@ object SmsRepository {
     fun hasSmsPermission(context: Context): Boolean =
         ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) ==
             PackageManager.PERMISSION_GRANTED
-
-    private fun hasContactsPermission(context: Context): Boolean =
-        ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) ==
-            PackageManager.PERMISSION_GRANTED
-
-    /** Best effort: a missing contacts permission just means we show the raw number. */
-    private fun lookupContactName(context: Context, address: String): String? {
-        if (address.isBlank() || !hasContactsPermission(context)) return null
-        // Alphanumeric senders ("Bank", "Google") are not phone numbers; skip the lookup.
-        if (address.none { it.isDigit() }) return null
-
-        val uri = Uri.withAppendedPath(
-            ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
-            Uri.encode(address),
-        )
-        return try {
-            context.contentResolver.query(
-                uri,
-                arrayOf(ContactsContract.PhoneLookup.DISPLAY_NAME),
-                null,
-                null,
-                null,
-            )?.use { c -> if (c.moveToFirst()) c.getString(0) else null }
-        } catch (_: Exception) {
-            null
-        }
-    }
 }

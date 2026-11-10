@@ -25,7 +25,8 @@
 
 <section lang="he" dir="rtl">
 <h2>בקצרה</h2>
-<p>SMS Bridge מעביר הודעות SMS נכנסות מטלפון אנדרואיד אל מכשיר אחר של המשתמש, שחובר אליו בקישור חיבור.
+<p>SMS Bridge מעביר הודעות SMS נכנסות מטלפון האנדרואיד של המשתמש אל מכשיר אחר <b>של אותו משתמש</b>, שחובר אליו בקישור חיבור:
+טלפון אנדרואיד נוסף, אייפון, טאבלט או דפדפן במחשב. האפליקציה מיועדת להעברה בין מכשירים שבבעלות המשתמש בלבד, ולא לשיתוף הודעות עם אנשים אחרים.
 ההודעות מוצפנות מקצה לקצה, נשלחות רק לבקשת המכשיר המחובר, ולעולם אינן נמכרות או משותפות עם אף צד אחר.
 למפתח האפליקציה אין שרת משלו ואין לו גישה להודעות.</p>
 
@@ -37,7 +38,7 @@
 </ul>
 
 <h2>איך הנתונים משמשים ולאן הם נשלחים</h2>
-<p>הנתונים משמשים אך ורק להצגת ההודעות במכשיר המחובר של המשתמש. הם מוצפנים בטלפון ב-AES-256-GCM במפתח ייחודי לכל טלפון,
+<p>הנתונים משמשים אך ורק להצגת ההודעות במכשיר האחר של המשתמש עצמו, שחובר בקישור החיבור. הם מוצפנים בטלפון ב-AES-256-GCM במפתח ייחודי לכל טלפון,
 שעובר רק בקישור החיבור ונמצא רק בשני המכשירים. המידע המוצפן עובר דרך מסד נתונים של Google Firebase
 (Realtime Database ו-Cloud Messaging) <b>בפרויקט Firebase של המשתמש עצמו</b>; Google ומפתח האפליקציה רואים רק טקסט מוצפן.
 כל התעבורה ב-HTTPS.</p>
@@ -65,7 +66,8 @@
 
 <section lang="en" dir="ltr">
 <h2>Summary</h2>
-<p>SMS Bridge transfers the incoming SMS messages of an Android phone to the user's own other device, paired with an enrollment link.
+<p>SMS Bridge transfers the incoming SMS messages of the user's Android phone to <b>another device owned by the same user</b>, paired with an enrollment link:
+another Android phone, an iPhone, a tablet or a computer browser. It is meant only for moving messages between the user's own devices, not for sharing them with other people.
 Messages are end-to-end encrypted, sent only when the paired device asks, and are never sold or shared with anyone else.
 The developer runs no server and has no access to the messages.</p>
 
@@ -77,7 +79,7 @@ The developer runs no server and has no access to the messages.</p>
 </ul>
 
 <h2>How data is used and where it goes</h2>
-<p>Data is used solely to show the messages on the user's paired device. It is encrypted on the phone with AES-256-GCM using a per-phone key
+<p>Data is used solely to show the messages on the user's own other device that was paired with the enrollment link. It is encrypted on the phone with AES-256-GCM using a per-phone key
 that travels only inside the enrollment link and exists only on the two devices. The encrypted data passes through Google Firebase
 (Realtime Database and Cloud Messaging) in <b>the user's own Firebase project</b>; Google and the developer see only ciphertext. All traffic uses HTTPS.</p>
 

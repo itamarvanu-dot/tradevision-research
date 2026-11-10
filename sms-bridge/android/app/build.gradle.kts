@@ -14,8 +14,8 @@ android {
         minSdk = 26
         targetSdk = 36
         // 1-3 were the sideloaded APKs; Play builds start above them.
-        versionCode = 10
-        versionName = "4.0"
+        versionCode = 11
+        versionName = "4.0.1"
     }
 
     // Play upload key. Its location and passwords live OUTSIDE this public repo, in a

@@ -13,8 +13,8 @@
     <string name="header_setup">צריך לחבר</string>
     <string name="header_ready">מחובר</string>
     <string name="header_paused">מושהה</string>
-    <string name="sub_setup">הדבק את קישור החיבור ששלחו לך, או פתח אותו ישירות.</string>
-    <string name="sub_ready">כשיבקשו רענון, הטלפון הזה יתעורר לרגע וישלח את ההודעות האחרונות. בשאר הזמן האפליקציה לא רצה.</string>
+    <string name="sub_setup">פתח את קישור החיבור שיצרת במכשיר השני שלך, או הדבק אותו כאן.</string>
+    <string name="sub_ready">כשתלחץ \"רענן\" במכשיר השני שלך, הטלפון הזה יתעורר לרגע וישלח אליו את ההודעות האחרונות. בשאר הזמן האפליקציה לא רצה.</string>
     <string name="sub_paused">השיתוף מושהה. לא יישלחו הודעות עד שתפעיל מחדש.</string>
 
     <string name="step1_title">הרשאות</string>
@@ -23,17 +23,17 @@
     <string name="btn_grant">אשר הרשאות</string>
 
     <string name="enroll_title">חיבור</string>
-    <string name="enroll_hint">קיבלת קישור חיבור? פתח אותו, או הדבק אותו כאן. החיבור מספר לטלפון הזה למי לשלוח את ההודעות — הכל מוגדר מראש, אין צורך בחשבון או בהגדרות.</string>
+    <string name="enroll_hint">צור קישור חיבור בדף SMS Bridge במכשיר השני שלך (טלפון אנדרואיד נוסף, אייפון, טאבלט או מחשב), ופתח אותו כאן או הדבק אותו. החיבור מספר לטלפון הזה לאיזה מכשיר שלך לשלוח את ההודעות — אין צורך בחשבון או בהגדרות.</string>
     <string name="enroll_input_hint">קישור או קוד חיבור</string>
     <string name="btn_enroll">התחבר</string>
     <string name="enroll_done">מחובר</string>
 
     <string name="consent_title">מה האפליקציה עושה</string>
-    <string name="consent_body">כל עוד הטלפון מחובר, מי שמחזיק את המכשיר השני יכול לבקש את הודעות ה-SMS שמתקבלות כאן ולראות אותן אצלו. בכל פעם שזה קורה תופיע כאן התראה. אפשר להשהות בכל רגע, ולנתק לגמרי בכפתור למטה. התקן את האפליקציה רק בטלפון שבעליו מסכים לשיתוף.</string>
+    <string name="consent_body">כל עוד הטלפון מחובר, המכשיר השני שלך (זה שיצר את קישור החיבור) יכול לבקש את הודעות ה-SMS שמתקבלות כאן ולהציג אותן. בכל פעם שזה קורה תופיע כאן התראה. אפשר להשהות בכל רגע, ולנתק לגמרי בכפתור למטה. SMS Bridge מיועד להעברת הודעות בין מכשירים שבבעלותך בלבד — התקן אותו רק בטלפון שלך.</string>
 
     <string name="manage_title">מצב</string>
     <string name="sharing_with">משותף עם: %1$s</string>
-    <string name="sharing_generic">משותף עם המכשיר שחיבר אותך</string>
+    <string name="sharing_generic">משותף עם המכשיר השני שלך</string>
     <string name="enabled_title">לאפשר שיתוף הודעות</string>
     <string name="last_pull">בקשה אחרונה: %1$s · %2$d הודעות</string>
     <string name="last_pull_never">עדיין לא התקבלה בקשה</string>
@@ -53,23 +53,24 @@
     <string name="step_publish">מסיים חיבור…</string>
     <string name="restarting">מפעיל מחדש כדי להחיל את החיבור החדש…</string>
 
-    <string name="err_bad_link">הקישור או הקוד אינם תקינים. בקש קישור חדש מהמכשיר השני.</string>
+    <string name="err_bad_link">הקישור או הקוד אינם תקינים. צור קישור חדש במכשיר השני שלך.</string>
     <string name="err_fcm">ההרשמה לקבלת בקשות נכשלה. ודא שיש אינטרנט ושירותי Google Play מעודכנים.</string>
     <string name="err_publish">סיום החיבור נכשל. ודא שיש אינטרנט ונסה שוב.</string>
-    <string name="err_revoked">החיבור בוטל מצד המכשיר השני. בקש קישור חדש.</string>
+    <string name="err_revoked">החיבור בוטל מהמכשיר השני שלך. צור שם קישור חדש.</string>
 
     <!-- Prominent disclosure (shown before the READ_SMS permission request) -->
     <string name="disclosure_title">לפני שמאשרים גישה להודעות SMS</string>
-    <string name="disclosure_body">SMS Bridge מעביר את הודעות ה-SMS הנכנסות של הטלפון הזה אל המכשיר השני שלך, שחיברת בעזרת קישור החיבור.
+    <string name="disclosure_body">SMS Bridge מעביר את הודעות ה-SMS הנכנסות של הטלפון הזה אל מכשיר אחר שלך (טלפון אנדרואיד נוסף, אייפון, טאבלט או מחשב), שחיברת בעזרת קישור החיבור.
 
+• למי: לך בלבד. האפליקציה מיועדת להעברת הודעות בין מכשירים שבבעלותך, ולא לשיתוף הודעות עם אנשים אחרים.
 • מה נקרא: הודעות SMS בתיבת הדואר הנכנס (שולח, תוכן, שעה, נקרא/לא נקרא), ודגם הטלפון ומצב הסוללה.
 • מתי: רק כשהמכשיר המחובר מבקש רענון. האפליקציה לא רצה ברקע ולא שולחת, מוחקת או משנה הודעות.
-• לאן: אל המכשיר המחובר בלבד, מוצפן מקצה לקצה (AES-256) במפתח שקיים רק בשני המכשירים. השרת המתווך (Firebase) רואה רק טקסט מוצפן.
+• לאן: אל המכשיר המחובר שלך בלבד, מוצפן מקצה לקצה (AES-256) במפתח שקיים רק בשני המכשירים. השרת המתווך (Firebase) רואה רק טקסט מוצפן.
 • לא נמכר ולא משותף עם אף אחד אחר. אין פרסומות ואין אנליטיקה.
 • איך מפסיקים: מתג \"לאפשר שיתוף הודעות\", כפתור \"נתק את הטלפון הזה\", ביטול ההרשאה בהגדרות, או הסרת האפליקציה.
 
 בלחיצה על \"מסכים\" תוצג בקשת ההרשאה של אנדרואיד לקריאת SMS.</string>
-    <string name="disclosure_body_en">SMS Bridge reads the incoming SMS messages on this phone (sender, text, time, read status) and sends them, end-to-end encrypted, only to your own paired device, and only when that device asks. Messages are never sold or shared with anyone else, and the app never sends, deletes or changes messages. You can pause sharing, disconnect this phone, revoke the permission or uninstall at any time.</string>
+    <string name="disclosure_body_en">SMS Bridge reads the incoming SMS messages on this phone (sender, text, time, read status) and sends them, end-to-end encrypted, only to your own other device that you paired (another Android phone, an iPhone, a tablet or a computer browser), and only when that device asks. It is meant only for your own devices, not for sharing messages with other people. Messages are never sold or shared with anyone else, and the app never sends, deletes or changes messages. You can pause sharing, disconnect this phone, revoke the permission or uninstall at any time.</string>
     <string name="btn_agree">מסכים / Agree</string>
     <string name="btn_not_now">לא עכשיו / Not now</string>
     <string name="btn_privacy">מדיניות פרטיות / Privacy policy</string>

@@ -7,7 +7,7 @@ import java.net.URL
 /**
  * The only networking the sender does: unauthenticated writes to its own box in the
  * Realtime Database. It holds no account and no admin key — the database rules allow a
- * write only to a box the controller (the iPhone) has already provisioned, and the box
+ * write only to a box the controller (the user's other device) has already provisioned, and the box
  * path is a 128-bit secret that travelled in the enrollment link.
  */
 object Net {

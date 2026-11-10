@@ -8,10 +8,10 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * AES-256-GCM, end to end between the two phones. The key exists only on the Samsung and
- * inside the iPhone's pairing link, so Firebase only ever stores ciphertext.
+ * inside the controller's pairing link, so Firebase only ever stores ciphertext.
  *
  * The output layout (ciphertext followed by the 16-byte tag) is what WebCrypto expects,
- * so the iPhone page decrypts it with no extra framing.
+ * so the controller page decrypts it with no extra framing.
  */
 object Crypto {
 

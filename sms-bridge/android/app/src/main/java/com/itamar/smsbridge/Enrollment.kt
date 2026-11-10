@@ -17,7 +17,7 @@ data class PublicConfig(
 )
 
 /**
- * Everything the controller (the iPhone) hands this phone in the enrollment link:
+ * Everything the controller (the user's other device) hands this phone in the enrollment link:
  * the public project config, this phone's own box (a secret path in the database),
  * the AES key shared only between the two devices, and a name for the controller so
  * the owner of this phone can see who their messages go to.
